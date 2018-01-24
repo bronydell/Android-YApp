@@ -14,9 +14,16 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-
 android {
-    signingConfigs { release }
+    signingConfigs {
+        release
+        CI_Build {
+            keyAlias 'bronydell'
+            keyPassword 't4f5X0BSd6z1uz2ZnJXa'
+            storeFile file('~/keystore')
+            storePassword 't4f5X0BSd6z1uz2ZnJXa'
+        }
+    }
 
     compileSdkVersion 26
     defaultConfig {
@@ -30,6 +37,9 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+        }
+        ci {
+            signingConfig signingConfigs.CI_Build
         }
     }
 }
