@@ -9,9 +9,6 @@ jobs:
     steps:
       - checkout
       - run:
-        name: export KEYSTORE path
-        command: echo 'export KEYSTORE=$(pwd)/keystore' >> $BASH_ENV
-      - run:
         name: Download keystore signing
         command: bash ./ci_scripts/download_keystore.sh
       - restore_cache:
