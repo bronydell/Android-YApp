@@ -36,11 +36,10 @@ jobs:
           command: ./gradlew assembleCi
       - store_artifacts:
           path: app/build/outputs/apk/
-          destination: apks
       - deploy:
           name: Deploy APK.
           command: |
-                               if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                               if [ "${CIRCLE_BRANCH}" == "dev" ]; then
                                  bash ./scripts/deploy-hockey.sh
                                  bash ./scripts/deploy-fabric.sh
                                fi
