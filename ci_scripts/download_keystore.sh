@@ -1,1 +1,1 @@
-curl http://games.bronydell.xyz/assdroid --output ~/keystore
+curl http://games.bronydell.xyz/assdroid --output ./keystore

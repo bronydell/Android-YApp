@@ -20,7 +20,7 @@ android {
         CI_Build {
             keyAlias 'bronydell'
             keyPassword 't4f5X0BSd6z1uz2ZnJXa'
-            storeFile file('~/keystore')
+            storeFile file('keystore')
             storePassword 't4f5X0BSd6z1uz2ZnJXa'
         }
     }
