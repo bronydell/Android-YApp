@@ -9,8 +9,8 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Download keystore signing
-        command: bash ./ci_scripts/download_keystore.sh
+          name: Download Keystore Signing
+          command: bash ./ci_scripts/download_keystore.sh
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
