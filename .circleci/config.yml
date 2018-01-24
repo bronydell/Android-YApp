@@ -40,6 +40,6 @@ jobs:
           name: Deploy APK.
           command: |
                                if [ "${CIRCLE_BRANCH}" == "dev" ]; then
-                                 bash ./scripts/deploy-hockey.sh
-                                 bash ./scripts/deploy-fabric.sh
+                                 bash ./ci_scripts/deploy-hockey.sh
+                                 bash ./ci_scripts/deploy-fabric.sh
                                fi
