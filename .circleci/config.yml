@@ -39,4 +39,4 @@ jobs:
           destination: apks
       - deploy:
           name: Deploy APK.
-          command: ./gradlew crashlyticsUploadDistributionRelease
+          command: ./gradlew crashlyticsUploadDistributionCi
