@@ -7,10 +7,10 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-        name: Download Dependencies
-        command: ./gradlew androidDependencies
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
       - save_cache:
         paths:
           - ~/.gradle
@@ -21,16 +21,16 @@ jobs:
         enabled: true
     steps:
       - run:
-        name: Run Tests
-        command: ./gradlew lint test
+          name: Run Tests
+          command: ./gradlew lint test
       - run:
-        name: Run Unit Tests
-        command: ./gradlew test
+          name: Run Unit Tests
+          command: ./gradlew test
       - store_artifacts:
-        path: app/build/reports
-        destination: reports
+          path: app/build/reports
+          destination: reports
       - store_test_results:
-        path: app/build/test-results
+          path: app/build/test-results
     requires:
       - "MAKE DEPENDENCIES"
   "BUILD APP":
@@ -39,13 +39,13 @@ jobs:
         enabled: true
     steps:
       - run:
-        name: Download Keystore
-        command: bash ./ci_scripts/download_keystore.sh
+          name: Download Keystore
+          command: bash ./ci_scripts/download_keystore.sh
       - run:
-        name: Build
-        command: ./gradlew assembleCi
+          name: Build
+          command: ./gradlew assembleCi
       - store_artifacts:
-        path: app/build/outputs/apk/
+          path: app/build/outputs/apk/
   "DEPLOY RELEASE":
     working_directory: ~/code
     machine:
