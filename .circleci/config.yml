@@ -38,10 +38,6 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./*
   "BUILD APP":
     <<: *defaults
     steps:
