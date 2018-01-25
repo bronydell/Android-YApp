@@ -44,14 +44,14 @@ jobs:
       - "MAKE DEPENDENCIES"
   "DEPLOY RELEASE":
     working_directory: ~/code
-        steps:
-          - deploy:
-            name: Deploy APK.
-            command: |
-                      if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                        bash ./ci_scripts/deploy-hockey.sh
-                        bash ./ci_scripts/deploy-fabric.sh
-                      fi
+    steps:
+      - deploy:
+        name: Deploy APK.
+        command: |
+                  if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                   bash ./ci_scripts/deploy-hockey.sh
+                   bash ./ci_scripts/deploy-fabric.sh
+                  fi
     requires:
       - "MAKE DEPENDENCIES"
       - "BUILD APP"
