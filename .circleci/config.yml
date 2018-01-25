@@ -3,11 +3,11 @@ jobs:
   "MAKE DEPENDENCIES":
     working_directory: ~/code
     docker:
-       - image: circleci/android:api-26-alpha
+      - image: circleci/android:api-26-alpha
     steps:
       - checkout
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
         name: Download Dependencies
         command: ./gradlew androidDependencies
@@ -18,7 +18,7 @@ jobs:
   "RUN TESTS":
     working_directory: ~/code
     docker:
-       - image: circleci/android:api-26-alpha
+      - image: circleci/android:api-26-alpha
     steps:
       - run:
         name: Run Tests
@@ -36,7 +36,7 @@ jobs:
   "BUILD APP":
     working_directory: ~/code
     docker:
-       - image: circleci/android:api-26-alpha
+      - image: circleci/android:api-26-alpha
     steps:
       - run:
         name: Download Keystore
@@ -50,8 +50,6 @@ jobs:
       - "MAKE DEPENDENCIES"
   "DEPLOY RELEASE":
     working_directory: ~/code
-    docker:
-       - image: circleci/android:api-26-alpha
     steps:
       - deploy:
         name: Deploy APK.
