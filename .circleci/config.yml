@@ -62,16 +62,16 @@ workflows:
     jobs:
       - "MAKE DEPENDENCIES"
       - "RUN TESTS":
-        requires:
-          - "MAKE DEPENDENCIES"
+          requires:
+            - "MAKE DEPENDENCIES"
       - "BUILD APP":
-        requires:
-          - "MAKE DEPENDENCIES"
+          requires:
+            - "MAKE DEPENDENCIES"
       - "DEPLOY RELEASE":
-        requires:
-          - "MAKE DEPENDENCIES"
-          - "BUILD APP"
-          - "RUN TESTS"
-        filters:
-          branches:
-            only: master
+          requires:
+            - "MAKE DEPENDENCIES"
+            - "BUILD APP"
+            - "RUN TESTS"
+          filters:
+            branches:
+              only: master
