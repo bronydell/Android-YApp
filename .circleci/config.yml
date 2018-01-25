@@ -17,8 +17,6 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
   "RUN TESTS":
     working_directory: ~/code
-    docker:
-      - image: circleci/android:api-26-alpha
     steps:
       - run:
           name: Run Tests
@@ -35,8 +33,6 @@ jobs:
       - "MAKE DEPENDENCIES"
   "BUILD APP":
     working_directory: ~/code
-    docker:
-      - image: circleci/android:api-26-alpha
     steps:
       - run:
           name: Download Keystore
@@ -48,8 +44,6 @@ jobs:
           path: app/build/outputs/apk/
   "DEPLOY RELEASE":
     working_directory: ~/code
-    machine:
-        enabled: true
     steps:
       - deploy:
         name: Deploy APK.
