@@ -1,7 +1,5 @@
 version: 2
 jobs:
-
-
   "MAKE DEPENDENCIES":
     working_directory: ~/code
     docker:
@@ -74,8 +72,3 @@ workflows:
       - "RUN TESTS"
       - "BUILD APP"
       - "DEPLOY RELEASE"
-
-
-
-
-
