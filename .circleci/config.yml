@@ -21,7 +21,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - *
+            - ./*
   "RUN TESTS":
     <<: *defaults
     steps:
@@ -41,7 +41,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - *
+            - ./*
   "BUILD APP":
     <<: *defaults
     steps:
@@ -58,7 +58,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - *
+            - ./*
   "DEPLOY RELEASE":
     <<: *defaults
     steps:
