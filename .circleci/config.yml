@@ -71,8 +71,10 @@ jobs:
       - attach_workspace:
           at: .
       - run: |
-              if [ ! -f @app/build/outputs/apk/ci/app-ci.apk ]; then
+              if [ ! -f ~/code/app/build/outputs/apk/ci/app-ci.apk ]; then
                   echo "File not found!"
+              else
+                  echo "GOT IT BITCH!";
               fi
 workflows:
   version: 2
