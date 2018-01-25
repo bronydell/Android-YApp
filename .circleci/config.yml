@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  "MAKE DEPENDENCIES":
     working_directory: ~/code
     steps:
       - checkout
@@ -10,9 +10,10 @@ jobs:
         name: Download Dependencies
         command: ./gradlew androidDependencies
       - save_cache:
-        paths: - ~/.gradle
+        paths:
+          - ~/.gradle
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-  test:
+  "RUN TESTS":
     working_directory: ~/code
     steps:
       - run:
@@ -26,17 +27,21 @@ jobs:
         destination: reports
       - store_test_results:
         path: app/build/test-results
-  "MAKE APK":
+    requires:
+      - "MAKE DEPENDENCIES"
+  "BUILD APP":
     working_directory: ~/code
-        steps:
-          - run:
-            name: Download Keystore
-            command: bash ./ci_scripts/download_keystore.sh
-          - run:
-            name: Build
-            command: ./gradlew assembleCi
-          - store_artifacts:
-            path: app/build/outputs/apk/
+    steps:
+      - run:
+        name: Download Keystore
+        command: bash ./ci_scripts/download_keystore.sh
+      - run:
+        name: Build
+        command: ./gradlew assembleCi
+      - store_artifacts:
+        path: app/build/outputs/apk/
+    requires:
+      - "MAKE DEPENDENCIES"
   "DEPLOY RELEASE":
     working_directory: ~/code
         steps:
@@ -47,13 +52,17 @@ jobs:
                         bash ./ci_scripts/deploy-hockey.sh
                         bash ./ci_scripts/deploy-fabric.sh
                       fi
+    requires:
+      - "MAKE DEPENDENCIES"
+      - "BUILD APP"
+      - "RUN TESTS"
 workflows:
   version: 2
   build:
     jobs:
-      - build
-      - test
-      - "MAKE APK"
+      - "MAKE DEPENDENCIES"
+      - "RUN TESTS"
+      - "BUILD APP"
       - "DEPLOY RELEASE"
 
 
