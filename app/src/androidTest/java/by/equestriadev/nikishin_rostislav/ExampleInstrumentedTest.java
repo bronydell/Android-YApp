@@ -1,4 +1,4 @@
-package by.equestriadev.superapp1;
+package by.equestriadev.nikishin_rostislav;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

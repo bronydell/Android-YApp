@@ -1,4 +1,4 @@
-package by.equestriadev.superapp1;
+package by.equestriadev.nikishin_rostislav;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package by.equestriadev.superapp1.views;
+package by.equestriadev.nikishin_rostislav.views;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,13 +6,9 @@ import android.content.res.TypedArray;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import by.equestriadev.superapp1.R;
+import by.equestriadev.nikishin_rostislav.R;
 
 /**
  * Created by Rostislav on 25.01.2018.

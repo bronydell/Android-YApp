@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="by.equestriadev.superapp1">
+    package="by.equestriadev.nikishin_rostislav">
 
     <application
         android:allowBackup="true"
