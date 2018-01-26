@@ -29,7 +29,7 @@ android {
         applicationId 'by.equestriadev.nikishin_rostislav'
         minSdkVersion 22
         targetSdkVersion 26
-        versionCode 2
+        versionCode 3
         versionName "0.1 ლ(ಠ益ಠ)ლ EDITION"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
