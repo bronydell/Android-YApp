@@ -1,4 +1,4 @@
-package by.equestriadev.superapp1.views;
+package by.equestriadev.nikishin_rostislav.views;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -12,7 +12,7 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+
 /**
  * Created by Rostislav on 25.01.2018.
  */

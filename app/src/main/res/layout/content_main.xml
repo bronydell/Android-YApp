@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="by.equestriadev.superapp1.MainActivity"
+    tools:context="by.equestriadev.nikishin_rostislav.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <by.equestriadev.superapp1.views.CircledImageView
+    <by.equestriadev.nikishin_rostislav.views.CircledImageView
         android:id="@+id/circledImageView"
         android:layout_width="241dp"
         android:layout_height="263dp"
@@ -34,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/circledImageView" />
 
-    <by.equestriadev.superapp1.views.LinkedTextView
+    <by.equestriadev.nikishin_rostislav.views.LinkedTextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
