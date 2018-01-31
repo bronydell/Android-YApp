@@ -56,6 +56,10 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true
     }
+    compile 'com.jakewharton:butterknife:8.8.1'
+    compile 'com.android.support:preference-v7:26.1.0'
+
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
 
 File propFile = file('signing.properties')

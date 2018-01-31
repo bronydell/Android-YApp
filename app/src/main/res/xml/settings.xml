@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings_title">
+        <ListPreference
+            android:defaultValue="@string/default_layout"
+            android:entries="@array/layout_options"
+            android:entryValues="@array/layout_options_values"
+            android:key="layout"
+            android:title="@string/layout_pick_title" />
+        <ListPreference
+            android:defaultValue="@string/default_theme"
+            android:entries="@array/theme_modes"
+            android:entryValues="@array/theme_modes_values"
+            android:key="theme"
+            android:title="@string/theme_pick_title" />
+        <ListPreference
+            android:defaultValue="en"
+            android:entries="@array/languages"
+            android:entryValues="@array/languages_values"
+            android:key="lang"
+            android:title="@string/lang_pick_title" />
+</PreferenceScreen>

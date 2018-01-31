@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="theme_modes">
+        <item>@string/light_title</item>
+        <item>@string/dark_title</item>
+    </string-array>
+
+    <string-array name="theme_modes_values">
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
+
+    <string-array name="languages">
+        <item>English</item>
+        <item>Русский</item>
+    </string-array>
+
+    <string-array name="languages_values">
+        <item>en</item>
+        <item>ru</item>
+    </string-array>
+
+    <string-array name="layout_options">
+        <item>Compact layout</item>
+        <item>Standard layout</item>
+    </string-array>
+
+    <string-array name="layout_options_values">
+        <item>compact</item>
+        <item>standard</item>
+    </string-array>
+
+
+</resources>
