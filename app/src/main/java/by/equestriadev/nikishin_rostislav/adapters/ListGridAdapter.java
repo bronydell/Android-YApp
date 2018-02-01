@@ -1,10 +1,6 @@
 package by.equestriadev.nikishin_rostislav.adapters;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +14,10 @@ import by.equestriadev.nikishin_rostislav.adapters.holders.AppHolder;
 import by.equestriadev.nikishin_rostislav.adapters.holders.ItemClickListener;
 
 /**
- * Created by Rostislav on 30.01.2018.
+ * Created by Rostislav on 01.02.2018.
  */
 
-public class AppGridAdapter extends RecyclerView.Adapter<AppHolder> {
+public class ListGridAdapter extends RecyclerView.Adapter<AppHolder> {
 
     private List<Integer> colorList = new ArrayList<>();
 
@@ -29,7 +25,7 @@ public class AppGridAdapter extends RecyclerView.Adapter<AppHolder> {
     private ItemClickListener mClickListener;
     private ItemClickListener mOnLongClickListener;
 
-    public AppGridAdapter(Context context, List<Integer> colorList) {
+    public ListGridAdapter(Context context, List<Integer> colorList) {
         this.mInflater = LayoutInflater.from(context);
         this.colorList = colorList;
     }
@@ -41,7 +37,7 @@ public class AppGridAdapter extends RecyclerView.Adapter<AppHolder> {
 
     @Override
     public AppHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.launcher_row, parent, false);
+        View view = mInflater.inflate(R.layout.list_row, parent, false);
         return new AppHolder(view);
     }
 

@@ -20,6 +20,7 @@ import com.crashlytics.android.Crashlytics;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import by.equestriadev.nikishin_rostislav.fragments.LauncherFragment;
+import by.equestriadev.nikishin_rostislav.fragments.ListFragment;
 import by.equestriadev.nikishin_rostislav.fragments.SettingsFragment;
 import io.fabric.sdk.android.Fabric;
 
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentClass = LauncherFragment.class;
                 break;
             case R.id.nav_list:
-                // TODO: Make color list
+                fragmentClass = ListFragment.class;
                 break;
             case R.id.nav_settings:
                 fragmentClass = SettingsFragment.class;

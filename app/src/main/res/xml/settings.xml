@@ -6,18 +6,21 @@
             android:defaultValue="@string/default_layout"
             android:entries="@array/layout_options"
             android:entryValues="@array/layout_options_values"
-            android:key="layout"
+            android:key="@string/layout_key"
+            android:summary="%s"
             android:title="@string/layout_pick_title" />
         <ListPreference
             android:defaultValue="@string/default_theme"
             android:entries="@array/theme_modes"
             android:entryValues="@array/theme_modes_values"
-            android:key="theme"
+            android:key="@string/theme_key"
+            android:summary="%s"
             android:title="@string/theme_pick_title" />
         <ListPreference
             android:defaultValue="en"
             android:entries="@array/languages"
             android:entryValues="@array/languages_values"
-            android:key="lang"
+            android:key="@string/language_key"
+            android:summary="%s"
             android:title="@string/lang_pick_title" />
 </PreferenceScreen>

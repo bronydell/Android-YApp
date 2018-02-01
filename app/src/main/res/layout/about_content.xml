@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/activity_horizontal_margin"
-    android:padding="@dimen/activity_horizontal_margin"
+    android:fillViewport="true"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".AboutActivity">
 
@@ -14,189 +17,106 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:padding="@dimen/activity_horizontal_margin">
+        <by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout
+            app:url="@string/tg_url"
+            style="@style/AppTheme.AboutRelativeLayout">
 
             <ImageView
-                android:id="@+id/ivContactItem1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_telegram_black_24dp" />
+                android:id="@+id/telegramIcon"
+                style="@style/AppTheme.AboutIcon"
+                android:tint="@color/telegramColor"
+                android:src="@drawable/ic_telegram" />
 
             <TextView
-                android:id="@+id/tvNumber1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_toEndOf="@id/ivContactItem1"
-                android:layout_toRightOf="@id/ivContactItem1"
-                android:text="(123) 456-7890"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#212121" />
+                android:id="@+id/telegramNick"
+                style="@style/AppTheme.AboutText"
+                android:layout_toEndOf="@id/telegramIcon"
+                android:text="@string/telegram_nick" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvNumber1"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="8dp"
-                android:layout_toEndOf="@id/ivContactItem1"
-                android:layout_toRightOf="@id/ivContactItem1"
-                android:text="Home"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="#727272" />
+                style="@style/AppTheme.AboutTypeText"
+                android:layout_below="@id/telegramNick"
+                android:layout_toEndOf="@id/telegramIcon"
+                android:text="@string/telegram_type" />
 
-        </RelativeLayout>
+        </by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:padding="@dimen/activity_horizontal_margin">
+        <by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout
+            app:url="@string/github_url"
+            style="@style/AppTheme.AboutRelativeLayout">
 
             <ImageView
-                android:id="@+id/ivContactItem2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_telegram_black_24dp"
-                android:visibility="invisible"
-                app:srcCompat="@drawable/ic_telegram_black_24dp" />
+                android:id="@+id/githubIcon"
+                style="@style/AppTheme.AboutIcon"
+                android:tint="@color/githubColor"
+                android:src="@drawable/ic_github_circle" />
 
             <TextView
-                android:id="@+id/tvNumber2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_toEndOf="@id/ivContactItem2"
-                android:layout_toRightOf="@id/ivContactItem2"
-                android:text="\@Bronydell"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#212121" />
+                android:id="@+id/githubNick"
+                style="@style/AppTheme.AboutText"
+                android:layout_toEndOf="@id/githubIcon"
+                android:text="@string/github_nick" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvNumber2"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="8dp"
-                android:layout_toEndOf="@id/ivContactItem2"
-                android:layout_toRightOf="@id/ivContactItem2"
-                android:text="Telegram"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="#727272" />
+                style="@style/AppTheme.AboutTypeText"
+                android:layout_below="@id/githubNick"
+                android:layout_toEndOf="@id/githubIcon"
+                android:text="@string/github_type" />
 
-        </RelativeLayout>
+        </by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout>
+
+
+        <by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout
+            app:url="@string/vk_url"
+            style="@style/AppTheme.AboutRelativeLayout">
+
+            <ImageView
+                android:id="@+id/vkIcon"
+                android:tint="@color/vkColor"
+                style="@style/AppTheme.AboutIcon"
+                android:src="@drawable/ic_vk_circle" />
+
+            <TextView
+                android:id="@+id/vkNick"
+                style="@style/AppTheme.AboutText"
+                android:layout_toEndOf="@id/vkIcon"
+                android:text="@string/vk_nick" />
+
+            <TextView
+                style="@style/AppTheme.AboutTypeText"
+                android:layout_below="@id/vkNick"
+                android:layout_toEndOf="@id/vkIcon"
+                android:text="@string/vk_type" />
+
+        </by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout>
 
         <include layout="@layout/item_divider" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:padding="@dimen/activity_horizontal_margin">
+        <by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout
+            app:url="mailto:littleponyapps@gmail.com"
+            style="@style/AppTheme.AboutRelativeLayout">
 
             <ImageView
-                android:id="@+id/ivContactItem3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_email_black_24dp" />
+                android:id="@+id/emailIcon"
+                style="@style/AppTheme.AboutIcon"
+                android:tint="@color/emailColor"
+                android:src="@drawable/ic_email" />
 
             <TextView
-                android:id="@+id/tvNumber3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_toEndOf="@id/ivContactItem3"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="littleponyapps@gmail.com"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#212121" />
+                android:id="@+id/emailText"
+                style="@style/AppTheme.AboutText"
+                android:layout_toEndOf="@id/emailIcon"
+                android:text="@string/email" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvNumber3"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="8dp"
-                android:layout_toEndOf="@id/ivContactItem3"
-                android:layout_toRightOf="@id/ivContactItem3"
-                android:text="Home"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="#727272" />
+                style="@style/AppTheme.AboutTypeText"
+                android:layout_below="@id/emailText"
+                android:layout_toEndOf="@id/emailIcon"
+                android:text="@string/email_type" />
 
 
-        </RelativeLayout>
+        </by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout>
 
-        <include layout="@layout/item_divider" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:padding="@dimen/activity_horizontal_margin">
-
-            <ImageView
-                android:id="@+id/ivContactItem6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_email_black_24dp"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/tvNumber6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_toEndOf="@id/ivContactItem6"
-                android:layout_toRightOf="@id/ivContactItem6"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="221B Baker Street, England"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#212121" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvNumber6"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="8dp"
-                android:layout_toEndOf="@id/ivContactItem6"
-                android:layout_toRightOf="@id/ivContactItem6"
-                android:text="Work"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="#727272" />
-
-
-        </RelativeLayout>
 
     </LinearLayout>
 

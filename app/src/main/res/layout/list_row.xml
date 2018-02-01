@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <by.equestriadev.nikishin_rostislav.views.SquareView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/app_icon"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:background="@color/emailColor" />
+
+    <TextView
+        android:id="@+id/color_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_padding"
+        android:layout_marginBottom="@dimen/base_padding"
+        android:layout_toEndOf="@+id/app_icon"
+        android:maxLines="1"
+        android:textColor="@color/blackColor"
+        android:textIsSelectable="false"
+        tools:text="Text 1"/>
+
+    <TextView
+        android:id="@+id/another_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/color_text"
+        android:layout_below="@id/app_icon"
+        android:layout_alignTop="@id/color_text"
+        android:layout_marginTop="27dp"
+        android:textColor="@color/blackColor"
+        android:textIsSelectable="false"
+        tools:text="Text 2" />
+</RelativeLayout>

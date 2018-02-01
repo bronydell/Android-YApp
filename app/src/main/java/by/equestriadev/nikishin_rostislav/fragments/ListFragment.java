@@ -7,8 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +26,10 @@ import by.equestriadev.nikishin_rostislav.adapters.decorators.AppGridDecorator;
 import by.equestriadev.nikishin_rostislav.adapters.holders.ItemClickListener;
 
 /**
- * Created by Rostislav on 30.01.2018.
+ * Created by Rostislav on 01.02.2018.
  */
 
-public class LauncherFragment extends Fragment{
+public class ListFragment extends Fragment {
 
     @BindView(R.id.app_grid)
     RecyclerView appGrid;
@@ -40,8 +40,8 @@ public class LauncherFragment extends Fragment{
     final Random rnd = new Random();
     private AppGridAdapter appGridAdapter;
 
-    public static LauncherFragment newInstance() {
-        LauncherFragment fragment = new LauncherFragment();
+    public static ListFragment newInstance() {
+        ListFragment fragment = new ListFragment();
 
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -68,18 +68,11 @@ public class LauncherFragment extends Fragment{
         setHasOptionsMenu(false);
         List<Integer> colorList = new ArrayList<>();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        final int spanCount;
-        if(prefs.getString(getString(R.string.layout_key), getString(R.string.default_layout)).equals(getResources().getStringArray(R.array.layout_options_values)[0])){
-            spanCount = getResources().getInteger(R.integer.compact);
-        }
-        else {
-            spanCount = getResources().getInteger(R.integer.standart);
-        }
         final int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.launcher_offset);
-        appGrid.setLayoutManager(new GridLayoutManager(this.getContext(), spanCount));
+        appGrid.setLayoutManager(new LinearLayoutManager(this.getContext()));
         appGrid.addItemDecoration(new AppGridDecorator(spacingInPixels));
 
-        appGrid.addOnScrollListener(new OnScrollListener() {
+        appGrid.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);

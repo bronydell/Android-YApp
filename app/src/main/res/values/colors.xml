@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="vkColor">#45668e</color>
+    <color name="telegramColor">#0088cc</color>
+    <color name="githubColor">@color/blackColor</color>
+    <color name="blackColor">#000000</color>
+    <color name="emailColor">#c71610</color>
+    <color name="background">#B6B6B6</color>
+    <color name="whiteColor">#FFFFFF</color>
+    <color name="aboutText">#212121</color>
+    <color name="aboutTypeText">#727272</color>
 </resources>
