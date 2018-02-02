@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.equestriadev.nikishin_rostislav.R;
-import by.equestriadev.nikishin_rostislav.adapters.holders.AppHolder;
 import by.equestriadev.nikishin_rostislav.adapters.holders.ItemClickListener;
+import by.equestriadev.nikishin_rostislav.adapters.holders.ListHolder;
 
 /**
  * Created by Rostislav on 01.02.2018.
  */
 
-public class ListGridAdapter extends RecyclerView.Adapter<AppHolder> {
+public class ListGridAdapter extends RecyclerView.Adapter<ListHolder> {
 
     private List<Integer> colorList = new ArrayList<>();
 
@@ -36,15 +36,16 @@ public class ListGridAdapter extends RecyclerView.Adapter<AppHolder> {
     }
 
     @Override
-    public AppHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.list_row, parent, false);
-        return new AppHolder(view);
+        return new ListHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(AppHolder holder, int position) {
-        holder.getAppNameTextView().setText(String.format("#%06X", (0xFFFFFF & colorList.get(position))));
-        holder.getIconSquareView().setBackgroundColor(colorList.get(position));
+    public void onBindViewHolder(ListHolder holder, int position) {
+        holder.getColorTextView().setText(String.format("#%06X", (0xFFFFFF & colorList.get(position))));
+        holder.getSecondColorTextView().setText(String.format("#%06X", (0xFFFFFF & colorList.get(position))));
+        holder.getColorSquareView().setColor(colorList.get(position));
         holder.setOnClickListiner(mClickListener);
         holder.setOnLongClickListiner(mOnLongClickListener);
     }

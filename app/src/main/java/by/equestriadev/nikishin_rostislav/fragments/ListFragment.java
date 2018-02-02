@@ -4,9 +4,9 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.PreferenceManager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import by.equestriadev.nikishin_rostislav.R;
-import by.equestriadev.nikishin_rostislav.adapters.AppGridAdapter;
+import by.equestriadev.nikishin_rostislav.adapters.ListGridAdapter;
 import by.equestriadev.nikishin_rostislav.adapters.decorators.AppGridDecorator;
 import by.equestriadev.nikishin_rostislav.adapters.holders.ItemClickListener;
 
@@ -31,14 +31,12 @@ import by.equestriadev.nikishin_rostislav.adapters.holders.ItemClickListener;
 
 public class ListFragment extends Fragment {
 
+    final Random rnd = new Random();
     @BindView(R.id.app_grid)
     RecyclerView appGrid;
-
     @BindView(R.id.plus_fab)
     FloatingActionButton plusFloatingActionButton;
-
-    final Random rnd = new Random();
-    private AppGridAdapter appGridAdapter;
+    private ListGridAdapter listAdapter;
 
     public static ListFragment newInstance() {
         ListFragment fragment = new ListFragment();
@@ -87,23 +85,31 @@ public class ListFragment extends Fragment {
         for(int  i = 0; i < 1000; i++){
             colorList.add(generateColor());
         }
-        appGridAdapter = new AppGridAdapter(this.getContext(),  colorList);
-        appGridAdapter.setOnLongItemClickListener(new ItemClickListener() {
+        listAdapter = new ListGridAdapter(this.getContext(), colorList);
+        listAdapter.setOnLongItemClickListener(new ItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                appGridAdapter.removeAt(position);
+            public void onItemClick(View view, final int position) {
+                Snackbar.make(view, getText(R.string.delete_question), Snackbar.LENGTH_LONG)
+                        .setAction(getText(R.string.confirm_delete), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                listAdapter.removeAt(position);
+                            }
+                        })
+                        .show();
             }
         });
-        appGrid.setAdapter(appGridAdapter);
+        appGrid.setAdapter(listAdapter);
 
     }
 
     private Integer generateColor(){
         return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
+
     @OnClick(R.id.plus_fab)
     public void OnFABClick(View view){
-        appGridAdapter.AddItem(generateColor(), 0);
+        listAdapter.AddItem(generateColor(), 0);
         appGrid.scrollTo(0, 0);
     }
 }

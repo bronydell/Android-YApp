@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
@@ -31,13 +32,11 @@ import by.equestriadev.nikishin_rostislav.adapters.holders.ItemClickListener;
 
 public class LauncherFragment extends Fragment{
 
+    final Random rnd = new Random();
     @BindView(R.id.app_grid)
     RecyclerView appGrid;
-
     @BindView(R.id.plus_fab)
     FloatingActionButton plusFloatingActionButton;
-
-    final Random rnd = new Random();
     private AppGridAdapter appGridAdapter;
 
     public static LauncherFragment newInstance() {
@@ -97,8 +96,15 @@ public class LauncherFragment extends Fragment{
         appGridAdapter = new AppGridAdapter(this.getContext(),  colorList);
         appGridAdapter.setOnLongItemClickListener(new ItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                appGridAdapter.removeAt(position);
+            public void onItemClick(View view, final int position) {
+                Snackbar.make(view, getText(R.string.delete_question), Snackbar.LENGTH_LONG)
+                        .setAction(getText(R.string.confirm_delete), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                appGridAdapter.removeAt(position);
+                            }
+                        })
+                        .show();
             }
         });
         appGrid.setAdapter(appGridAdapter);

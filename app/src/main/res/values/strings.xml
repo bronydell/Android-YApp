@@ -12,6 +12,8 @@
     <string name="theme_pick_title">Theme</string>
     <string name="lang_pick_title">Language</string>
     <string name="layout_pick_title">Layout</string>
+    <string name="delete_question">Really? Are you gonna delete this wonderful color?</string>
+    <string name="confirm_delete">Yeah!</string>
     <string name="havbar_header">@string/author</string>
     <string name="light_title">Light theme</string>
     <string name="dark_title">Dark theme</string>
