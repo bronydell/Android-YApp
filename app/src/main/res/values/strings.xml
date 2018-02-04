@@ -5,6 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="about_text">Hi! This is launcher, press button on the bottom to continue</string>
     <string name="default_theme">light</string>
+    <string name="default_sort">sort_az</string>
     <string name="default_lang">en</string>
     <string name="default_layout">compact</string>
     <string name="description">Welcome to this great app! Let\'s setup it for better experience</string>
@@ -40,6 +41,19 @@
     <string name="title_activity_settings">Settings</string>
     <string name="layout_key">layout</string>
     <string name="theme_key">theme</string>
+    <string name="sort_key">sort_type</string>
     <string name="language_key">lang</string>
-    <string name="welcome_setting">Always visit Welcome screen at launch</string>
+    <string name="welcome_setting">Visit Welcome screen next time</string>
+    <string name="sort_az">Sort by A-Z</string>
+    <string name="sort_za">Sort by Z-A</string>
+    <string name="sort_date">Sort by install date</string>
+    <string name="sort_freq">Sort by usage frequency</string>
+    <string name="sort_nope">Don\'t use ANY sort</string>
+    <string name="sort_type_title">Sort type</string>
+    <string name="app_context_delete">Delete</string>
+    <string name="app_context_freq">Usage frequency</string>
+    <string name="frequency_title">Usage frequency for app %s</string>
+    <string name="frequency_text">%s has been launched %d times\nLast usage was %s</string>
+    <string name="app_context_about">About this app</string>
+    <string name="never_used">Never</string>
 </resources>

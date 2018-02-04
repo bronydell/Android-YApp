@@ -26,8 +26,6 @@ public class WelcomeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getBoolean("visited", false) && !prefs.getBoolean("shouldVisit", false))
-            goToLauncher();
     }
 
     @OnClick(R.id.goButton)

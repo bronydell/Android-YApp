@@ -11,6 +11,22 @@
         <item>dark</item>
     </string-array>
 
+    <string-array name="sorts">
+        <item>@string/sort_az</item>
+        <item>@string/sort_za</item>
+        <item>@string/sort_date</item>
+        <item>@string/sort_freq</item>
+        <item>@string/sort_nope</item>
+    </string-array>
+
+    <string-array name="sort_values">
+        <item>sort_az</item>
+        <item>sort_za</item>
+        <item>sort_date</item>
+        <item>sort_freq</item>
+        <item>sort_nope</item>
+    </string-array>
+
     <string-array name="languages">
         <item>English</item>
         <item>Русский</item>

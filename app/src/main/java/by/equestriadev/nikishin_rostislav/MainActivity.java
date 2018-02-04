@@ -1,8 +1,10 @@
 package by.equestriadev.nikishin_rostislav;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -19,6 +21,7 @@ import com.crashlytics.android.Crashlytics;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import by.equestriadev.nikishin_rostislav.fragments.AppLauncherFragment;
 import by.equestriadev.nikishin_rostislav.fragments.LauncherFragment;
 import by.equestriadev.nikishin_rostislav.fragments.ListFragment;
 import by.equestriadev.nikishin_rostislav.fragments.SettingsFragment;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawer;
 
+    private SharedPreferences prefs;
     private static final int DEFAULT_NAV_STATE = R.id.nav_grid;
 
     private ActionBarDrawerToggle drawerToggle;
@@ -43,6 +47,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        // I'm just too lazy to rewrite old code, so to make opposite statement I've just added NO to it
+        // Hate me later bro
+        if (!(prefs.getBoolean("visited", false) && !prefs.getBoolean("shouldVisit", false)))
+            goToWelcome();
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         drawerToggle = setupDrawerToggle();
@@ -94,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Class fragmentClass = null;
         switch(item.getItemId()) {
             case R.id.nav_grid:
-                fragmentClass = LauncherFragment.class;
+                fragmentClass = AppLauncherFragment.class;
                 break;
             case R.id.nav_list:
                 fragmentClass = ListFragment.class;
@@ -124,5 +133,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    private void goToWelcome() {
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putBoolean("shouldVisit", false);
+        edit.apply();
+        Intent launcherIntent = new Intent(getApplicationContext(), WelcomeActivity.class);
+        startActivity(launcherIntent);
+        finish();
+    }
 
 }

@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import by.equestriadev.nikishin_rostislav.R;
-import by.equestriadev.nikishin_rostislav.adapters.AppGridAdapter;
+import by.equestriadev.nikishin_rostislav.adapters.ColorGridAdapter;
 import by.equestriadev.nikishin_rostislav.adapters.decorators.AppGridDecorator;
 import by.equestriadev.nikishin_rostislav.adapters.holders.ItemClickListener;
 
@@ -37,7 +37,7 @@ public class LauncherFragment extends Fragment{
     RecyclerView appGrid;
     @BindView(R.id.plus_fab)
     FloatingActionButton plusFloatingActionButton;
-    private AppGridAdapter appGridAdapter;
+    private ColorGridAdapter colorGridAdapter;
 
     public static LauncherFragment newInstance() {
         LauncherFragment fragment = new LauncherFragment();
@@ -93,21 +93,21 @@ public class LauncherFragment extends Fragment{
         for(int  i = 0; i < 1000; i++){
             colorList.add(generateColor());
         }
-        appGridAdapter = new AppGridAdapter(this.getContext(),  colorList);
-        appGridAdapter.setOnLongItemClickListener(new ItemClickListener() {
+        colorGridAdapter = new ColorGridAdapter(this.getContext(),  colorList);
+        colorGridAdapter.setOnLongItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View view, final int position) {
                 Snackbar.make(view, getText(R.string.delete_question), Snackbar.LENGTH_LONG)
                         .setAction(getText(R.string.confirm_delete), new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                appGridAdapter.removeAt(position);
+                                colorGridAdapter.removeAt(position);
                             }
                         })
                         .show();
             }
         });
-        appGrid.setAdapter(appGridAdapter);
+        appGrid.setAdapter(colorGridAdapter);
 
     }
 
@@ -116,7 +116,7 @@ public class LauncherFragment extends Fragment{
     }
     @OnClick(R.id.plus_fab)
     public void OnFABClick(View view){
-        appGridAdapter.AddItem(generateColor(), 0);
+        colorGridAdapter.AddItem(generateColor(), 0);
         appGrid.scrollTo(0, 0);
     }
 }

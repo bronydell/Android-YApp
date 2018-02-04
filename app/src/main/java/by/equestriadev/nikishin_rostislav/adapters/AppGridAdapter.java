@@ -1,10 +1,9 @@
 package by.equestriadev.nikishin_rostislav.adapters;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,54 +17,53 @@ import by.equestriadev.nikishin_rostislav.adapters.holders.AppHolder;
 import by.equestriadev.nikishin_rostislav.adapters.holders.ItemClickListener;
 
 /**
- * Created by Rostislav on 30.01.2018.
+ * Created by Rostislav on 04.02.2018.
  */
 
 public class AppGridAdapter extends RecyclerView.Adapter<AppHolder> {
 
-    private List<Integer> colorList = new ArrayList<>();
-
+    private List<ResolveInfo> appList = new ArrayList<>();
+    private PackageManager mPackageManager;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private ItemClickListener mOnLongClickListener;
 
-    public AppGridAdapter(Context context, List<Integer> colorList) {
+    public AppGridAdapter(Context context, List<ResolveInfo> appList) {
         this.mInflater = LayoutInflater.from(context);
-        this.colorList = colorList;
+        this.mPackageManager = context.getPackageManager();
+        this.appList = appList;
     }
 
-    public void AddItem(Integer color, int position){
-        colorList.add(position, color);
+    public void AddItem(ResolveInfo appInfo, int position){
+        appList.add(position, appInfo);
         notifyItemRangeChanged(0, getItemCount());
     }
 
     @Override
     public AppHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.launcher_row, parent, false);
+        View view = mInflater.inflate(R.layout.app_row, parent, false);
         return new AppHolder(view);
     }
 
     @Override
     public void onBindViewHolder(AppHolder holder, int position) {
-        holder.getAppNameTextView().setText(String.format("#%06X", (0xFFFFFF & colorList.get(position))));
-        holder.getIconSquareView().setBackgroundColor(colorList.get(position));
+        holder.getAppNameTextView().setText(appList.get(position).loadLabel(mPackageManager));
+        holder.getIconSquareView().setImageDrawable((appList.get(position).loadIcon(mPackageManager)));
         holder.setOnClickListiner(mClickListener);
         holder.setOnLongClickListiner(mOnLongClickListener);
     }
 
     public void removeAt(int position){
-        colorList.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, colorList.size());
+        // TODO
     }
 
     @Override
     public int getItemCount() {
-        return colorList.size();
+        return appList.size();
     }
 
-    public Integer getItemObject(int position){
-        return colorList.get(position);
+    public ResolveInfo getItemObject(int position){
+        return appList.get(position);
     }
 
     public void setOnItemClickListener(ItemClickListener mClickListener) {
