@@ -18,7 +18,7 @@
         <item name="android:layout_width">@dimen/default_icon_size</item>
         <item name="android:layout_height">@dimen/default_icon_size</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_marginEnd">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
     </style>
 
     <style name="AppTheme.AboutRelativeLayout">
@@ -33,7 +33,7 @@
     <style name="AppTheme.AboutText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
@@ -43,7 +43,7 @@
     <style name="AppTheme.AboutTypeText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginTop">@dimen/about_margin_top</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
         <item name="android:textColor">@color/aboutTypeText</item>

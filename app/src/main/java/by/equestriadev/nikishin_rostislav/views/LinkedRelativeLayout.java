@@ -33,11 +33,6 @@ public class LinkedRelativeLayout extends RelativeLayout implements View.OnClick
         init(context, attrs);
     }
 
-    public LinkedRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
-    }
-
     private void init(){
         setOnClickListener(this);
     }
