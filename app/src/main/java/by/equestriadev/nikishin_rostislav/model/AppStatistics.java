@@ -13,18 +13,21 @@ public class AppStatistics {
     private String mPackage;
     private long mUsageCounter;
     private Date mLastUsage;
+    private boolean isFavorite;
 
 
-    public AppStatistics(String mPackage, Date mLastUsage) {
+    public AppStatistics(String mPackage, Date mLastUsage, boolean isFavorite) {
         this.mPackage = mPackage;
         this.mLastUsage = mLastUsage;
         this.mUsageCounter = 1;
+        this.isFavorite = isFavorite;
     }
 
-    public AppStatistics(String mPackage, long mUsageCounter, Date mLastUsage) {
+    public AppStatistics(String mPackage, long mUsageCounter, Date mLastUsage, boolean isFavorite) {
         this.mPackage = mPackage;
         this.mUsageCounter = mUsageCounter;
         this.mLastUsage = mLastUsage;
+        this.isFavorite = isFavorite;
     }
 
     public void addUsage(){
@@ -45,5 +48,13 @@ public class AppStatistics {
 
     public String getPackage() {
         return mPackage;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }

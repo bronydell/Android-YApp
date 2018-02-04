@@ -7,6 +7,7 @@
     <color name="telegramColor">#0088cc</color>
     <color name="githubColor">@color/blackColor</color>
     <color name="blackColor">#000000</color>
+    <color name="starColor">#f7ff00</color>
     <color name="emailColor">#c71610</color>
     <color name="background">#B6B6B6</color>
     <color name="whiteColor">#FFFFFF</color>

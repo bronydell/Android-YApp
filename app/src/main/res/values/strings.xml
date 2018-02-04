@@ -56,4 +56,8 @@
     <string name="frequency_text">%s has been launched %d times\nLast usage was %s</string>
     <string name="app_context_about">About this app</string>
     <string name="never_used">Never</string>
+    <string name="app_context_unfav">Remove from favorites</string>
+    <string name="app_context_fav">Add to favorites</string>
+    <string name="favorite_apps">Favorite Apps</string>
+    <string name="other_apps">Other Apps</string>
 </resources>

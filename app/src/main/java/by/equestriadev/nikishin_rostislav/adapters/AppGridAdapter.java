@@ -49,6 +49,7 @@ public class AppGridAdapter extends RecyclerView.Adapter<AppHolder> {
     public void onBindViewHolder(AppHolder holder, int position) {
         holder.getAppNameTextView().setText(appList.get(position).loadLabel(mPackageManager));
         holder.getIconSquareView().setImageDrawable((appList.get(position).loadIcon(mPackageManager)));
+        holder.getFavImageView().setVisibility(View.GONE);
         holder.setOnClickListiner(mClickListener);
         holder.setOnLongClickListiner(mOnLongClickListener);
     }
@@ -64,6 +65,11 @@ public class AppGridAdapter extends RecyclerView.Adapter<AppHolder> {
 
     public ResolveInfo getItemObject(int position){
         return appList.get(position);
+    }
+
+    public void setAppList(List<ResolveInfo> appList) {
+        this.appList = appList;
+        notifyDataSetChanged();
     }
 
     public void setOnItemClickListener(ItemClickListener mClickListener) {

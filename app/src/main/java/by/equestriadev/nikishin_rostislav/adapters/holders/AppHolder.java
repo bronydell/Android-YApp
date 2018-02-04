@@ -1,9 +1,11 @@
 package by.equestriadev.nikishin_rostislav.adapters.holders;
 
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -23,6 +25,9 @@ public class AppHolder extends RecyclerView.ViewHolder implements View.OnClickLi
 
     @BindView(R.id.app_icon)
     CircledImageView iconView;
+
+    @BindView(R.id.app_fav)
+    ImageView favView;
 
     @BindView(R.id.app_text)
     TextView appNameTextView;
@@ -49,6 +54,10 @@ public class AppHolder extends RecyclerView.ViewHolder implements View.OnClickLi
 
     public TextView getAppNameTextView() {
         return appNameTextView;
+    }
+
+    public ImageView getFavImageView() {
+        return favView;
     }
 
     @Override

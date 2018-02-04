@@ -10,4 +10,12 @@
     <item
         android:id="@+id/about"
         android:title="@string/app_context_about"/>
+    <item
+        android:id="@+id/fav"
+        android:title="@string/app_context_fav"
+        android:visible="false"/>
+    <item
+        android:id="@+id/unfav"
+        android:title="@string/app_context_unfav"
+        android:visible="false"/>
 </menu>
