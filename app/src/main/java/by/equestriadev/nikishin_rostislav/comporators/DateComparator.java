@@ -7,13 +7,14 @@ import android.content.pm.ResolveInfo;
 import java.util.Comparator;
 
 import by.equestriadev.nikishin_rostislav.Database;
+import by.equestriadev.nikishin_rostislav.model.App;
 import by.equestriadev.nikishin_rostislav.model.AppStatistics;
 
 /**
  * Created by Rostislav on 04.02.2018.
  */
 
-public class DateComparator implements Comparator<ResolveInfo> {
+public class DateComparator implements Comparator<App> {
 
     private Context mContext;
 
@@ -22,15 +23,15 @@ public class DateComparator implements Comparator<ResolveInfo> {
     }
 
     @Override
-    public int compare(ResolveInfo o1, ResolveInfo o2) {
+    public int compare(App o1, App o2) {
         try {
             long installed1 = mContext
                     .getPackageManager()
-                    .getPackageInfo(o1.activityInfo.packageName, 0)
+                    .getPackageInfo(o1.getResolveInfo().activityInfo.packageName, 0)
                     .firstInstallTime;
             long installed2 = mContext
                     .getPackageManager()
-                    .getPackageInfo(o2.activityInfo.packageName, 0)
+                    .getPackageInfo(o2.getResolveInfo().activityInfo.packageName, 0)
                     .firstInstallTime;
             if(installed1 > installed2)
                 return 1;

@@ -6,6 +6,7 @@
     <color name="vkColor">#45668e</color>
     <color name="telegramColor">#0088cc</color>
     <color name="githubColor">@color/blackColor</color>
+    <color name="disabledColor">#404040</color>
     <color name="blackColor">#000000</color>
     <color name="starColor">#f7ff00</color>
     <color name="emailColor">#c71610</color>

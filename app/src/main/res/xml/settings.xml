@@ -31,6 +31,10 @@
             android:title="@string/lang_pick_title" />
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="shouldVisit"
+            android:key="@string/visit_key"
             android:title="@string/welcome_setting" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/hide_fav_key"
+            android:title="@string/hide_setting" />
 </PreferenceScreen>

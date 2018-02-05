@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import by.equestriadev.nikishin_rostislav.fragments.AppLauncherFragment;
+import by.equestriadev.nikishin_rostislav.fragments.IUpdatable;
 
 /**
  * Created by Rostislav on 04.02.2018.
@@ -14,11 +14,12 @@ import by.equestriadev.nikishin_rostislav.fragments.AppLauncherFragment;
 public class AppReceiver extends BroadcastReceiver {
 
     Context context;
-    private AppLauncherFragment appLauncherFragment;
+    private IUpdatable appGridLauncherFragment;
 
-    public AppReceiver(AppLauncherFragment fragment) {
-        this.appLauncherFragment = fragment;
+    public AppReceiver(IUpdatable fragment) {
+        this.appGridLauncherFragment = fragment;
     }
+
 
     public AppReceiver() {
     }
@@ -31,8 +32,8 @@ public class AppReceiver extends BroadcastReceiver {
         // This condition will be called when package removed
         if (intent.getAction().equals("android.intent.action.PACKAGE_REMOVED") ||
                 intent.getAction().equals("android.intent.action.PACKAGE_ADDED")) {
-            if(appLauncherFragment != null)
-                appLauncherFragment.updateAppList();
+            if(appGridLauncherFragment != null)
+                appGridLauncherFragment.updateAppList();
         }
     }
 }

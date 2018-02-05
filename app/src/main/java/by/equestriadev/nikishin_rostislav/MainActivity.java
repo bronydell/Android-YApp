@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import by.equestriadev.nikishin_rostislav.fragments.AppLauncherFragment;
 import by.equestriadev.nikishin_rostislav.fragments.LauncherFragment;
 import by.equestriadev.nikishin_rostislav.fragments.ListFragment;
+import by.equestriadev.nikishin_rostislav.fragments.ListOfAppsFragment;
 import by.equestriadev.nikishin_rostislav.fragments.SettingsFragment;
 import io.fabric.sdk.android.Fabric;
 
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentClass = AppLauncherFragment.class;
                 break;
             case R.id.nav_list:
-                fragmentClass = ListFragment.class;
+                fragmentClass = ListOfAppsFragment.class;
                 break;
             case R.id.nav_settings:
                 fragmentClass = SettingsFragment.class;

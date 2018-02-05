@@ -42,6 +42,8 @@
     <string name="layout_key">layout</string>
     <string name="theme_key">theme</string>
     <string name="sort_key">sort_type</string>
+    <string name="hide_fav_key">hide_fav</string>
+    <string name="visit_key">shouldVisit</string>
     <string name="language_key">lang</string>
     <string name="welcome_setting">Visit Welcome screen next time</string>
     <string name="sort_az">Sort by A-Z</string>
@@ -60,4 +62,5 @@
     <string name="app_context_fav">Add to favorites</string>
     <string name="favorite_apps">Favorite Apps</string>
     <string name="other_apps">Other Apps</string>
+    <string name="hide_setting">Show favorite apps on top</string>
 </resources>
