@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/activity_horizontal_margin"
+    android:fillViewport="true"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AboutActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout
+            app:url="@string/tg_url"
+            style="@style/AppTheme.AboutRelativeLayout">
+
+            <ImageView
+                android:id="@+id/telegramIcon"
+                style="@style/AppTheme.AboutIcon"
+                android:tint="@color/telegramColor"
+                android:src="@drawable/ic_telegram" />
+
+            <TextView
+                android:id="@+id/telegramNick"
+                style="@style/AppTheme.AboutText"
+                android:layout_toEndOf="@id/telegramIcon"
+                android:text="@string/telegram_nick"
+                android:layout_toRightOf="@id/telegramIcon" />
+
+            <TextView
+                style="@style/AppTheme.AboutTypeText"
+                android:layout_below="@id/telegramNick"
+                android:layout_toEndOf="@id/telegramIcon"
+                android:text="@string/telegram_type"
+                android:layout_toRightOf="@id/telegramIcon" />
+
+        </by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout>
+
+        <by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout
+            app:url="@string/github_url"
+            style="@style/AppTheme.AboutRelativeLayout">
+
+            <ImageView
+                android:id="@+id/githubIcon"
+                style="@style/AppTheme.AboutIcon"
+                android:tint="@color/githubColor"
+                android:src="@drawable/ic_github_circle" />
+
+            <TextView
+                android:id="@+id/githubNick"
+                style="@style/AppTheme.AboutText"
+                android:layout_toEndOf="@id/githubIcon"
+                android:text="@string/github_nick"
+                android:layout_toRightOf="@id/githubIcon" />
+
+            <TextView
+                style="@style/AppTheme.AboutTypeText"
+                android:layout_below="@id/githubNick"
+                android:layout_toEndOf="@id/githubIcon"
+                android:text="@string/github_type"
+                android:layout_toRightOf="@id/githubIcon" />
+
+        </by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout>
+
+
+        <by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout
+            app:url="@string/vk_url"
+            style="@style/AppTheme.AboutRelativeLayout">
+
+            <ImageView
+                android:id="@+id/vkIcon"
+                android:tint="@color/vkColor"
+                style="@style/AppTheme.AboutIcon"
+                android:src="@drawable/ic_vk_circle" />
+
+            <TextView
+                android:id="@+id/vkNick"
+                style="@style/AppTheme.AboutText"
+                android:layout_toEndOf="@id/vkIcon"
+                android:text="@string/vk_nick"
+                android:layout_toRightOf="@id/vkIcon" />
+
+            <TextView
+                style="@style/AppTheme.AboutTypeText"
+                android:layout_below="@id/vkNick"
+                android:layout_toEndOf="@id/vkIcon"
+                android:text="@string/vk_type"
+                android:layout_toRightOf="@id/vkIcon" />
+
+        </by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout>
+
+        <include layout="@layout/item_divider" />
+
+        <by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout
+            app:url="mailto:littleponyapps@gmail.com"
+            style="@style/AppTheme.AboutRelativeLayout">
+
+            <ImageView
+                android:id="@+id/emailIcon"
+                style="@style/AppTheme.AboutIcon"
+                android:tint="@color/emailColor"
+                android:src="@drawable/ic_email" />
+
+            <TextView
+                android:id="@+id/emailText"
+                style="@style/AppTheme.AboutText"
+                android:layout_toEndOf="@id/emailIcon"
+                android:text="@string/email"
+                android:layout_toRightOf="@id/emailIcon" />
+
+            <TextView
+                style="@style/AppTheme.AboutTypeText"
+                android:layout_below="@id/emailText"
+                android:layout_toEndOf="@id/emailIcon"
+                android:text="@string/email_type"
+                android:layout_toRightOf="@id/emailIcon" />
+
+
+        </by.equestriadev.nikishin_rostislav.views.LinkedRelativeLayout>
+
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

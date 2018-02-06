@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="theme_modes">
+        <item>@string/light_title</item>
+        <item>@string/dark_title</item>
+    </string-array>
+
+    <string-array name="theme_modes_values"
+        translatable="false">
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
+
+    <string-array name="sorts">
+        <item>@string/sort_az</item>
+        <item>@string/sort_za</item>
+        <item>@string/sort_date</item>
+        <item>@string/sort_freq</item>
+        <item>@string/sort_nope</item>
+    </string-array>
+
+    <string-array name="sort_values"
+        translatable="false">
+        <item>sort_az</item>
+        <item>sort_za</item>
+        <item>sort_date</item>
+        <item>sort_freq</item>
+        <item>sort_nope</item>
+    </string-array>
+
+    <string-array name="layout_options">
+        <item>@string/compact_value</item>
+        <item>@string/standart_value</item>
+    </string-array>
+
+    <string-array name="layout_options_description">
+        <item>@string/description_compact</item>
+        <item>@string/description_standart</item>
+    </string-array>
+
+    <string-array name="layout_options_values"
+        translatable="false">
+        <item>compact</item>
+        <item>standard</item>
+    </string-array>
+
+
+</resources>

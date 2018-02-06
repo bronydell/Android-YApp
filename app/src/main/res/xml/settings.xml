@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings_title">
+        <ListPreference
+            android:defaultValue="@string/default_layout"
+            android:entries="@array/layout_options"
+            android:entryValues="@array/layout_options_values"
+            android:key="@string/layout_key"
+            android:summary="%s"
+            android:title="@string/layout_pick_title" />
+        <ListPreference
+            android:defaultValue="@string/default_theme"
+            android:entries="@array/theme_modes"
+            android:entryValues="@array/theme_modes_values"
+            android:key="@string/theme_key"
+            android:summary="%s"
+            android:title="@string/theme_pick_title" />
+        <ListPreference
+            android:defaultValue="@string/default_sort"
+            android:entries="@array/sorts"
+            android:entryValues="@array/sort_values"
+            android:key="@string/sort_key"
+            android:summary="%s"
+            android:title="@string/sort_type_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/visit_key"
+            android:title="@string/welcome_setting" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/hide_fav_key"
+            android:title="@string/hide_setting" />
+</PreferenceScreen>

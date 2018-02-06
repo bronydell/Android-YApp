@@ -1,3 +1,17 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="base_padding">16dp</dimen>
+    <dimen name="top_list_padding">4dp</dimen>
+    <dimen name="activity_horizontal_margin">17dp</dimen>
+    <dimen name="icon_size">165dp</dimen>
+    <dimen name="title_size">22sp</dimen>
+    <dimen name="subtitle_size">17sp</dimen>
+    <dimen name="theme_size">17sp</dimen>
+    <dimen name="layout_size">22sp</dimen>
+    <dimen name="launcher_offset">8dp</dimen>
+    <dimen name="default_icon_size">36dp</dimen>
+    <dimen name="split_margin">8dp</dimen>
+    <dimen name="list_icon_size">40dp</dimen>
+    <dimen name="split_height">1dp</dimen>
+    <dimen name="about_margin_top">8dp</dimen>
+    <dimen name="layout_description_size">15sp</dimen>
 </resources>

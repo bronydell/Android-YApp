@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome_activity_name">Привет!</string>
+    <string name="next">Перейти в приложение</string>
+    <string name="action_settings">Настройки</string>
+    <string name="about_text">Привет! Свайпни влево чтобы настроить приложение под себя</string>
+    <string name="theme_settings_title">Настройки темы</string>
+    <string name="launcher_settings_title">Настройки лаунчера</string>
+    <string name="author">Никишин Ростислав</string>
+    <string name="next_text_button">Далее</string>
+    <string name="theme_pick_title">Тема</string>
+    <string name="lang_pick_title">Язык</string>
+    <string name="layout_pick_title">Разметка</string>
+    <string name="delete_question">Серьёзно? Ты собрался удалять это элемент?</string>
+    <string name="confirm_delete">Да!</string>
+    <string name="light_title">Светлая тема</string>
+    <string name="dark_title">Темная тема</string>
+    <string name="settings_title">Настройки приложения</string>
+    <string name="nav_launcher">Лаунчер</string>
+    <string name="nav_list">Список приложений</string>
+    <string name="nav_settings">Настройки</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="welcome_setting">Посетить приветсвенный экран в следующий раз</string>
+    <string name="finish_text">И мы закончили</string>
+    <string name="sort_type_title">Тип сортировки</string>
+    <string name="app_context_about">О приложении</string>
+    <string name="app_context_delete">Удалить</string>
+    <string name="app_context_fav">Добавить в избранное</string>
+    <string name="app_context_freq">Частота использования</string>
+    <string name="app_context_unfav">Удалить из избранного</string>
+    <string name="compact_value">Компактная разметка</string>
+    <string name="description_compact">Вертикальная ориентация: 4 иконки\nГоризонтальная: 6 иконок</string>
+    <string name="description_standart">Вертикальная ориентация: 5 иконок\nГоризонтальная: 7 иконок</string>
+    <string name="favorite_apps">Избранные приложения</string>
+    <string name="finish_button_text">Перейти к приложению</string>
+    <string name="frequency_text">%s был запущен %d раз. В последний раз это было %s</string>
+    <string name="frequency_title">Частота использования %s</string>
+    <string name="hide_setting">Показывать любимые приложения сверху</string>
+    <string name="never_used">Никогда</string>
+    <string name="other_apps">Другие приложения</string>
+    <string name="sort_az">Сортировка A-Z</string>
+    <string name="sort_za">Сортировка Z-A</string>
+    <string name="sort_nope">Не использовать сортировку</string>
+    <string name="standart_value">Стандартная разметка</string>
+    <string name="sort_freq">Сортировать по частоте использования</string>
+    <string name="sort_date">Сортировать по дате установки</string>
+</resources>

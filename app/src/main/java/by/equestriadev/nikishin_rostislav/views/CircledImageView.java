@@ -5,20 +5,25 @@ import java.lang.reflect.InvocationTargetException;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 
 /**
  * Created by Rostislav on 25.01.2018.
  */
 
 public class CircledImageView  extends android.support.v7.widget.AppCompatImageView {
+
     public boolean mCircled;
+    public boolean mBackgroundCircled;
 
     public CircledImageView(Context context) {
         super(context);
@@ -32,14 +37,25 @@ public class CircledImageView  extends android.support.v7.widget.AppCompatImageV
         super(context, attrs, defStyle);
     }
 
+    private void ResetEverything(){
+        mCircled = false;
+        mBackgroundCircled = false;
+
+    }
     /**
      * In case the bitmap is manually changed, we make sure to
      * circle it on the next onDraw
      */
     @Override
     public void setImageBitmap(Bitmap bm) {
-        mCircled = false;
+        ResetEverything();
         super.setImageBitmap(bm);
+    }
+
+    @Override
+    public void setBackgroundDrawable(Drawable drawable) {
+        ResetEverything();
+        super.setBackgroundDrawable(drawable);
     }
 
     /**
@@ -48,7 +64,7 @@ public class CircledImageView  extends android.support.v7.widget.AppCompatImageV
      */
     @Override
     public void setImageResource(int resId) {
-        mCircled = false;
+        ResetEverything();
         super.setImageResource(resId);
     }
 
@@ -58,7 +74,7 @@ public class CircledImageView  extends android.support.v7.widget.AppCompatImageV
      */
     @Override
     public void setImageDrawable(Drawable drawable) {
-        mCircled = false;
+        ResetEverything();
         super.setImageDrawable(drawable);
     }
 
@@ -84,26 +100,30 @@ public class CircledImageView  extends android.support.v7.widget.AppCompatImageV
     protected void onDraw(Canvas canvas) {
         //Let's circle the image
         if ( !mCircled && getDrawable() != null) {
-            Drawable d = getDrawable();
-            try {
-                //We use reflection here in case that the drawable isn't a
-                //BitmapDrawable but it contains a public getBitmap method.
-                Bitmap bitmap = (Bitmap) d.getClass().getMethod("getBitmap").invoke(d);
-                Bitmap circleBitmap = getCircleBitmap(bitmap);
-                setImageBitmap(circleBitmap);
-            } catch (IllegalArgumentException e) {
-            } catch (IllegalAccessException e) {
-            } catch (InvocationTargetException e) {
-            } catch (NoSuchMethodException e) {
-                //Seems like the current drawable is not a BitmapDrawable or
-                //that is doesn't have a public getBitmap() method.
+            Bitmap bitmap = ProcessDrawable(getDrawable());
+            if(bitmap != null) {
+                setImageBitmap(bitmap);
             }
-
-            //Mark as circled even if it failed, because if it fails once,
-            //It will fail again.
             mCircled = true;
         }
+        if ( !mBackgroundCircled && getBackground() != null) {
+            Bitmap bitmap = ProcessDrawable(getBackground());
+            if(bitmap != null) {
+                setBackgroundDrawable(new BitmapDrawable(getResources(), bitmap));
+            }
+            mBackgroundCircled = true;
+        }
         super.onDraw(canvas);
+    }
+
+    private Bitmap ProcessDrawable(Drawable d){
+        try {
+            Bitmap bitmap = drawableToBitmap(d);
+            return getCircleBitmap(bitmap);
+        } catch (IllegalArgumentException ex) {
+
+            return null;
+        }
     }
 
     /**
@@ -131,5 +151,27 @@ public class CircledImageView  extends android.support.v7.widget.AppCompatImageV
         int radius = size/2;
         canvas.drawRoundRect(rect, radius,radius, paint);
         return output;
+    }
+
+    public static Bitmap drawableToBitmap (Drawable drawable) {
+        Bitmap bitmap = null;
+
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if(bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+
+        if(drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        }
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 }

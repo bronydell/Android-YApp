@@ -1,6 +1,74 @@
 <resources>
-    <string name="app_name">Rostislav Nikishin\'s app</string>
+
+    <string name="layout_key" translatable="false">layout</string>
+    <string name="theme_key" translatable="false">theme</string>
+    <string name="sort_key" translatable="false">sort_type</string>
+    <string name="hide_fav_key" translatable="false">hide_fav</string>
+    <string name="visit_key" translatable="false">shouldVisit</string>
+    <string name="language_key" translatable="false">lang</string>
+    <string name="default_theme" translatable="false">light</string>
+    <string name="default_sort" translatable="false">sort_az</string>
+    <string name="default_lang" translatable="false">none</string>
+    <string name="default_layout" translatable="false">compact</string>
+    <string name="drawer_open" translatable="false">openDrawer</string>
+    <string name="drawer_close" translatable="false">closeDrawer</string>
+
+
+    <string name="app_name" translatable="false">Rostislav Nikishin\'s Launcher</string>
+    <string name="welcome_activity_name">Welcome!</string>
+    <string name="next">Go to app!</string>
     <string name="action_settings">Settings</string>
-    <string name="github">Github: Bronydell</string>
+    <string name="about_text">Hi! Swipe left to start setup your personal launcher!</string>
+    <string name="theme_settings_title">Theme Settings</string>
+    <string name="launcher_settings_title">Launcher Settings</string>
     <string name="author">Rostislav Nikishin</string>
+    <string name="next_text_button">Next</string>
+    <string name="theme_pick_title">Theme</string>
+    <string name="lang_pick_title">Language</string>
+    <string name="layout_pick_title">Layout</string>
+    <string name="delete_question">Really? Are you gonna delete this wonderful color?</string>
+    <string name="confirm_delete">Yeah!</string>
+    <string name="havbar_header" translatable="false">@string/author</string>
+    <string name="light_title">Light theme</string>
+    <string name="dark_title">Dark theme</string>
+    <string name="settings_title">App\'s Settings</string>
+    <string name="nav_launcher">Launcher</string>
+    <string name="nav_list">App list</string>
+    <string name="nav_settings">Settings</string>
+    <string name="email_type" translatable="false">Email</string>
+    <string name="email" translatable="false">littleponyapps@gmail.com</string>
+    <string name="telegram_type" translatable="false">Telegram</string>
+    <string name="vk_type" translatable="false">VK</string>
+    <string name="vk_nick" translatable="false">\@Bronydell</string>
+    <string name="github_type" translatable="false">Github</string>
+    <string name="github_nick" translatable="false">Bronydell</string>
+    <string name="telegram_nick" translatable="false">\@Bronydell</string>
+    <string name="vk_url" translatable="false">https://vk.com/bronydell</string>
+    <string name="tg_url" translatable="false">https://t.me/bronydell</string>
+    <string name="github_url" translatable="false">https://github.com/bronydell</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="welcome_setting">Visit Welcome screen next time</string>
+    <string name="sort_az">Sort by A-Z</string>
+    <string name="sort_za">Sort by Z-A</string>
+    <string name="sort_date">Sort by install date</string>
+    <string name="sort_freq">Sort by usage frequency</string>
+    <string name="sort_nope">Don\'t use ANY sort</string>
+    <string name="sort_type_title">Sort type</string>
+    <string name="app_context_delete">Delete</string>
+    <string name="app_context_freq">Usage frequency</string>
+    <string name="frequency_title">Usage frequency for app %s</string>
+    <string name="frequency_text">%s has been launched %d times Last usage was %s</string>
+    <string name="app_context_about">About this app</string>
+    <string name="never_used">Never</string>
+    <string name="app_context_unfav">Remove from favorites</string>
+    <string name="app_context_fav">Add to favorites</string>
+    <string name="favorite_apps">Favorite Apps</string>
+    <string name="other_apps">Other Apps</string>
+    <string name="hide_setting">Show favorite apps on top</string>
+    <string name="finish_text">That\'s it!</string>
+    <string name="finish_button_text">Go to app!</string>
+    <string name="compact_value">Compact layout</string>
+    <string name="standart_value">Standard layout</string>
+    <string name="description_compact">Portrait: 4 icons in a row\nLandscape: 6 icons in a row</string>
+    <string name="description_standart">Portrait: 5 icons in a row\nLandscape: 7 icons in a row</string>
 </resources>
