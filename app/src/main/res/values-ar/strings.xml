@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Rostislav Nikishin\'s Launcher</string>
     <string name="welcome_activity_name">أهلا بك!</string>
     <string name="next">الذهاب إلى التطبيق!</string>
     <string name="action_settings">إعدادات</string>
@@ -31,7 +30,7 @@
     <string name="app_context_delete">حذف</string>
     <string name="app_context_freq">تردد الاستخدام</string>
     <string name="frequency_title">دد الاستخدام للتطبيق%s</string>
-    <string name="frequency_text">تم إطلاق% s% d مرة كان آخر استخدام %s</string>
+    <string name="frequency_text">تم إطلاق %s% d مرة كان آخر استخدام %s</string>
     <string name="app_context_about">عن هذا التطبيق</string>
     <string name="never_used">أبدا</string>
     <string name="app_context_unfav">إزالة من المفضلة</string>

@@ -6,7 +6,8 @@
         <item>@string/dark_title</item>
     </string-array>
 
-    <string-array name="theme_modes_values">
+    <string-array name="theme_modes_values"
+        translatable="false">
         <item>light</item>
         <item>dark</item>
     </string-array>
@@ -19,7 +20,8 @@
         <item>@string/sort_nope</item>
     </string-array>
 
-    <string-array name="sort_values">
+    <string-array name="sort_values"
+        translatable="false">
         <item>sort_az</item>
         <item>sort_za</item>
         <item>sort_date</item>
@@ -37,7 +39,8 @@
         <item>@string/description_standart</item>
     </string-array>
 
-    <string-array name="layout_options_values">
+    <string-array name="layout_options_values"
+        translatable="false">
         <item>compact</item>
         <item>standard</item>
     </string-array>
