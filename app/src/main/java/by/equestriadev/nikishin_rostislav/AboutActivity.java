@@ -1,5 +1,6 @@
 package by.equestriadev.nikishin_rostislav;
 
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +17,17 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String themeName = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                .getString(getString(R.string.theme_key),
+                getString(R.string.default_theme));
+        switch (themeName){
+            case "light":
+                this.setTheme(R.style.AppTheme);
+                break;
+            case "dark":
+                this.setTheme(R.style.AppTheme_Dark);
+                break;
+        }
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);

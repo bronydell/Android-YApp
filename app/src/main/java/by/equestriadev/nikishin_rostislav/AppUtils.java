@@ -20,6 +20,7 @@ import by.equestriadev.nikishin_rostislav.comporators.DateComparator;
 import by.equestriadev.nikishin_rostislav.comporators.FrequencyComparator;
 import by.equestriadev.nikishin_rostislav.model.App;
 import by.equestriadev.nikishin_rostislav.model.AppStatistics;
+import by.equestriadev.nikishin_rostislav.model.Database;
 
 /**
  * Created by Rostislav on 05.02.2018.

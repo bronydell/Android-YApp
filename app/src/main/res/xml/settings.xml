@@ -22,13 +22,6 @@
             android:key="@string/sort_key"
             android:summary="%s"
             android:title="@string/sort_type_title" />
-        <ListPreference
-            android:defaultValue="@string/default_lang"
-            android:entries="@array/languages"
-            android:entryValues="@array/languages_values"
-            android:key="@string/language_key"
-            android:summary="%s"
-            android:title="@string/lang_pick_title" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/visit_key"

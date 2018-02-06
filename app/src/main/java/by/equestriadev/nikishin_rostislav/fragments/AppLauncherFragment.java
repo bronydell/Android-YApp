@@ -24,7 +24,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import by.equestriadev.nikishin_rostislav.AppUtils;
-import by.equestriadev.nikishin_rostislav.Database;
+import by.equestriadev.nikishin_rostislav.model.Database;
 import by.equestriadev.nikishin_rostislav.R;
 import by.equestriadev.nikishin_rostislav.adapters.AppGridAdapter;
 import by.equestriadev.nikishin_rostislav.adapters.decorators.AppGridDecorator;

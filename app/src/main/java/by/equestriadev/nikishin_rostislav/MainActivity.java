@@ -47,8 +47,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-        setContentView(R.layout.activity_main);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String themeName = prefs.getString(getString(R.string.theme_key),
+                getString(R.string.default_theme));
+        switch (themeName){
+            case "light":
+                this.setTheme(R.style.AppTheme);
+                break;
+            case "dark":
+                this.setTheme(R.style.AppTheme_Dark);
+                break;
+        }
+        setContentView(R.layout.activity_main);
         // I'm just too lazy to rewrite old code, so to make opposite statement I've just added NO to it
         // Hate me later bro
         if (!(prefs.getBoolean("visited", false) && !prefs.getBoolean("shouldVisit", false)))

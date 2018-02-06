@@ -1,4 +1,4 @@
-package by.equestriadev.nikishin_rostislav;
+package by.equestriadev.nikishin_rostislav.model;
 
 import android.content.ContentValues;
 import android.content.Context;

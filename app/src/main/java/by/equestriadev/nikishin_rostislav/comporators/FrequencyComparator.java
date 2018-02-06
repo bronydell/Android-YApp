@@ -1,10 +1,7 @@
 package by.equestriadev.nikishin_rostislav.comporators;
 
-import android.content.pm.ResolveInfo;
-
 import java.util.Comparator;
 
-import by.equestriadev.nikishin_rostislav.Database;
 import by.equestriadev.nikishin_rostislav.model.App;
 import by.equestriadev.nikishin_rostislav.model.AppStatistics;
 

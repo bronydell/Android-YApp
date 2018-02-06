@@ -1,6 +1,7 @@
 package by.equestriadev.nikishin_rostislav;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
@@ -33,6 +34,17 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String themeName = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                .getString(getString(R.string.theme_key),
+                        getString(R.string.default_theme));
+        switch (themeName){
+            case "light":
+                this.setTheme(R.style.AppTheme);
+                break;
+            case "dark":
+                this.setTheme(R.style.AppTheme_Dark);
+                break;
+        }
         setContentView(R.layout.activity_welcome);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
