@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yandex.metrica.YandexMetrica;
+
 import java.util.Date;
 import java.util.List;
 
@@ -90,22 +92,27 @@ public class ListOfAppsFragment extends Fragment implements IUpdatable {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.about:
+                                YandexMetrica.reportEvent("Pressed on \"About app\"");
                                 mUtils.aboutAppByResolveInfo(appInfo);
                                 return true;
                             case R.id.delete:
+                                YandexMetrica.reportEvent("Pressed on \"Delete app\"");
                                 mUtils.deleteAppByResolveInfo(appInfo);
                                 return true;
                             case R.id.unfav:
+                                YandexMetrica.reportEvent("Pressed on \"Unfavorite app\"");
                                 appStat.setFavorite(false);
                                 db.CreateOrUpdate(appStat);
                                 updateAppList();
                                 return true;
                             case R.id.fav:
+                                YandexMetrica.reportEvent("Pressed on \"Favorite app\"");
                                 appStat.setFavorite(true);
                                 db.CreateOrUpdate(appStat);
                                 updateAppList();
                                 return true;
                             case R.id.freq:
+                                YandexMetrica.reportEvent("Pressed on \"Frequency info\"");
                                 mUtils.frequencyInfoByResolveInfo(appInfo);
                                 return true;
                             default:
@@ -119,6 +126,7 @@ public class ListOfAppsFragment extends Fragment implements IUpdatable {
         adapter.setOnItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View view, final int position) {
+                YandexMetrica.reportEvent("Used app");
                 ResolveInfo appInfo = adapter.getItemObject(position).getResolveInfo();
                 AppStatistics statistics = db.getApp(appInfo.activityInfo.packageName);
                 statistics.setLastUsage(new Date());

@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yandex.metrica.YandexMetrica;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -80,8 +82,10 @@ public class SetupFragment extends Fragment {
                 mSetupAdapter.setSelectedIndex(position);
                 editor.apply();
                 mSetupAdapter.notifyDataSetChanged();
-                if(mSettingKey.equals(getString(R.string.theme_key)))
+                if(mSettingKey.equals(getString(R.string.theme_key))) {
+                    YandexMetrica.reportEvent("Theme has changed");
                     getActivity().recreate();
+                }
             }
         });
         if(getContext().getResources().getConfiguration().orientation

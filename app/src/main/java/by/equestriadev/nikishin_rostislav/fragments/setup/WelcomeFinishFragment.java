@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yandex.metrica.YandexMetrica;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import by.equestriadev.nikishin_rostislav.MainActivity;
@@ -51,6 +53,7 @@ public class WelcomeFinishFragment extends Fragment {
 
     @OnClick(R.id.finish_button)
     public void goButton(View view) {
+        YandexMetrica.reportEvent("Finished welcome setup");
         goToLauncher();
     }
 

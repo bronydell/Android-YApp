@@ -7,6 +7,8 @@ import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 
+import com.yandex.metrica.YandexMetrica;
+
 import by.equestriadev.nikishin_rostislav.R;
 
 /**
@@ -49,6 +51,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if(key.equals(getString(R.string.theme_key))){
+            YandexMetrica.reportEvent("Theme has changed");
             getActivity().recreate();
         }
 

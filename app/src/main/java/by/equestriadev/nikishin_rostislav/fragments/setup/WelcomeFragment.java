@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yandex.metrica.YandexMetrica;
+
 import java.util.Random;
 
 import butterknife.BindView;
@@ -34,6 +36,7 @@ public class WelcomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        YandexMetrica.reportEvent("Open welcome activity");
         View v = inflater.inflate(R.layout.welcome_content, container, false);
         ButterKnife.bind(this, v);
         return v;

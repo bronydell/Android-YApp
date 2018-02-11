@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.crashlytics.android.Crashlytics;
+import com.yandex.metrica.YandexMetrica;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        YandexMetrica.reportEvent("Configuration has changed in Main Activity");
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
@@ -139,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onLongClick(View v) {
+        YandexMetrica.reportEvent("Open about activity");
         DeselectAll();
         final Intent myIntent = new Intent(this, AboutActivity.class);
         this.startActivity(myIntent);
@@ -146,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void goToWelcome() {
+        YandexMetrica.reportEvent("Launched welcome activity");
         Intent launcherIntent = new Intent(getApplicationContext(), WelcomeActivity.class);
         startActivity(launcherIntent);
         finish();
