@@ -81,28 +81,38 @@ public class Database extends SQLiteOpenHelper {
         if (cursor != null && cursor.moveToFirst()) {
 
             try {
-                if(cursor.getString(1) != null)
-                    return  new AppStatistics(
+                if(cursor.getString(1) != null){
+
+                    AppStatistics stats = new AppStatistics(
                             cursor.getString(0),
                             cursor.getInt(2),
                             DATE_FORMAT.parse(cursor.getString(1)),
                             cursor.getInt(3) == 1
                     );
-                else
-                    return  new AppStatistics(
+                    db.close();
+                    return stats;
+                }
+                else {
+                    AppStatistics stats = new AppStatistics(
                             cursor.getString(0),
                             cursor.getInt(2),
                             null,
                             cursor.getInt(3) == 1
                     );
+                    db.close();
+                    return stats;
+                }
 
             } catch (ParseException e) {
                 e.printStackTrace();
+                db.close();
                 return new AppStatistics(packageName, 0, null, false);
             }
         }
-        else
+        else {
+            db.close();
             return new AppStatistics(packageName, 0, null, false);
+        }
     }
 
     public Map<String, AppStatistics> GetAllApps(){
@@ -128,7 +138,7 @@ public class Database extends SQLiteOpenHelper {
                 }
             } while (cursor.moveToNext());
         }
-
+        db.close();
         return appList;
     }
 }

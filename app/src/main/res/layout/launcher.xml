@@ -12,4 +12,5 @@
             android:clipToPadding="false" />
         <include
             layout="@layout/fab"/>
+
 </android.support.design.widget.CoordinatorLayout>

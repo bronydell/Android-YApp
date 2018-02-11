@@ -57,6 +57,7 @@ public class WelcomeFinishFragment extends Fragment {
     private void goToLauncher() {
         SharedPreferences.Editor edit = mSharedPrefs.edit();
         edit.putBoolean("visited", true);
+        edit.putBoolean("shouldVisit", false);
         edit.apply();
         Intent launcherIntent = new Intent(getContext(), MainActivity.class);
         startActivity(launcherIntent);
