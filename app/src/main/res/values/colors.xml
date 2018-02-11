@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#E91E63</color>
-    <color name="colorPrimaryDark">#880E4F</color>
+    <color name="colorPrimary">#C2185B</color>
+    <color name="colorPrimaryDark">#E91E63</color>
     <color name="colorAccent">#EC407A</color>
-    <color name="colorPrimaryInverted">#9E9E9E</color>
-    <color name="colorPrimaryDarkInverted">#212121</color>
+    <color name="colorPrimaryInverted">#424242</color>
+    <color name="colorPrimaryDarkInverted">#616161</color>
     <color name="colorAccentInverted">#BDBDBD</color>
 
     <color name="vkColor">#45668e</color>

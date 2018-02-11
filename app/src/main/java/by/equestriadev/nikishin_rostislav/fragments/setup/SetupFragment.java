@@ -1,6 +1,7 @@
 package by.equestriadev.nikishin_rostislav.fragments.setup;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -79,9 +80,17 @@ public class SetupFragment extends Fragment {
                 mSetupAdapter.setSelectedIndex(position);
                 editor.apply();
                 mSetupAdapter.notifyDataSetChanged();
+                if(mSettingKey.equals(getString(R.string.theme_key)))
+                    getActivity().recreate();
             }
         });
-        mThemeRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        if(getContext().getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT)
+            mThemeRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        else
+            mThemeRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));
+
         mThemeRecyclerView.setAdapter(mSetupAdapter);
         return v;
     }

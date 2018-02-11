@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(fragmentClass != null) {
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
+                mDrawer.closeDrawers();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.fragmentManager, fragment).commit();
             } catch (Exception e) {
@@ -145,9 +146,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void goToWelcome() {
-        SharedPreferences.Editor edit = prefs.edit();
-        edit.putBoolean("shouldVisit", false);
-        edit.apply();
         Intent launcherIntent = new Intent(getApplicationContext(), WelcomeActivity.class);
         startActivity(launcherIntent);
         finish();

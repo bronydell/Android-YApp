@@ -91,8 +91,8 @@ public class AppUtils {
         for(int i = 0; i < allApps.size(); i++){
             if(allApps.get(i).getStatistics().isFavorite()) {
                 favAppInfos.add(allApps.get(i));
-                allApps.remove(i);
-                i--;
+                // allApps.remove(i);
+                // i--;
             }
         }
         return favAppInfos;
