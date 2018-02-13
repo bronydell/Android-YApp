@@ -17,10 +17,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import by.equestriadev.nikishin_rostislav.adapters.PageAdapter;
-import by.equestriadev.nikishin_rostislav.fragments.setup.SetupFragment;
-import by.equestriadev.nikishin_rostislav.fragments.setup.WelcomeFinishFragment;
-import by.equestriadev.nikishin_rostislav.fragments.setup.WelcomeFragment;
+import by.equestriadev.nikishin_rostislav.adapter.PageAdapter;
+import by.equestriadev.nikishin_rostislav.fragment.setup.SetupFragment;
+import by.equestriadev.nikishin_rostislav.fragment.setup.WelcomeFinishFragment;
+import by.equestriadev.nikishin_rostislav.fragment.setup.WelcomeFragment;
 
 public class WelcomeActivity extends AppCompatActivity {
 

@@ -44,4 +44,5 @@
     <string name="other_apps">تطبيقات أخرى</string>
     <string name="finish_button_text">الذهاب إلى التطبيق!</string>
     <string name="compact_value">تخطيط مدمج</string>
+    <string name="source_title">مصدر ورق الجدران</string>
 </resources>

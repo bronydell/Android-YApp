@@ -15,5 +15,6 @@ public class MyApplication extends Application {
         YandexMetrica.activate(getApplicationContext(),
                 "434bd221-69ac-461e-af4e-e7d8bb1d0945");
         YandexMetrica.enableActivityAutoTracking(this);
+
     }
 }
