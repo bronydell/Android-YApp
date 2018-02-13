@@ -10,7 +10,7 @@
     <string name="language_key" translatable="false">lang</string>
     <string name="default_theme" translatable="false">light</string>
     <string name="default_sort" translatable="false">sort_az</string>
-    <string name="default_freq" translatable="false">sort_az</string>
+    <string name="default_freq" translatable="false">@string/min15</string>
     <string name="default_source" translatable="false">ya</string>
     <string name="default_lang" translatable="false">none</string>
     <string name="yandex_fotki" translatable="false">Yandex Fotki</string>
@@ -38,6 +38,7 @@
     <string name="theme_pick_title">Theme</string>
     <string name="lang_pick_title">Language</string>
     <string name="layout_pick_title">Layout</string>
+    <string name="freq_title">Wallpaper update frequency</string>
     <string name="delete_question">Really? Are you gonna delete this wonderful color?</string>
     <string name="confirm_delete">Yeah!</string>
     <string name="havbar_header" translatable="false">@string/author</string>
