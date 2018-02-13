@@ -44,4 +44,9 @@
     <string name="other_apps">تطبيقات أخرى</string>
     <string name="finish_button_text">الذهاب إلى التطبيق!</string>
     <string name="compact_value">تخطيط مدمج</string>
+    <string name="source_title">مصدر ورق الجدران</string>
+    <string name="min15_text">15 دقيقة</string>
+    <string name="hour1_text">1 ساعة</string>
+    <string name="hour8_text">8 ساعات</string>
+    <string name="hour24_text">24 ساعة</string>
 </resources>

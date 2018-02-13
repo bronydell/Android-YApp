@@ -22,6 +22,20 @@
             android:key="@string/sort_key"
             android:summary="%s"
             android:title="@string/sort_type_title" />
+        <ListPreference
+            android:defaultValue="@string/default_source"
+            android:entries="@array/sources"
+            android:entryValues="@array/sources_values"
+            android:key="@string/wallpaper_source_key"
+            android:summary="%s"
+            android:title="@string/source_title" />
+        <ListPreference
+            android:defaultValue="@string/default_freq"
+            android:entries="@array/freq"
+            android:entryValues="@array/freq_values"
+            android:key="@string/freq_key"
+            android:summary="%s"
+            android:title="@string/source_title" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/visit_key"

@@ -1,5 +1,6 @@
 package by.equestriadev.nikishin_rostislav;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
@@ -9,15 +10,17 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.yandex.metrica.YandexMetrica;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import by.equestriadev.nikishin_rostislav.adapters.PageAdapter;
-import by.equestriadev.nikishin_rostislav.fragments.setup.SetupFragment;
-import by.equestriadev.nikishin_rostislav.fragments.setup.WelcomeFinishFragment;
-import by.equestriadev.nikishin_rostislav.fragments.setup.WelcomeFragment;
+import by.equestriadev.nikishin_rostislav.adapter.PageAdapter;
+import by.equestriadev.nikishin_rostislav.fragment.setup.SetupFragment;
+import by.equestriadev.nikishin_rostislav.fragment.setup.WelcomeFinishFragment;
+import by.equestriadev.nikishin_rostislav.fragment.setup.WelcomeFragment;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -63,5 +66,10 @@ public class WelcomeActivity extends AppCompatActivity {
         mDots.setupWithViewPager(mViewPager, true);
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        YandexMetrica.reportEvent("Configuration has changed in About Activity");
+    }
 
 }

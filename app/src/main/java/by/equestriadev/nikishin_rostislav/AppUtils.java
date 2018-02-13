@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
@@ -15,12 +16,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import by.equestriadev.nikishin_rostislav.comporators.AlphabetComparator;
-import by.equestriadev.nikishin_rostislav.comporators.DateComparator;
-import by.equestriadev.nikishin_rostislav.comporators.FrequencyComparator;
+import by.equestriadev.nikishin_rostislav.comporator.AlphabetComparator;
+import by.equestriadev.nikishin_rostislav.comporator.DateComparator;
+import by.equestriadev.nikishin_rostislav.comporator.FrequencyComparator;
 import by.equestriadev.nikishin_rostislav.model.App;
-import by.equestriadev.nikishin_rostislav.model.AppStatistics;
-import by.equestriadev.nikishin_rostislav.model.Database;
+import by.equestriadev.nikishin_rostislav.persistence.AppDatabase;
+import by.equestriadev.nikishin_rostislav.persistence.entity.AppStatistics;
 
 /**
  * Created by Rostislav on 05.02.2018.
@@ -29,11 +30,11 @@ import by.equestriadev.nikishin_rostislav.model.Database;
 public class AppUtils {
 
     private Context mContext;
-    private Database mDatabase;
+    private AppDatabase mDatabase;
     private static final SimpleDateFormat DATE_FORMAT =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public AppUtils(Context mContext, Database mDatabase) {
+    public AppUtils(Context mContext, AppDatabase mDatabase) {
         this.mContext = mContext;
         this.mDatabase = mDatabase;
     }
@@ -45,7 +46,14 @@ public class AppUtils {
         List<App> installedApps = new ArrayList<>();
         for (ResolveInfo app:
                 mContext.getPackageManager().queryIntentActivities(mainIntent, 0)) {
-            installedApps.add(new App(app, mDatabase.getApp(app.activityInfo.packageName)));
+            AppStatistics appStatistics = mDatabase.AppStatisticsModel().get(app.activityInfo.packageName);
+            if(appStatistics == null){
+                appStatistics = new AppStatistics();
+                appStatistics.setFavorite(false);
+                appStatistics.setUsageCounter(0);
+                appStatistics.setPackage(app.activityInfo.packageName);
+            }
+            installedApps.add(new App(app, appStatistics));
         }
         return installedApps;
     }
@@ -86,7 +94,6 @@ public class AppUtils {
 
 
     private List<App> getFavoriteApps(List<App> allApps){
-        Log.d(getClass().getName(), "Processing favorite apps");
         List<App> favAppInfos = new ArrayList<>();
         for(int i = 0; i < allApps.size(); i++){
             if(allApps.get(i).getStatistics().isFavorite()) {
@@ -99,7 +106,6 @@ public class AppUtils {
     }
 
     public void launchAppByResolveInfo(ResolveInfo info) {
-        Log.d(getClass().getName(), "Launching app");
         ActivityInfo activity = info.activityInfo;
         ComponentName name = new ComponentName(activity.applicationInfo.packageName,
                 activity.name);
@@ -118,24 +124,37 @@ public class AppUtils {
             mContext.startActivity(intent);
     }
 
-    public void frequencyInfoByResolveInfo(ResolveInfo info) {
+    public void frequencyInfoByResolveInfo(final ResolveInfo info,
+                                           final Fragment fragment) {
         Log.d(getClass().getName(), "Opening frequency popup");
-        final AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(mContext);
-        AppStatistics appStatistics = mDatabase.getApp(info.activityInfo.packageName);
-        String appName = info.loadLabel(mContext.getPackageManager()).toString();
-        dlgAlert.setMessage(String.format(mContext.getString(R.string.frequency_text),appName,
-                appStatistics.getUsageCounter(),
-                appStatistics.getLastUsage() != null ? DATE_FORMAT.format(appStatistics.getLastUsage()) :
-                        mContext.getString(R.string.never_used)));
-        dlgAlert.setTitle(String.format(mContext.getString(R.string.frequency_title), appName));
-        dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        new Thread(new Runnable() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+            public void run() {
+                final AppStatistics appStatistics = mDatabase.AppStatisticsModel()
+                        .get(info.activityInfo.packageName);
+                final AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(mContext);
+                String appName = info.loadLabel(mContext.getPackageManager()).toString();
+                dlgAlert.setMessage(String.format(mContext.getString(R.string.frequency_text),appName,
+                        appStatistics.getUsageCounter(),
+                        appStatistics.getLastUsage() != null ? DATE_FORMAT.format(appStatistics.getLastUsage()) :
+                                mContext.getString(R.string.never_used)));
+                dlgAlert.setTitle(String.format(mContext.getString(R.string.frequency_title), appName));
+                dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dlgAlert.setCancelable(true);
+                fragment.getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dlgAlert.create().show();
+                    }
+                });
             }
-        });
-        dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
+        }).start();
+
     }
 
     public void aboutAppByResolveInfo(ResolveInfo info) {

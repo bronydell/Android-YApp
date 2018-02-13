@@ -1,9 +1,14 @@
 package by.equestriadev.nikishin_rostislav;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -18,14 +23,17 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.crashlytics.android.Crashlytics;
+import com.yandex.metrica.YandexMetrica;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import by.equestriadev.nikishin_rostislav.fragments.AppLauncherFragment;
-import by.equestriadev.nikishin_rostislav.fragments.LauncherFragment;
-import by.equestriadev.nikishin_rostislav.fragments.ListFragment;
-import by.equestriadev.nikishin_rostislav.fragments.ListOfAppsFragment;
-import by.equestriadev.nikishin_rostislav.fragments.SettingsFragment;
+import by.equestriadev.nikishin_rostislav.broadcast.UpdateImageBroadcastReceiver;
+import by.equestriadev.nikishin_rostislav.fragment.AppLauncherFragment;
+import by.equestriadev.nikishin_rostislav.fragment.ListOfAppsFragment;
+import by.equestriadev.nikishin_rostislav.fragment.SettingsFragment;
+import by.equestriadev.nikishin_rostislav.service.ImageLoaderService;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
@@ -39,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout mDrawer;
 
     private SharedPreferences prefs;
+    private UpdateImageBroadcastReceiver mImageReceiver;
     private static final int DEFAULT_NAV_STATE = R.id.nav_grid;
 
     private ActionBarDrawerToggle drawerToggle;
@@ -63,6 +72,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Hate me later bro
         if (!(prefs.getBoolean("visited", false) && !prefs.getBoolean("shouldVisit", false)))
             goToWelcome();
+        int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            YandexMetrica.reportEvent("Main activity configuration is portrait");
+        } else {
+            YandexMetrica.reportEvent("Main activity configuration is landscape");
+        }
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         drawerToggle = setupDrawerToggle();
@@ -72,6 +87,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navView.setCheckedItem(DEFAULT_NAV_STATE);
             onNavigationItemSelected(navView.getMenu().findItem(DEFAULT_NAV_STATE));
         }
+    }
+
+    public void loopIt() {
+        Calendar cur_cal = Calendar.getInstance();
+        Intent intent = new Intent(this, ImageLoaderService.class);
+        intent.setAction(ImageLoaderService.SERVICE_ACTION_LOAD_IMAGE);
+        PendingIntent pintent = PendingIntent.getService(getApplicationContext(),
+                0, intent, 0);
+        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        cur_cal.setTimeInMillis(System.currentTimeMillis());
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cur_cal.getTimeInMillis(),
+                60 * 1000, pintent);
     }
 
     private void setupDrawer(NavigationView navigationView){
@@ -100,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        YandexMetrica.reportEvent("Configuration has changed in Main Activity");
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
@@ -139,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onLongClick(View v) {
+        YandexMetrica.reportEvent("Open about activity");
         DeselectAll();
         final Intent myIntent = new Intent(this, AboutActivity.class);
         this.startActivity(myIntent);
@@ -146,9 +175,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void goToWelcome() {
+        YandexMetrica.reportEvent("Launched welcome activity");
         Intent launcherIntent = new Intent(getApplicationContext(), WelcomeActivity.class);
         startActivity(launcherIntent);
         finish();
     }
+    public void InitReceiver() {
+        loopIt();
+        mImageReceiver = new UpdateImageBroadcastReceiver(this);
+        registerReceiver(mImageReceiver,
+                new IntentFilter(ImageLoaderService.BROADCAST_ACTION_UPDATE_IMAGE));
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        InitReceiver();
+    }
+
+    @Override
+    protected void onPause() {
+        unregisterReceiver(mImageReceiver);
+        super.onPause();
+    }
 }
