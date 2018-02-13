@@ -49,4 +49,5 @@
     <string name="hour1_text">1 ساعة</string>
     <string name="hour8_text">8 ساعات</string>
     <string name="hour24_text">24 ساعة</string>
+    <string name="freq_title">خلفية التحديث تردد</string>
 </resources>
