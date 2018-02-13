@@ -45,4 +45,8 @@
     <string name="sort_freq">Сортировать по частоте использования</string>
     <string name="sort_date">Сортировать по дате установки</string>
     <string name="source_title">Источник обоев</string>
+    <string name="min15_text">15 минут</string>
+    <string name="hour1_text">1 час</string>
+    <string name="hour8_text">8 часов</string>
+    <string name="hour24_text">24 часа</string>
 </resources>
