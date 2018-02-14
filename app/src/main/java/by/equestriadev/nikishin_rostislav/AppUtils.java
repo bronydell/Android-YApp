@@ -20,6 +20,7 @@ import by.equestriadev.nikishin_rostislav.comporator.AlphabetComparator;
 import by.equestriadev.nikishin_rostislav.comporator.DateComparator;
 import by.equestriadev.nikishin_rostislav.comporator.FrequencyComparator;
 import by.equestriadev.nikishin_rostislav.model.App;
+import by.equestriadev.nikishin_rostislav.model.ApplicationInfo;
 import by.equestriadev.nikishin_rostislav.persistence.AppDatabase;
 import by.equestriadev.nikishin_rostislav.persistence.entity.AppStatistics;
 
@@ -53,7 +54,8 @@ public class AppUtils {
                 appStatistics.setUsageCounter(0);
                 appStatistics.setPackage(app.activityInfo.packageName);
             }
-            installedApps.add(new App(app, appStatistics));
+            installedApps.add(new App(new ApplicationInfo(app, mContext.getPackageManager()),
+                    appStatistics));
         }
         return installedApps;
     }
@@ -65,12 +67,12 @@ public class AppUtils {
             case "sort_az":
                 Log.d(getClass().getName(), "Sorting list of apps a-z");
                 Collections.sort(installedApps,
-                        new AlphabetComparator(mContext.getPackageManager()));
+                        new AlphabetComparator());
                 break;
             case "sort_za":
                 Log.d(getClass().getName(), "Sorting list of apps z-a");
                 Collections.sort(installedApps,
-                        new AlphabetComparator(mContext.getPackageManager()));
+                        new AlphabetComparator());
                 Collections.reverse(installedApps);
                 break;
             case "sort_freq":
@@ -105,10 +107,9 @@ public class AppUtils {
         return favAppInfos;
     }
 
-    public void launchAppByResolveInfo(ResolveInfo info) {
-        ActivityInfo activity = info.activityInfo;
-        ComponentName name = new ComponentName(activity.applicationInfo.packageName,
-                activity.name);
+    public void launchAppByApplicationInfo(ApplicationInfo info) {
+        ComponentName name = new ComponentName(info.getPackageName(),
+                info.getActivityName());
         Intent i = new Intent(Intent.ACTION_MAIN);
 
         i.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -118,22 +119,22 @@ public class AppUtils {
         mContext.startActivity(i);
     }
 
-    public void deleteAppByResolveInfo(ResolveInfo info) {
+    public void deleteAppByApplicationInfo(ApplicationInfo info) {
             Intent intent = new Intent(Intent.ACTION_DELETE);
-            intent.setData(Uri.parse("package:" + info.activityInfo.packageName));
+            intent.setData(Uri.parse("package:" + info.getPackageName()));
             mContext.startActivity(intent);
     }
 
-    public void frequencyInfoByResolveInfo(final ResolveInfo info,
+    public void frequencyInfoByApplicationInfo(final ApplicationInfo info,
                                            final Fragment fragment) {
         Log.d(getClass().getName(), "Opening frequency popup");
         new Thread(new Runnable() {
             @Override
             public void run() {
                 final AppStatistics appStatistics = mDatabase.AppStatisticsModel()
-                        .get(info.activityInfo.packageName);
+                        .get(info.getPackageName());
                 final AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(mContext);
-                String appName = info.loadLabel(mContext.getPackageManager()).toString();
+                String appName = info.getAppname();
                 dlgAlert.setMessage(String.format(mContext.getString(R.string.frequency_text),appName,
                         appStatistics.getUsageCounter(),
                         appStatistics.getLastUsage() != null ? DATE_FORMAT.format(appStatistics.getLastUsage()) :
@@ -157,11 +158,11 @@ public class AppUtils {
 
     }
 
-    public void aboutAppByResolveInfo(ResolveInfo info) {
+    public void aboutAppByApplicationInfo(ApplicationInfo info) {
         Log.d(getClass().getName(), "Opening about activity");
         // GLORY TO GOOGLE FOR THIS LINE!
         Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.parse("package:" + info.activityInfo.packageName));
+        intent.setData(Uri.parse("package:" + info.getPackageName()));
         mContext.startActivity(intent);
     }
 }

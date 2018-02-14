@@ -18,7 +18,7 @@
         android:padding="16dp"
         android:gravity="bottom">
 
-        <by.equestriadev.nikishin_rostislav.views.CircledImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/nav_header_avatar"
             android:layout_width="72dp"
             android:layout_height="72dp"

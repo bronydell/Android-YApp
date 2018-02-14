@@ -20,7 +20,7 @@ public class AppHolder extends RecyclerView.ViewHolder implements View.OnClickLi
     private ItemClickListener mOnLongClickListener;
 
     @BindView(R.id.app_icon)
-    CircledImageView iconView;
+    ImageView iconView;
 
     @BindView(R.id.app_fav)
     ImageView favView;
@@ -44,7 +44,7 @@ public class AppHolder extends RecyclerView.ViewHolder implements View.OnClickLi
     }
 
 
-    public CircledImageView getIconSquareView() {
+    public ImageView getIconSquareView() {
         return iconView;
     }
 

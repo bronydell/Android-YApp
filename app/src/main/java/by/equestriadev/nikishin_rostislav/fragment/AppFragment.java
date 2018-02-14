@@ -29,6 +29,7 @@ import by.equestriadev.nikishin_rostislav.adapter.decorators.AppGridDecorator;
 import by.equestriadev.nikishin_rostislav.adapter.holders.ItemClickListener;
 import by.equestriadev.nikishin_rostislav.broadcast.AppReceiver;
 import by.equestriadev.nikishin_rostislav.model.App;
+import by.equestriadev.nikishin_rostislav.model.ApplicationInfo;
 import by.equestriadev.nikishin_rostislav.persistence.AppDatabase;
 import by.equestriadev.nikishin_rostislav.persistence.entity.AppStatistics;
 
@@ -77,7 +78,7 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
         adapter.setOnLongItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View view, final int position) {
-                final ResolveInfo appInfo = mAdapter.getItemObject(position).getResolveInfo();
+                final ApplicationInfo appInfo = mAdapter.getItemObject(position).getApplicationInfo();
                 final AppStatistics appStat = mAdapter.getItemObject(position).getStatistics();
                 PopupMenu popup = new PopupMenu(view.getContext(), view);
                 popup.inflate(R.menu.app_context_menu);
@@ -91,11 +92,11 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
                         switch (item.getItemId()) {
                             case R.id.about:
                                 YandexMetrica.reportEvent("Pressed on \"About app\"");
-                                mUtils.aboutAppByResolveInfo(appInfo);
+                                mUtils.aboutAppByApplicationInfo(appInfo);
                                 return true;
                             case R.id.delete:
                                 YandexMetrica.reportEvent("Pressed on \"Delete app\"");
-                                mUtils.deleteAppByResolveInfo(appInfo);
+                                mUtils.deleteAppByApplicationInfo(appInfo);
                                 return true;
                             case R.id.unfav:
                                 YandexMetrica.reportEvent("Pressed on \"Unfavorite app\"");
@@ -109,7 +110,7 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
                                 return true;
                             case R.id.freq:
                                 YandexMetrica.reportEvent("Pressed on \"Frequency info\"");
-                                mUtils.frequencyInfoByResolveInfo(appInfo, getFragment());
+                                mUtils.frequencyInfoByApplicationInfo(appInfo, getFragment());
                                 return true;
                             default:
                                 return true;
@@ -123,12 +124,12 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
             @Override
             public void onItemClick(View view, final int position) {
                 YandexMetrica.reportEvent("Used app");
-                ResolveInfo appInfo = adapter.getItemObject(position).getResolveInfo();
+                ApplicationInfo appInfo = adapter.getItemObject(position).getApplicationInfo();
                 AppStatistics statistics = adapter.getItemObject(position).getStatistics();
                 statistics.addUsage();
                 statistics.setLastUsage(new Date());
                 updateApp(statistics);
-                mUtils.launchAppByResolveInfo(appInfo);
+                mUtils.launchAppByApplicationInfo(appInfo);
             }
         });
     }

@@ -24,11 +24,11 @@ public class DateComparator implements Comparator<App> {
         try {
             long installed1 = mContext
                     .getPackageManager()
-                    .getPackageInfo(o1.getResolveInfo().activityInfo.packageName, 0)
+                    .getPackageInfo(o1.getApplicationInfo().getPackageName(), 0)
                     .firstInstallTime;
             long installed2 = mContext
                     .getPackageManager()
-                    .getPackageInfo(o2.getResolveInfo().activityInfo.packageName, 0)
+                    .getPackageInfo(o2.getApplicationInfo().getPackageName(), 0)
                     .firstInstallTime;
             if(installed1 > installed2)
                 return 1;

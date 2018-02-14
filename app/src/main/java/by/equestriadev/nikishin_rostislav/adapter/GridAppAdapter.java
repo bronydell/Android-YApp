@@ -32,9 +32,9 @@ public class GridAppAdapter extends AppListAdapter{
         AppHolder holder = (AppHolder)baseHolder;
         App application = mAppList.get(position);
         holder.getAppNameTextView().setText(application.
-                getResolveInfo().loadLabel(mPackageManager));
+                getApplicationInfo().getAppname());
         holder.getIconSquareView().setImageDrawable((application.
-                getResolveInfo().loadIcon(mPackageManager)));
+                getApplicationInfo().getIcon()));
         if(!application.getStatistics().isFavorite())
             holder.getFavImageView().setVisibility(View.GONE);
         else
