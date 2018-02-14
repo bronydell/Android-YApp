@@ -4,7 +4,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -131,8 +130,14 @@ public class AppUtils {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final AppStatistics appStatistics = mDatabase.AppStatisticsModel()
+                AppStatistics appStatistics = mDatabase.AppStatisticsModel()
                         .get(info.getPackageName());
+                if(appStatistics == null){
+                    appStatistics = new AppStatistics();
+                    appStatistics.setFavorite(false);
+                    appStatistics.setUsageCounter(0);
+                    appStatistics.setPackage(info.getPackageName());
+                }
                 final AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(mContext);
                 String appName = info.getAppname();
                 dlgAlert.setMessage(String.format(mContext.getString(R.string.frequency_text),appName,

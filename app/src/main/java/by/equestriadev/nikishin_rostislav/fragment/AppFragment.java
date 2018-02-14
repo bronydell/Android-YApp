@@ -3,7 +3,6 @@ package by.equestriadev.nikishin_rostislav.fragment;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.PreferenceManager;

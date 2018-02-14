@@ -1,22 +1,14 @@
 package by.equestriadev.nikishin_rostislav.broadcast;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 
-import java.io.FileNotFoundException;
-import java.util.Calendar;
-
-import by.equestriadev.nikishin_rostislav.MainActivity;
 import by.equestriadev.nikishin_rostislav.service.ImageLoaderService;
 import by.equestriadev.nikishin_rostislav.service.ImageSaver;
 

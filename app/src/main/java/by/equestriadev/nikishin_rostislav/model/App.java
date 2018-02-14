@@ -1,7 +1,5 @@
 package by.equestriadev.nikishin_rostislav.model;
 
-import android.content.pm.ResolveInfo;
-
 import by.equestriadev.nikishin_rostislav.persistence.entity.AppStatistics;
 
 /**

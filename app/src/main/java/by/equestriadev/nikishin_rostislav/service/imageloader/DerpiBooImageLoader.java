@@ -43,10 +43,8 @@ public class DerpiBooImageLoader extends ImageLoader {
             while ((inputStr = streamReader.readLine()) != null)
                 responseStrBuilder.append(inputStr);
 
-            JSONObject jsonObject = new JSONObject(responseStrBuilder.toString());
-
             //returns the json object
-            return jsonObject;
+            return new JSONObject(responseStrBuilder.toString());
 
         } catch (IOException e) {
             e.printStackTrace();

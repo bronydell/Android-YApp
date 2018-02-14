@@ -8,7 +8,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import by.equestriadev.nikishin_rostislav.R;
-import by.equestriadev.nikishin_rostislav.views.CircledImageView;
 
 /**
  * Created by Rostislav on 04.02.2018.

@@ -11,7 +11,6 @@ import com.yandex.metrica.YandexMetrica;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class AboutActivity extends AppCompatActivity {
 

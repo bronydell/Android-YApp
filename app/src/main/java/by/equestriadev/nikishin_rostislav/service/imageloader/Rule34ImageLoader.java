@@ -1,7 +1,6 @@
 package by.equestriadev.nikishin_rostislav.service.imageloader;
 
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.util.Xml;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -9,11 +8,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 import by.equestriadev.nikishin_rostislav.service.ImageLoader;
