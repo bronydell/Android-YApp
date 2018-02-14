@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -83,6 +82,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerToggle = setupDrawerToggle();
         mDrawer.addDrawerListener(drawerToggle);
         setupDrawer(navView);
+        Intent intent = new Intent(this, ImageLoaderService.class);
+        intent.setAction(ImageLoaderService.SERVICE_ACTION_LOAD_IMAGE);
+        startService(intent);
         if(savedInstanceState == null) {
             navView.setCheckedItem(DEFAULT_NAV_STATE);
             onNavigationItemSelected(navView.getMenu().findItem(DEFAULT_NAV_STATE));

@@ -1,7 +1,5 @@
 package by.equestriadev.nikishin_rostislav.comporator;
 
-import android.content.pm.PackageManager;
-
 import java.util.Comparator;
 
 import by.equestriadev.nikishin_rostislav.model.App;
