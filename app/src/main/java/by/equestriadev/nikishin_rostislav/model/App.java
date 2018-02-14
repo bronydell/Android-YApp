@@ -9,20 +9,20 @@ import by.equestriadev.nikishin_rostislav.persistence.entity.AppStatistics;
  */
 
 public class App {
-    private ResolveInfo mResolveInfo;
+    private ApplicationInfo mAppInfo;
     private AppStatistics mStatistics;
 
-    public App(ResolveInfo mResolveInfo, AppStatistics mStatistics) {
-        this.mResolveInfo = mResolveInfo;
-        this.mStatistics = mStatistics;
+    public App(ApplicationInfo appInfo, AppStatistics statistics) {
+        this.mAppInfo = appInfo;
+        this.mStatistics = statistics;
     }
 
-    public ResolveInfo getResolveInfo() {
-        return mResolveInfo;
+    public ApplicationInfo getApplicationInfo() {
+        return mAppInfo;
     }
 
-    public void setResolveInfo(ResolveInfo resolveInfo) {
-        this.mResolveInfo = resolveInfo;
+    public void setApplicationInfo(ApplicationInfo appInfo) {
+        this.mAppInfo = appInfo;
     }
 
     public AppStatistics getStatistics() {

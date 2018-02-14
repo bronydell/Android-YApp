@@ -12,14 +12,11 @@ import by.equestriadev.nikishin_rostislav.model.App;
 
 public class AlphabetComparator implements Comparator<App> {
 
-    private PackageManager mPackageManager;
 
-    public AlphabetComparator(PackageManager packageManager){
-        this.mPackageManager = packageManager;
-    }
+    public AlphabetComparator(){}
     @Override
     public int compare(App o1, App o2) {
-        return o1.getResolveInfo().loadLabel(mPackageManager).toString()
-                .compareTo(o2.getResolveInfo().loadLabel(mPackageManager).toString());
+        return o1.getApplicationInfo().getAppname()
+                .compareTo(o2.getApplicationInfo().getAppname());
     }
 }

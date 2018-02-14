@@ -33,11 +33,11 @@ public class ListAppAdapter extends AppListAdapter{
         ListAppHolder holder = (ListAppHolder)baseHolder;
         App application = mAppList.get(position);
         holder.getAppNameTextView().setText(application.
-                getResolveInfo().loadLabel(mPackageManager));
+                getApplicationInfo().getAppname());
         holder.getAppPackageTextView().setText(application.
-                getResolveInfo().activityInfo.packageName);
+                getApplicationInfo().getPackageName());
         holder.getAppImageView().setImageDrawable((application.
-                getResolveInfo().loadIcon(mPackageManager)));
+                getApplicationInfo().getIcon()));
         if(!application.getStatistics().isFavorite())
             holder.getFavoriteImageView().setVisibility(View.GONE);
         else
