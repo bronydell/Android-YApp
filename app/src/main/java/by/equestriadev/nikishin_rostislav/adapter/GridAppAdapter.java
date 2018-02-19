@@ -39,7 +39,7 @@ public class GridAppAdapter extends AppListAdapter{
             holder.getFavImageView().setVisibility(View.GONE);
         else
             holder.getFavImageView().setVisibility(View.VISIBLE);
-        holder.setOnClickListiner(mClickListener);
-        holder.setOnLongClickListiner(mOnLongClickListener);
+        holder.setOnItemClickListener(mClickListener);
+        holder.setOnLongClickListener(mOnLongClickListener);
     }
 }

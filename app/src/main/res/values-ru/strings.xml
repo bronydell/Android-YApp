@@ -50,4 +50,5 @@
     <string name="hour8_text">8 часов</string>
     <string name="hour24_text">24 часа</string>
     <string name="freq_title">Частота обновления обой</string>
+    <string name="app_context_add_home">Добавить на домашний экран</string>
 </resources>

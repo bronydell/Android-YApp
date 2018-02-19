@@ -28,12 +28,11 @@ public class AppReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         this.context = context;
-        Log.d(getClass().getName(), "RECEIVED: " + intent.getAction());
         // This condition will be called when package removed
         if (intent.getAction().equals("android.intent.action.PACKAGE_REMOVED") ||
                 intent.getAction().equals("android.intent.action.PACKAGE_ADDED")) {
             if(appGridLauncherFragment != null)
-                appGridLauncherFragment.updateAppList();
+                appGridLauncherFragment.update();
         }
     }
 }

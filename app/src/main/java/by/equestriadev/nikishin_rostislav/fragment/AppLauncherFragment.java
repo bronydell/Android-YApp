@@ -1,5 +1,6 @@
 package by.equestriadev.nikishin_rostislav.fragment;
 
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 
 import java.util.ArrayList;
@@ -15,13 +16,22 @@ import by.equestriadev.nikishin_rostislav.model.App;
 
 public class AppLauncherFragment extends AppFragment{
 
+
+    public static AppLauncherFragment newInstance() {
+        AppLauncherFragment fragment = new AppLauncherFragment();
+
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     @Override
     protected void InitRecyclerView() {
         mAdapter = new GridAppAdapter(this.getContext(), new ArrayList<App>());
         initAdapter(mAdapter);
-
         appGrid.setAdapter(mAdapter);
-        updateAppList();
+        update();
     }
 
     @Override

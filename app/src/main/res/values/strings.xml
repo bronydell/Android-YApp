@@ -90,4 +90,9 @@
     <string name="description_standart">Portrait: 5 icons in a row\nLandscape: 7 icons in a row</string>
     <string name="source_title">Wallpaper source</string>
     <string name="sort_za">Z-A sort</string>
+    <string name="app_context_add_home">Add to Home</string>
+    <string name="app_menu_delete_from_home">Delete from home</string>
+    <string name="add_contact_shortcut">Add contact shortcut</string>
+    <string name="add_url_shortcut">Add url shortcut</string>
+    <string name="nav_home">Home</string>
 </resources>
