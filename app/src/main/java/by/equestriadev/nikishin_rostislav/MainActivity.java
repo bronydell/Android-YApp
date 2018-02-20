@@ -7,11 +7,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.net.wifi.hotspot2.pps.HomeSp;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -30,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import by.equestriadev.nikishin_rostislav.broadcast.UpdateImageBroadcastReceiver;
 import by.equestriadev.nikishin_rostislav.fragment.HomeFragment;
-import by.equestriadev.nikishin_rostislav.fragment.SettingsFragment;
+import by.equestriadev.nikishin_rostislav.fragment.IUpdatable;
 import by.equestriadev.nikishin_rostislav.service.ImageLoaderService;
 import io.fabric.sdk.android.Fabric;
 
@@ -143,10 +143,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int page = 0;
-
         FragmentManager fragmentManager = getSupportFragmentManager();
-
+        Fragment fragment = fragmentManager.findFragmentById(R.id.fragmentManager);
+        if(fragment instanceof HomeFragment)
+            mHomeFragment = (HomeFragment)fragment;
         switch(item.getItemId()) {
             case R.id.nav_home:
                 mHomeFragment.changePage(0);
@@ -198,4 +198,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         unregisterReceiver(mImageReceiver);
         super.onPause();
     }
+
+    public void updateNav(int position){
+        if(navView.getMenu().size() > position)
+            navView.setCheckedItem(navView.getMenu().getItem(position).getItemId());
+    }
+
 }

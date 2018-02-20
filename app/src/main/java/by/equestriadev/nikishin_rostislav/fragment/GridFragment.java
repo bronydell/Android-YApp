@@ -68,6 +68,7 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
     private HomeGridAdapter mAdapter;
     private ItemTouchHelper mItemTouchHelper;
     private int kostil_position = -1;
+
     public static GridFragment newInstance() {
         GridFragment fragment = new GridFragment();
 
@@ -199,6 +200,13 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
                     i.setData(Uri.parse(shortcut.getUrl()));
                     startActivity(i);
                 }
+                else if(shortcut.getShortcutType() == ShortcutType.CONTACT){
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI,
+                            String.valueOf(shortcut.getUrl()));
+                    intent.setData(uri);
+                    startActivity(intent);
+                }
             }
         });
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
@@ -212,27 +220,29 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
         if(requestCode == RQS_PICK_CONTACT){
             if(resultCode == RESULT_OK){
                 Uri contactData = data.getData();
-                Cursor cursor =  getContext().getContentResolver().
-                        query(contactData, null, null, null, null);
-                cursor.moveToFirst();
-                Log.d(getClass().getName(), kostil_position + "");
-                String id = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
-                String title = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
-                final Shortcut shortcut = new Shortcut(
-                        kostil_position,
-                        id,
-                        title,
-                        ShortcutType.CONTACT
-                );
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mDb.ShortcutModel().insertShortcuts(shortcut);
-                        mUtils.callService(ShortcutService.BROADCAST_ACTION_ADD_SHORTCUT);
-                        update();
-                    }
-                }).start();
-                cursor.close();
+                if(contactData != null) {
+                    Cursor cursor = getContext().getContentResolver().
+                            query(contactData, null, null, null, null);
+                    cursor.moveToFirst();
+                    Log.d(getClass().getName(), kostil_position + "");
+                    String id = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+                    String title = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+                    final Shortcut shortcut = new Shortcut(
+                            kostil_position,
+                            id,
+                            title,
+                            ShortcutType.CONTACT
+                    );
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mDb.ShortcutModel().insertShortcuts(shortcut);
+                            mUtils.callService(ShortcutService.BROADCAST_ACTION_ADD_SHORTCUT);
+                            update();
+                        }
+                    }).start();
+                    cursor.close();
+                }
 
             }
         }

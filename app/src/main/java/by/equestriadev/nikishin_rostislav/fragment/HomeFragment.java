@@ -1,23 +1,22 @@
 package by.equestriadev.nikishin_rostislav.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import by.equestriadev.nikishin_rostislav.MainActivity;
 import by.equestriadev.nikishin_rostislav.R;
 import by.equestriadev.nikishin_rostislav.adapter.PageAdapter;
-import by.equestriadev.nikishin_rostislav.fragment.setup.WelcomeFragment;
-
 /**
  * Created by Rostislav on 20.02.2018.
  */
@@ -51,6 +50,24 @@ public class HomeFragment extends Fragment {
         fragments.add(SettingsFragment.newInstance());
         mPageAdapter = new PageAdapter(getFragmentManager(), fragments);
         viewPager.setAdapter(mPageAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.d(getClass().getName(), position + " viewpager position");
+                Activity activity = getActivity();
+                ((MainActivity)activity).updateNav(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         if(getArguments() != null) {
             viewPager.setCurrentItem(getArguments().getInt("start", 0));
         }
@@ -58,8 +75,10 @@ public class HomeFragment extends Fragment {
     }
 
     public void changePage(int page){
-        if(viewPager != null)
+        if(viewPager != null) {
+            Log.d(getClass().getName(), "Changing page on " + page);
             viewPager.setCurrentItem(page);
+        }
     }
 
     @Override
