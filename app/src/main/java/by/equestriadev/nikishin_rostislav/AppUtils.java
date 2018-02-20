@@ -99,7 +99,9 @@ public class AppUtils {
         List<App> installedApps = new ArrayList<>();
         for (ResolveInfo app:
                 mContext.getPackageManager().queryIntentActivities(mainIntent, 0)) {
-            AppStatistics appStatistics = mDatabase.AppStatisticsModel().get(app.activityInfo.packageName);
+            AppStatistics appStatistics = null;
+            if(mDatabase != null)
+                appStatistics = mDatabase.AppStatisticsModel().get(app.activityInfo.packageName);
             if(appStatistics == null){
                 appStatistics = new AppStatistics();
                 appStatistics.setFavorite(false);

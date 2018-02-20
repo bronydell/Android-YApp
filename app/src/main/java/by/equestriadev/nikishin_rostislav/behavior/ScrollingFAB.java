@@ -33,8 +33,7 @@ public class ScrollingFAB extends FloatingActionButton.Behavior {
         public void onNestedScroll(CoordinatorLayout coordinatorLayout,
                                    FloatingActionButton child, View target, int dxConsumed,
                                    int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
-            // TODO Auto-generated method stub
-            super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed,
+                super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed,
                     dxUnconsumed, dyUnconsumed);
 
             if (dyConsumed > 0 && child.getVisibility() == View.VISIBLE) {

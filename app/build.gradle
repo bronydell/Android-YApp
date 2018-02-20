@@ -15,6 +15,11 @@ repositories {
 }
 
 android {
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
     signingConfigs {
         release
         CI_Build {
@@ -61,6 +66,7 @@ dependencies {
         transitive = true
     }
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.robolectric:robolectric:3.7.1"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
