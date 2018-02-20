@@ -40,7 +40,13 @@
             android:theme="@style/AppTheme">
         </activity>
         <service android:name=".service.ImageLoaderService"/>
-        <service android:name=".service.ShortcutService"/>
+        <service android:name=".service.ShortcutService">
+
+            <intent-filter>
+                <action android:name="by.equestriadev.nikishin_rostislav.ADD_SHORTCUT" />
+                <action android:name="by.equestriadev.nikishin_rostislav.REMOVE_SHORTCUT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

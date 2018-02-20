@@ -123,8 +123,9 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
         intentFilter.addAction(ShortcutService.BROADCAST_ACTION_ADD_SHORTCUT);
         intentFilter.addAction(ShortcutService.BROADCAST_ACTION_REMOVE_SHORTCUT);
         intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-        intentFilter.addDataScheme("package");
+//        intentFilter.addDataScheme("package");
         getContext().registerReceiver(shortcutReceiver, intentFilter);
+        Log.d(getClass().getName(), "Receiver registered");
     }
 
     @Override
@@ -132,6 +133,7 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
         super.onStop();
         try {
             getContext().unregisterReceiver(this.shortcutReceiver);
+            Log.d(getClass().getName(), "Receiver unregistered");
         }
         catch(IllegalArgumentException e){
             e.printStackTrace();
@@ -250,11 +252,13 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
 
     @Override
     public void update() {
+        Log.d(getClass().getName(), "Update called");
         if (mAdapter != null) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     final Map<Integer, Shortcut> shortcuts = mUtils.getShortcuts();
+                    Log.d(getClass().getName(), "Shortcuts fetched");
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

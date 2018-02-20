@@ -24,7 +24,6 @@ public class ShortcutService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(getClass().getName(), "OnCreate");
     }
 
     @Override
@@ -44,8 +43,8 @@ public class ShortcutService extends Service {
                               final int flags,
                               final int startId) {
         String action = intent.getAction();
-        Log.d(getClass().getName(), action);
         if (SERVICE_ACTION_ADD_SHORTCUT.equals(action)) {
+            Log.d(getClass().getName(), action);
             final Intent broadcastIntent = new Intent(BROADCAST_ACTION_ADD_SHORTCUT);
             sendBroadcast(broadcastIntent);
         }

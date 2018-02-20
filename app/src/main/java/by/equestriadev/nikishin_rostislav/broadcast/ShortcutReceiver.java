@@ -13,20 +13,14 @@ import by.equestriadev.nikishin_rostislav.fragment.IUpdatable;
 
 public class ShortcutReceiver extends BroadcastReceiver {
 
-    Context context;
     private IUpdatable shortcutFragemnt;
 
     public ShortcutReceiver(IUpdatable fragment) {
         this.shortcutFragemnt = fragment;
     }
 
-
-    public ShortcutReceiver() {
-    }
-
     @Override
     public void onReceive(Context context, Intent intent) {
-        this.context = context;
         Log.d(this.getClass().getName(), intent.getAction());
         shortcutFragemnt.update();
     }
