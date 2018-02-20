@@ -34,7 +34,7 @@ android {
         applicationId 'by.equestriadev.nikishin_rostislav'
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 10
+        versionCode 11
         versionName "4.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

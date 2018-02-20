@@ -3,13 +3,18 @@ package by.equestriadev.nikishin_rostislav.adapter;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +42,9 @@ public class HomeGridAdapter extends RecyclerView.Adapter<ShortcutHolder> implem
     private OnStartDragListener mDragStartListener;
 
     public static final int ROW_COUNT = 5 * 5;
+
+    private int longClickDuration = 2000;
+    private boolean isLongPress = false;
 
     public HomeGridAdapter(Context context, Map<Integer, Shortcut> shortcutList, OnStartDragListener dragListener) {
         this.mInflater = LayoutInflater.from(context);
@@ -84,8 +92,23 @@ public class HomeGridAdapter extends RecyclerView.Adapter<ShortcutHolder> implem
             holder.getView().setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                        mDragStartListener.onStartDrag(holder);
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        isLongPress = true;
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (isLongPress) {
+                                    Vibrator vibrator = (Vibrator)mContext.
+                                            getSystemService(Context.VIBRATOR_SERVICE);
+                                    if(vibrator != null)
+                                        vibrator.vibrate(100);
+                                    mDragStartListener.onStartDrag(holder);
+                                }
+                            }
+                        }, longClickDuration);
+                    } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                        isLongPress = false;
                     }
                     return false;
                 }

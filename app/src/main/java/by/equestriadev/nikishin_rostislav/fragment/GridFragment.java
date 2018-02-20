@@ -67,6 +67,7 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
     private AppDatabase mDb;
     private HomeGridAdapter mAdapter;
     private ItemTouchHelper mItemTouchHelper;
+    private PopupMenu mPopup;
     private int kostil_position = -1;
 
     public static GridFragment newInstance() {
@@ -171,9 +172,9 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
             @Override
             public void onItemClick(View view, final int position) {
                 final Shortcut shortcut = mAdapter.getItemObject(position);
-                PopupMenu popup = new PopupMenu(view.getContext(), view);
-                popup.inflate(R.menu.home_shortcut_menu);
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                mPopup = new PopupMenu(view.getContext(), view);
+                mPopup.inflate(R.menu.home_shortcut_menu);
+                mPopup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
@@ -185,7 +186,7 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
                         }
                     }
                 });
-                popup.show();
+                mPopup.show();
             }
         });
         adapter.setOnItemClickListener(new ItemClickListener() {
@@ -225,25 +226,27 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
                 if(contactData != null) {
                     Cursor cursor = getContext().getContentResolver().
                             query(contactData, null, null, null, null);
-                    cursor.moveToFirst();
-                    Log.d(getClass().getName(), kostil_position + "");
-                    String id = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
-                    String title = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
-                    final Shortcut shortcut = new Shortcut(
-                            kostil_position,
-                            id,
-                            title,
-                            ShortcutType.CONTACT
-                    );
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mDb.ShortcutModel().insertShortcuts(shortcut);
-                            mUtils.callService(ShortcutService.BROADCAST_ACTION_ADD_SHORTCUT);
-                            update();
-                        }
-                    }).start();
-                    cursor.close();
+                    if(cursor != null) {
+                        cursor.moveToFirst();
+                        Log.d(getClass().getName(), kostil_position + "");
+                        String id = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+                        String title = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+                        final Shortcut shortcut = new Shortcut(
+                                kostil_position,
+                                id,
+                                title,
+                                ShortcutType.CONTACT
+                        );
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mDb.ShortcutModel().insertShortcuts(shortcut);
+                                mUtils.callService(ShortcutService.BROADCAST_ACTION_ADD_SHORTCUT);
+                                update();
+                            }
+                        }).start();
+                        cursor.close();
+                    }
                 }
 
             }
@@ -272,7 +275,10 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
 
     @Override
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        Log.d(getClass().getName(), "onStartDrag");
         mItemTouchHelper.startDrag(viewHolder);
+        if(mPopup != null)
+            mPopup.dismiss();
     }
 
     private void callURLBuilder(final int position){
