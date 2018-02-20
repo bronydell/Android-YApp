@@ -29,9 +29,8 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import by.equestriadev.nikishin_rostislav.broadcast.UpdateImageBroadcastReceiver;
-import by.equestriadev.nikishin_rostislav.fragment.AppLauncherFragment;
-import by.equestriadev.nikishin_rostislav.fragment.ListOfAppsFragment;
-import by.equestriadev.nikishin_rostislav.fragment.SettingsFragment;
+import by.equestriadev.nikishin_rostislav.fragment.HomeFragment;
+import by.equestriadev.nikishin_rostislav.fragment.IUpdatable;
 import by.equestriadev.nikishin_rostislav.service.ImageLoaderService;
 import io.fabric.sdk.android.Fabric;
 
@@ -45,12 +44,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawer;
 
+    private HomeFragment mHomeFragment;
     private SharedPreferences prefs;
     private UpdateImageBroadcastReceiver mImageReceiver;
-    private static final int DEFAULT_NAV_STATE = R.id.nav_grid;
+    private static final int DEFAULT_NAV_STATE = R.id.nav_home;
 
     private ActionBarDrawerToggle drawerToggle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,13 +78,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        mHomeFragment = HomeFragment.newInstance(0);
         drawerToggle = setupDrawerToggle();
         mDrawer.addDrawerListener(drawerToggle);
         setupDrawer(navView);
+        // Calling wallpaper manager to set wallpaper, just if AlarmManager died
         Intent intent = new Intent(this, ImageLoaderService.class);
         intent.setAction(ImageLoaderService.SERVICE_ACTION_LOAD_IMAGE);
         startService(intent);
         if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentManager,
+                    mHomeFragment).commit();
             navView.setCheckedItem(DEFAULT_NAV_STATE);
             onNavigationItemSelected(navView.getMenu().findItem(DEFAULT_NAV_STATE));
         }
@@ -140,31 +143,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment fragment = null;
-        Class fragmentClass = null;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.fragmentManager);
+        if(fragment instanceof HomeFragment)
+            mHomeFragment = (HomeFragment)fragment;
         switch(item.getItemId()) {
+            case R.id.nav_home:
+                mHomeFragment.changePage(0);
+                break;
             case R.id.nav_grid:
-                fragmentClass = AppLauncherFragment.class;
+                mHomeFragment.changePage(1);
                 break;
             case R.id.nav_list:
-                fragmentClass = ListOfAppsFragment.class;
+                mHomeFragment.changePage(2);
                 break;
             case R.id.nav_settings:
-                fragmentClass = SettingsFragment.class;
+                mHomeFragment.changePage(3);
                 break;
         }
-        if(fragmentClass != null) {
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-                mDrawer.closeDrawers();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragmentManager, fragment).commit();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return true;
-        }
-        return false;
+        mDrawer.closeDrawers();
+        return true;
     }
 
     @Override
@@ -200,4 +198,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         unregisterReceiver(mImageReceiver);
         super.onPause();
     }
+
+    public void updateNav(int position){
+        if(navView.getMenu().size() > position)
+            navView.setCheckedItem(navView.getMenu().getItem(position).getItemId());
+    }
+
 }

@@ -50,4 +50,9 @@
     <string name="hour8_text">8 ساعات</string>
     <string name="hour24_text">24 ساعة</string>
     <string name="freq_title">خلفية التحديث تردد</string>
+    <string name="app_context_add_home">إضافة إلى الشاشة الرئيسية</string>
+    <string name="app_menu_delete_from_home">حذف من الشاشة الرئيسية</string>
+    <string name="add_contact_shortcut">إضافة اختصار جهة الاتصال</string>
+    <string name="add_url_shortcut">إضافة اختصار عنوان ورل</string>
+    <string name="nav_home">الشاشة الرئيسية</string>
 </resources>

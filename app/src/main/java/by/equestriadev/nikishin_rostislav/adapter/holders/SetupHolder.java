@@ -13,10 +13,7 @@ import by.equestriadev.nikishin_rostislav.R;
  * Created by Rostislav on 05.02.2018.
  */
 
-public class SetupHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-
-    private ItemClickListener mClickListener;
-    private ItemClickListener mOnLongClickListener;
+public class SetupHolder extends ListenableHolder {
 
     @BindView(R.id.radioButton)
     RadioButton radioButton;
@@ -34,14 +31,6 @@ public class SetupHolder extends RecyclerView.ViewHolder implements View.OnClick
         itemView.setOnLongClickListener(this);
     }
 
-    public void setOnClickListiner(ItemClickListener itemClickListener){
-        this.mClickListener = itemClickListener;
-    }
-
-    public void setOnLongClickListiner(ItemClickListener itemClickListener){
-        this.mOnLongClickListener = itemClickListener;
-    }
-
     public RadioButton getRadioButton() {
         return radioButton;
     }
@@ -54,14 +43,4 @@ public class SetupHolder extends RecyclerView.ViewHolder implements View.OnClick
         return descriptionTextView;
     }
 
-    @Override
-    public void onClick(View view) {
-        if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-    }
-
-    @Override
-    public boolean onLongClick(View view) {
-        if (mOnLongClickListener != null) mOnLongClickListener.onItemClick(view, getAdapterPosition());
-        return true;
-    }
 }

@@ -5,5 +5,5 @@ package by.equestriadev.nikishin_rostislav.fragment;
  */
 
 public interface IUpdatable {
-    void updateAppList();
+    void update();
 }

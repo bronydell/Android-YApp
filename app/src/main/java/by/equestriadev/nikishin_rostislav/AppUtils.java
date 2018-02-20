@@ -13,21 +13,30 @@ import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import by.equestriadev.nikishin_rostislav.adapter.HomeGridAdapter;
 import by.equestriadev.nikishin_rostislav.comporator.AlphabetComparator;
 import by.equestriadev.nikishin_rostislav.comporator.DateComparator;
 import by.equestriadev.nikishin_rostislav.comporator.FrequencyComparator;
 import by.equestriadev.nikishin_rostislav.model.App;
+import by.equestriadev.nikishin_rostislav.model.AppShortcut;
 import by.equestriadev.nikishin_rostislav.model.ApplicationInfo;
+import by.equestriadev.nikishin_rostislav.model.ShortcutType;
 import by.equestriadev.nikishin_rostislav.persistence.AppDatabase;
 import by.equestriadev.nikishin_rostislav.persistence.entity.AppStatistics;
+import by.equestriadev.nikishin_rostislav.persistence.entity.Shortcut;
+import by.equestriadev.nikishin_rostislav.service.ImageLoaderService;
+import by.equestriadev.nikishin_rostislav.service.ShortcutService;
 
 /**
  * Created by Rostislav on 05.02.2018.
  */
 
 public class AppUtils {
+
 
     private Context mContext;
     private AppDatabase mDatabase;
@@ -39,6 +48,50 @@ public class AppUtils {
         this.mDatabase = mDatabase;
     }
 
+    public void callService(String action){
+        Log.d(getClass().getName(), "WHERE THE FUCK ARE YOU?");
+        Intent intent = new Intent(mContext, ShortcutService.class);
+        intent.setAction(action);
+        mContext.startService(intent);
+    }
+
+    public boolean addShortcut(Shortcut shortcut, int limit){
+        Map<Integer, Shortcut> shortcuts = getShortcuts();
+        for(int i = 0; i < limit; i++){
+            if(shortcuts.get(i) == null){
+                shortcut.setPosition(i);
+                mDatabase.ShortcutModel().insertShortcuts(shortcut);
+                callService(ShortcutService.SERVICE_ACTION_ADD_SHORTCUT);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Map<Integer, Shortcut> getShortcuts(){
+        Map<Integer, Shortcut> shortcuts = new HashMap<>();
+        List<App> apps = getAllInstalledApps();
+        List<Shortcut> shorts = mDatabase.ShortcutModel().getAllShortcuts();
+        for (Shortcut shot:
+            shorts) {
+            if(shot.getShortcutType() == ShortcutType.APPLICATION){
+                AppShortcut cut = new AppShortcut(shot);
+                for (App app:
+                        apps) {
+                    if(app.getApplicationInfo().getActivityName().equals(shot.getUrl())) {
+                        cut.setApplication(app.getApplicationInfo());
+                        shortcuts.put(shot.getPosition(), cut);
+                        break;
+                    }
+                }
+            }
+            else{
+                shortcuts.put(shot.getPosition(), shot);
+            }
+        }
+        return shortcuts;
+    }
+
     private List<App> getAllInstalledApps() {
         Log.d(getClass().getName(), "Fetching every installed app with launcher activity");
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
@@ -46,7 +99,9 @@ public class AppUtils {
         List<App> installedApps = new ArrayList<>();
         for (ResolveInfo app:
                 mContext.getPackageManager().queryIntentActivities(mainIntent, 0)) {
-            AppStatistics appStatistics = mDatabase.AppStatisticsModel().get(app.activityInfo.packageName);
+            AppStatistics appStatistics = null;
+            if(mDatabase != null)
+                appStatistics = mDatabase.AppStatisticsModel().get(app.activityInfo.packageName);
             if(appStatistics == null){
                 appStatistics = new AppStatistics();
                 appStatistics.setFavorite(false);

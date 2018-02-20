@@ -9,14 +9,14 @@ import android.support.annotation.NonNull;
 
 import java.util.Date;
 
-import by.equestriadev.nikishin_rostislav.persistence.conventer.DateConventer;
+import by.equestriadev.nikishin_rostislav.persistence.converter.DateConverter;
 
 /**
  * Created by Rostislav on 04.02.2018.
  */
 
 @Entity
-@TypeConverters(DateConventer.class)
+@TypeConverters(DateConverter.class)
 public class AppStatistics {
 
     @PrimaryKey

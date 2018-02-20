@@ -10,8 +10,11 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import by.equestriadev.nikishin_rostislav.service.ImageLoader;
 
@@ -26,18 +29,24 @@ public class FotkiImageLoader extends ImageLoader {
     @Nullable
     @Override
     protected String parse(InputStream input) {
+        List<String> linkList = new ArrayList<>();
         final XmlPullParser parser = Xml.newPullParser();
         try {
             parser.setInput(input, null);
             while (parser.next() != XmlPullParser.END_DOCUMENT) {
                 if (parser.getEventType() == START_TAG  && "content".equals(parser.getName())) {
                     for (int i = 0; i < parser.getAttributeCount(); i++) {
-                        Log.d(getClass().getName(), parser.getAttributeName(i) + " " + parser.getAttributeValue(i));
                         if ("src".equals(parser.getAttributeName(i))) {
-                            return parser.getAttributeValue(i);
+                            linkList.add(parser.getAttributeValue(i));
                         }
                     }
                 }
+            }
+
+            input.close();
+            Log.d(getClass().getName(), linkList.size() + " links in array");
+            if(linkList.size() > 0){
+                return linkList.get(new Random().nextInt(linkList.size()));
             }
         }
         catch (XmlPullParserException | IOException e) {
@@ -53,6 +62,6 @@ public class FotkiImageLoader extends ImageLoader {
         final String formattedDate = dateFormat.format(calendar.getTime());
 
         return "http://api-fotki.yandex.ru/api/podhistory/poddate;" +
-                formattedDate + "T12:00:00Z/?limit=1";
+                formattedDate + "T12:00:00Z/";
     }
 }

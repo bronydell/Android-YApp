@@ -50,8 +50,8 @@ public class SetupAdapter extends RecyclerView.Adapter<SetupHolder> {
         if(mDescriptionList != null && mDescriptionList.size() > position)
             holder.getDescriptionTextView().setText(mDescriptionList.get(position));
         holder.getRadioButton().setChecked(mSelected == position);
-        holder.setOnClickListiner(mClickListener);
-        holder.setOnLongClickListiner(mOnLongClickListener);
+        holder.setOnItemClickListener(mClickListener);
+        holder.setOnLongClickListener(mOnLongClickListener);
     }
 
     @Override

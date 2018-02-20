@@ -23,8 +23,6 @@ import by.equestriadev.nikishin_rostislav.service.imageloader.Rule34ImageLoader;
 
 public class ImageLoaderService extends Service {
 
-    private static final String TAG = "Shad";
-
     public static final String SERVICE_ACTION_LOAD_IMAGE = "by.equestriadev.nikishin_rostislav.LOAD_IMAGE";
     public static final String BROADCAST_ACTION_UPDATE_IMAGE =
             "by.equestriadev.nikishin_rostislav.UPDATE_IMAGE";
@@ -113,7 +111,6 @@ public class ImageLoaderService extends Service {
 
     @Override
     public void onDestroy() {
-        Log.d(TAG, "MyService, onDestroy");
         super.onDestroy();
     }
 }

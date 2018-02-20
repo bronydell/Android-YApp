@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.yandex.metrica.YandexMetrica;
 
@@ -29,8 +30,10 @@ import by.equestriadev.nikishin_rostislav.adapter.holders.ItemClickListener;
 import by.equestriadev.nikishin_rostislav.broadcast.AppReceiver;
 import by.equestriadev.nikishin_rostislav.model.App;
 import by.equestriadev.nikishin_rostislav.model.ApplicationInfo;
+import by.equestriadev.nikishin_rostislav.model.ShortcutType;
 import by.equestriadev.nikishin_rostislav.persistence.AppDatabase;
 import by.equestriadev.nikishin_rostislav.persistence.entity.AppStatistics;
+import by.equestriadev.nikishin_rostislav.persistence.entity.Shortcut;
 
 /**
  * Created by Rostislav on 13.02.2018.
@@ -93,6 +96,10 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
                                 YandexMetrica.reportEvent("Pressed on \"About app\"");
                                 mUtils.aboutAppByApplicationInfo(appInfo);
                                 return true;
+                            case R.id.add_to_home:
+                                YandexMetrica.reportEvent("Pressed on \"Add to Home\"");
+                                addAppShortcut(appInfo);
+                                return true;
                             case R.id.delete:
                                 YandexMetrica.reportEvent("Pressed on \"Delete app\"");
                                 mUtils.deleteAppByApplicationInfo(appInfo);
@@ -152,7 +159,25 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
 
     protected abstract void InitRecyclerView();
 
-
+    public void addAppShortcut(final ApplicationInfo appInfo){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Shortcut shortcut = new Shortcut();
+                shortcut.setShortcutType(ShortcutType.APPLICATION);
+                shortcut.setTitle(appInfo.getAppname());
+                shortcut.setUrl(appInfo.getActivityName());
+                if(!mUtils.addShortcut(shortcut, 5*5))
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getContext(),
+                                    "Can't add shortcut. Homescreen is full!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            }
+        }).start();
+    }
     public void InitReceiver() {
         mAppReceiver = new AppReceiver(this);
         IntentFilter intentFilter = new IntentFilter();
@@ -168,12 +193,13 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
             @Override
             public void run() {
                 db.AppStatisticsModel().insertApps(appStatistics);
-                updateAppList();
+                update();
             }
         }).start();
     }
 
-    public void updateAppList() {
+    @Override
+    public void update() {
         if (mAdapter != null) {
             new Thread(new Runnable() {
                 @Override
