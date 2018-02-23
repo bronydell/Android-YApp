@@ -27,7 +27,6 @@ public class ImageUnitTest {
     @Test
     public void MLWTest() {
         ImageLoader loader = new MLWallpaperImageLoader();
-        System.out.println(loader.getImageUrl());
         assertEquals(loader.getImageUrl() != null, true);
     }
 

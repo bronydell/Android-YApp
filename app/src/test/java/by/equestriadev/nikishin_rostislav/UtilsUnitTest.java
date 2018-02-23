@@ -2,10 +2,11 @@ package by.equestriadev.nikishin_rostislav;
 
 import android.content.Context;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,18 +24,23 @@ import static junit.framework.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
 public class UtilsUnitTest {
-    private Context context = Robolectric.buildActivity(MainActivity.class).get();
+    private Context context;
+
+    @Before
+    public void setup() {
+        context = RuntimeEnvironment.application.getApplicationContext();
+    }
 
     @Test
     public void appsFetchTest() {
         AppUtils utils = new AppUtils(context, null);
-        assert (utils.getSortedApps("sort_az", false).size() > 0);
+        assertEquals(utils.getSortedApps("none", false).size() > 0, true);
     }
 
     @Test
     public void emptyShortcutFetchTest() {
         AppUtils utils = new AppUtils(context, null);
-        assert (utils.getShortcuts().size() == 0);
+        assertEquals(utils.getShortcuts().size() == 0, true);
     }
 
     @Test
