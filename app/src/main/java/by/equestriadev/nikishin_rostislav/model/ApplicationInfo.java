@@ -25,6 +25,13 @@ public class ApplicationInfo {
         mActivityName = info.activityInfo.name;
     }
 
+    public ApplicationInfo(String appName, String packageName, String activityName, Drawable icon) {
+        this.mAppname = appName;
+        this.mPackageName = packageName;
+        this.mActivityName = activityName;
+        this.mIcon = icon;
+    }
+
 
     public String getAppname() {
         return mAppname;

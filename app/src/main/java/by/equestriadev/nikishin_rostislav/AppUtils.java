@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import by.equestriadev.nikishin_rostislav.adapter.HomeGridAdapter;
 import by.equestriadev.nikishin_rostislav.comporator.AlphabetComparator;
 import by.equestriadev.nikishin_rostislav.comporator.DateComparator;
 import by.equestriadev.nikishin_rostislav.comporator.FrequencyComparator;
@@ -28,7 +27,6 @@ import by.equestriadev.nikishin_rostislav.model.ShortcutType;
 import by.equestriadev.nikishin_rostislav.persistence.AppDatabase;
 import by.equestriadev.nikishin_rostislav.persistence.entity.AppStatistics;
 import by.equestriadev.nikishin_rostislav.persistence.entity.Shortcut;
-import by.equestriadev.nikishin_rostislav.service.ImageLoaderService;
 import by.equestriadev.nikishin_rostislav.service.ShortcutService;
 
 /**
@@ -38,10 +36,10 @@ import by.equestriadev.nikishin_rostislav.service.ShortcutService;
 public class AppUtils {
 
 
-    private Context mContext;
-    private AppDatabase mDatabase;
     private static final SimpleDateFormat DATE_FORMAT =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private Context mContext;
+    private AppDatabase mDatabase;
 
     public AppUtils(Context mContext, AppDatabase mDatabase) {
         this.mContext = mContext;
@@ -71,7 +69,9 @@ public class AppUtils {
     public Map<Integer, Shortcut> getShortcuts(){
         Map<Integer, Shortcut> shortcuts = new HashMap<>();
         List<App> apps = getAllInstalledApps();
-        List<Shortcut> shorts = mDatabase.ShortcutModel().getAllShortcuts();
+        List<Shortcut> shorts = new ArrayList<>();
+        if (mDatabase != null)
+            shorts = mDatabase.ShortcutModel().getAllShortcuts();
         for (Shortcut shot:
             shorts) {
             if(shot.getShortcutType() == ShortcutType.APPLICATION){
@@ -114,42 +114,46 @@ public class AppUtils {
         return installedApps;
     }
 
-    public List<App> getSortedApps(String sort_type, boolean applyFavorites){
-        List<App> installedApps = getAllInstalledApps();
-        List<App> sortedApps;
-        switch (sort_type){
+    public void sortApps(List<App> sortedApps, String sort_type) {
+        switch (sort_type) {
             case "sort_az":
                 Log.d(getClass().getName(), "Sorting list of apps a-z");
-                Collections.sort(installedApps,
+                Collections.sort(sortedApps,
                         new AlphabetComparator());
                 break;
             case "sort_za":
                 Log.d(getClass().getName(), "Sorting list of apps z-a");
-                Collections.sort(installedApps,
+                Collections.sort(sortedApps,
                         new AlphabetComparator());
-                Collections.reverse(installedApps);
+                Collections.reverse(sortedApps);
                 break;
             case "sort_freq":
                 Log.d(getClass().getName(), "Sorting list of apps by usage frequency");
-                Collections.sort(installedApps, new FrequencyComparator());
-                Collections.reverse(installedApps);
+                Collections.sort(sortedApps, new FrequencyComparator());
+                Collections.reverse(sortedApps);
                 break;
             case "sort_date":
                 Log.d(getClass().getName(), "Sorting list of apps by install date");
-                Collections.sort(installedApps, new DateComparator(mContext));
-                Collections.reverse(installedApps);
+                Collections.sort(sortedApps, new DateComparator(mContext));
+                Collections.reverse(sortedApps);
                 break;
         }
+    }
+
+    public List<App> getSortedApps(String sort_type, boolean applyFavorites){
+        List<App> installedApps = getAllInstalledApps();
+        List<App> favApps;
+        sortApps(installedApps, sort_type);
         if(applyFavorites) {
-            sortedApps = getFavoriteApps(installedApps);
-            sortedApps.addAll(installedApps);
-            return sortedApps;
+            favApps = getFavoriteApps(installedApps);
+            favApps.addAll(installedApps);
+            return favApps;
         }
         return installedApps;
     }
 
 
-    private List<App> getFavoriteApps(List<App> allApps){
+    public List<App> getFavoriteApps(List<App> allApps) {
         List<App> favAppInfos = new ArrayList<>();
         for(int i = 0; i < allApps.size(); i++){
             if(allApps.get(i).getStatistics().isFavorite()) {
