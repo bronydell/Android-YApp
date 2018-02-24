@@ -55,4 +55,6 @@
     <string name="add_contact_shortcut">Добавить ссылку на контакт</string>
     <string name="add_url_shortcut">Добавить ссылку</string>
     <string name="nav_home">Домашний экран</string>
+    <string name="silent_message">Тихое сообщение</string>
+    <string name="silent_push_title">Из ниоткуда появился тихий пуш!</string>
 </resources>

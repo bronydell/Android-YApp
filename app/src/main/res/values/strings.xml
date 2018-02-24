@@ -96,4 +96,5 @@
     <string name="add_url_shortcut">Add url shortcut</string>
     <string name="nav_home">Home</string>
     <string name="silent_message">Silent Message</string>
+    <string name="silent_push_title">Silent push came out of nowhere!</string>
 </resources>

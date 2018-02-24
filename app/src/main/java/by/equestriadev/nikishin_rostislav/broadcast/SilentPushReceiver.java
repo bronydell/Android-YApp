@@ -48,8 +48,8 @@ public class SilentPushReceiver extends BroadcastReceiver {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL)
                         .setSmallIcon(R.drawable.ic_stat_name)
-                        .setContentTitle("Silent push came out of nowhere!")
-                        .setContentText("It says " + intent.getStringExtra(YandexMetricaPush.EXTRA_PAYLOAD))
+                        .setContentTitle(context.getString(R.string.silent_push_title))
+                        .setContentText(intent.getStringExtra(YandexMetricaPush.EXTRA_PAYLOAD))
                         .setPriority(NotificationCompat.PRIORITY_LOW);
                 Intent notificationIntent = new Intent(context, AboutActivity.class);
                 PendingIntent pendIntent = PendingIntent.getActivity(context, 0,
