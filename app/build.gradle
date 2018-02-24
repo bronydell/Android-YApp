@@ -16,6 +16,9 @@ repositories {
 
 android {
     testOptions {
+        unitTests.all {
+            jvmArgs '-noverify'
+        }
         unitTests {
             includeAndroidResources = true
         }
