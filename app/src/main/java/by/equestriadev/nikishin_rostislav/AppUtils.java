@@ -42,13 +42,14 @@ public class AppUtils {
     private AppDatabase mDatabase;
 
     public AppUtils(Context mContext, AppDatabase mDatabase) {
-        this.mContext = mContext;
+        this.mContext = mContext.getApplicationContext();
         this.mDatabase = mDatabase;
     }
 
     public void callService(String action){
         Intent intent = new Intent(mContext, ShortcutService.class);
         intent.setAction(action);
+        Log.d(getClass().getName(), "Attempt to call service to call update");
         mContext.startService(intent);
     }
 
@@ -188,34 +189,36 @@ public class AppUtils {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                AppStatistics appStatistics = mDatabase.AppStatisticsModel()
-                        .get(info.getPackageName());
-                if(appStatistics == null){
-                    appStatistics = new AppStatistics();
-                    appStatistics.setFavorite(false);
-                    appStatistics.setUsageCounter(0);
-                    appStatistics.setPackage(info.getPackageName());
+                if (info != null) {
+                    AppStatistics appStatistics = mDatabase.AppStatisticsModel()
+                            .get(info.getPackageName());
+                    if (appStatistics == null) {
+                        appStatistics = new AppStatistics();
+                        appStatistics.setFavorite(false);
+                        appStatistics.setUsageCounter(0);
+                        appStatistics.setPackage(info.getPackageName());
+                    }
+                    final AlertDialog.Builder dlgAlert = new AlertDialog.Builder(mContext);
+                    String appName = info.getAppname();
+                    dlgAlert.setMessage(String.format(mContext.getString(R.string.frequency_text), appName,
+                            appStatistics.getUsageCounter(),
+                            appStatistics.getLastUsage() != null ? DATE_FORMAT.format(appStatistics.getLastUsage()) :
+                                    mContext.getString(R.string.never_used)));
+                    dlgAlert.setTitle(String.format(mContext.getString(R.string.frequency_title), appName));
+                    dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dlgAlert.setCancelable(true);
+                    fragment.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dlgAlert.create().show();
+                        }
+                    });
                 }
-                final AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(mContext);
-                String appName = info.getAppname();
-                dlgAlert.setMessage(String.format(mContext.getString(R.string.frequency_text),appName,
-                        appStatistics.getUsageCounter(),
-                        appStatistics.getLastUsage() != null ? DATE_FORMAT.format(appStatistics.getLastUsage()) :
-                                mContext.getString(R.string.never_used)));
-                dlgAlert.setTitle(String.format(mContext.getString(R.string.frequency_title), appName));
-                dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                dlgAlert.setCancelable(true);
-                fragment.getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        dlgAlert.create().show();
-                    }
-                });
             }
         }).start();
 

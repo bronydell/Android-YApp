@@ -1,7 +1,6 @@
 package by.equestriadev.nikishin_rostislav.adapter.holders;
 
 import android.graphics.Canvas;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
@@ -14,13 +13,11 @@ import by.equestriadev.nikishin_rostislav.adapter.ItemTouchHelperAdapter;
 
 public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
     public static final float ALPHA_FULL = 1.0f;
-
+    private final ItemTouchHelperAdapter mAdapter;
     private boolean mOrderChanged = false;
-
+    private RecyclerView.ViewHolder lastHolder;
     private int mFrom;
     private int mTo;
-
-    private final ItemTouchHelperAdapter mAdapter;
 
     public SimpleItemTouchHelperCallback(ItemTouchHelperAdapter adapter) {
         mAdapter = adapter;
@@ -51,9 +48,13 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source, RecyclerView.ViewHolder target) {
         mOrderChanged = true;
+        if (lastHolder == null) {
+            lastHolder = source;
+        }
         mFrom = source.getAdapterPosition();
         mTo = target.getAdapterPosition();
-        mAdapter.onItemMove(mFrom, mTo);
+        mAdapter.onItemMove((ShortcutHolder) lastHolder, (ShortcutHolder) target);
+        lastHolder = target;
         return true;
     }
 

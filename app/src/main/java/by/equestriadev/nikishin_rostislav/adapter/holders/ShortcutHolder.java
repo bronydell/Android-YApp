@@ -21,6 +21,8 @@ public class ShortcutHolder extends ListenableHolder implements ItemTouchHelperV
     @BindView(R.id.shortcut_text)
     TextView shortcutText;
 
+    private boolean mHolded;
+
     public ShortcutHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
@@ -46,8 +48,25 @@ public class ShortcutHolder extends ListenableHolder implements ItemTouchHelperV
         getShortcutIcon().setVisibility(status);
     }
 
+    public void highlightView() {
+        getView().setBackgroundColor(Color.argb(75, 255, 255, 0));
+
+    }
+
+    public void dehighlightView() {
+        getView().setBackgroundColor(0x00000000);
+    }
+
     @Override
     public void onItemClear() {
         getView().setBackgroundColor(0);
+    }
+
+    public boolean isHolded() {
+        return mHolded;
+    }
+
+    public void setHolded(boolean holded) {
+        this.mHolded = holded;
     }
 }

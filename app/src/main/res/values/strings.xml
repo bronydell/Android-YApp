@@ -95,4 +95,5 @@
     <string name="add_contact_shortcut">Add contact shortcut</string>
     <string name="add_url_shortcut">Add url shortcut</string>
     <string name="nav_home">Home</string>
+    <string name="silent_message">Silent Message</string>
 </resources>

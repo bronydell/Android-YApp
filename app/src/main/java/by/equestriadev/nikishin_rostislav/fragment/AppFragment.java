@@ -41,19 +41,17 @@ import by.equestriadev.nikishin_rostislav.persistence.entity.Shortcut;
 
 public abstract class AppFragment extends Fragment implements IUpdatable {
 
-    @BindView(R.id.app_grid)
-    RecyclerView appGrid;
-
-    private AppReceiver mAppReceiver;
     private static final SimpleDateFormat DATE_FORMAT =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    private AppDatabase db;
-    private AppUtils mUtils;
-
     protected SharedPreferences mPrefs;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected AppGridDecorator mDecorator;
     protected AppListAdapter mAdapter;
+    @BindView(R.id.app_grid)
+    RecyclerView appGrid;
+    private AppReceiver mAppReceiver;
+    private AppDatabase db;
+    private AppUtils mUtils;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -167,7 +165,7 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
                 shortcut.setShortcutType(ShortcutType.APPLICATION);
                 shortcut.setTitle(appInfo.getAppname());
                 shortcut.setUrl(appInfo.getActivityName());
-                if(!mUtils.addShortcut(shortcut, 5*5))
+                if (!mUtils.addShortcut(shortcut, 5 * 5) && getActivity() != null)
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -207,12 +205,13 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
                     final List<App> appInfos = mUtils.getSortedApps(mPrefs.getString(getString(R.string.sort_key),
                             getString(R.string.default_sort)),
                             mPrefs.getBoolean(getString(R.string.hide_fav_key), false));
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mAdapter.setAppList(appInfos);
-                        }
-                    });
+                    if (getActivity() != null)
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mAdapter.setAppList(appInfos);
+                            }
+                        });
                 }
             }).start();
         }

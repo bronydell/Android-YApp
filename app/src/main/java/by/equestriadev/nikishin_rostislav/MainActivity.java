@@ -28,6 +28,7 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import by.equestriadev.nikishin_rostislav.broadcast.SilentPushReceiver;
 import by.equestriadev.nikishin_rostislav.broadcast.UpdateImageBroadcastReceiver;
 import by.equestriadev.nikishin_rostislav.fragment.HomeFragment;
 import by.equestriadev.nikishin_rostislav.service.ImageLoaderService;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private HomeFragment mHomeFragment;
     private SharedPreferences prefs;
     private UpdateImageBroadcastReceiver mImageReceiver;
+    private SilentPushReceiver mSilentPushReceiver;
     private ActionBarDrawerToggle drawerToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,6 +188,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mImageReceiver = new UpdateImageBroadcastReceiver(this);
         registerReceiver(mImageReceiver,
                 new IntentFilter(ImageLoaderService.BROADCAST_ACTION_UPDATE_IMAGE));
+        mSilentPushReceiver = new SilentPushReceiver();
+        registerReceiver(mSilentPushReceiver,
+                new IntentFilter(getPackageName() + ".action.ymp.SILENT_PUSH_RECEIVE"));
     }
 
     @Override
@@ -196,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onPause() {
+        unregisterReceiver(mSilentPushReceiver);
         unregisterReceiver(mImageReceiver);
         super.onPause();
     }

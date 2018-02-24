@@ -1,6 +1,5 @@
 package by.equestriadev.nikishin_rostislav.fragment;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -17,7 +16,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -25,7 +23,6 @@ import android.widget.LinearLayout;
 
 import com.yandex.metrica.YandexMetrica;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,13 +35,11 @@ import by.equestriadev.nikishin_rostislav.adapter.OnStartDragListener;
 import by.equestriadev.nikishin_rostislav.adapter.decorators.AppGridDecorator;
 import by.equestriadev.nikishin_rostislav.adapter.holders.ItemClickListener;
 import by.equestriadev.nikishin_rostislav.adapter.holders.SimpleItemTouchHelperCallback;
-import by.equestriadev.nikishin_rostislav.broadcast.AppReceiver;
 import by.equestriadev.nikishin_rostislav.broadcast.ShortcutReceiver;
 import by.equestriadev.nikishin_rostislav.model.AppShortcut;
 import by.equestriadev.nikishin_rostislav.model.ApplicationInfo;
 import by.equestriadev.nikishin_rostislav.model.ShortcutType;
 import by.equestriadev.nikishin_rostislav.persistence.AppDatabase;
-import by.equestriadev.nikishin_rostislav.persistence.entity.AppStatistics;
 import by.equestriadev.nikishin_rostislav.persistence.entity.Shortcut;
 import by.equestriadev.nikishin_rostislav.service.ShortcutService;
 
@@ -262,12 +257,13 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
                 public void run() {
                     final Map<Integer, Shortcut> shortcuts = mUtils.getShortcuts();
                     Log.d(getClass().getName(), "Shortcuts fetched");
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mAdapter.setShortcutList(shortcuts);
-                        }
-                    });
+                    if (getActivity() != null)
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mAdapter.setShortcutList(shortcuts);
+                            }
+                        });
                 }
             }).start();
         }
@@ -339,6 +335,7 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
                     mDb.ShortcutModel().insertShortcuts(b);
                 else
                     mDb.ShortcutModel().deleteShortcutByPosition(toPosition);
+                update();
             }
         }).start();
     }

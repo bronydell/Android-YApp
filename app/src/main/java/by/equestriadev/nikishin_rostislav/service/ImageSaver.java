@@ -21,9 +21,11 @@ public class ImageSaver {
 
 
     private static final Object mLock = new Object();
+    private static final String DIRECTORY_NAME = "images";
     private static volatile ImageSaver sInstance;
 
-    private static final String DIRECTORY_NAME = "images";
+    private ImageSaver() {
+    }
 
     public static ImageSaver getInstance() {
         if (null == sInstance) {
@@ -35,9 +37,6 @@ public class ImageSaver {
         }
 
         return sInstance;
-    }
-
-    private ImageSaver() {
     }
 
     void saveImage(final Context context, final Bitmap bitmap, final String fileName) {
@@ -56,7 +55,6 @@ public class ImageSaver {
                 );
 
             }else{
-
                 mutableBitmap = Bitmap.createBitmap(
                         mutableBitmap,
                         0,
@@ -71,12 +69,15 @@ public class ImageSaver {
             paint2.setStyle(Paint.Style.FILL);
             canvas.drawPaint(paint2);
             mutableBitmap.compress(Bitmap.CompressFormat.JPEG, 70, fileOutputStream);
+            mutableBitmap.recycle();
+            bitmap.recycle();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
                 if (fileOutputStream != null) {
                     fileOutputStream.close();
+                    bitmap.recycle();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
