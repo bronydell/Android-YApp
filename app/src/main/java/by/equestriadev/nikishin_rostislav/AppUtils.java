@@ -47,7 +47,6 @@ public class AppUtils {
     }
 
     public void callService(String action){
-        Log.d(getClass().getName(), "WHERE THE FUCK ARE YOU?");
         Intent intent = new Intent(mContext, ShortcutService.class);
         intent.setAction(action);
         mContext.startService(intent);

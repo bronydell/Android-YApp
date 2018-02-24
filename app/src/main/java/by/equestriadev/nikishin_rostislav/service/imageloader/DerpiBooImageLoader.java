@@ -59,7 +59,7 @@ public class DerpiBooImageLoader extends ImageLoader {
     @Override
     protected String buildURL() {
         final String search_queue = "Twilight sparkle,-animated".toLowerCase().replace(' ', '+');
-        final int min_rating = 100;
+        final int min_rating = 50;
         return "https://derpibooru.org/search.json?q="+search_queue+"&min_score="+min_rating;
     }
 }

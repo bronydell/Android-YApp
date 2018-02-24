@@ -72,6 +72,13 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    androidTestCompile ("com.android.support.test.espresso:espresso-intents:2.2.2")
+    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
 }
 
 File propFile = file('signing.properties')

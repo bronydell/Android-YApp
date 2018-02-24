@@ -7,11 +7,12 @@ package by.equestriadev.nikishin_rostislav.service;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,6 +21,7 @@ import java.net.URLConnection;
 public abstract class ImageLoader {
 
     private String mImageUrl;
+    private String mMock;
 
     @Nullable
     protected abstract String parse(InputStream input);
@@ -53,7 +55,6 @@ public abstract class ImageLoader {
     public String getImageUrl() {
         mImageUrl = fetchURL();
         if (mImageUrl != null) {
-            Log.d(getClass().getName(), mImageUrl);
             return mImageUrl;
         } else {
             return null;
@@ -64,6 +65,7 @@ public abstract class ImageLoader {
     private InputStream fetchURL(URL url){
         try {
             final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setReadTimeout(5000);
             connection.connect();
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 
@@ -82,16 +84,26 @@ public abstract class ImageLoader {
     private String fetchURL() {
             try {
                 final URL url = new URL(buildURL());
-                final InputStream inputStream = fetchURL(url);
+                final InputStream inputStream;
+                if (mMock == null)
+                    inputStream = fetchURL(url);
+                else {
+                    inputStream = new ByteArrayInputStream(mMock.getBytes("UTF-8"));
+                }
                 if(inputStream != null){
                     String imageURL = parse(inputStream);
                     if (imageURL != null)
                         this.mImageUrl = imageURL;
                 }
-            }
-            catch (MalformedURLException e) {
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         return mImageUrl;
+    }
+
+    public void setMock(String mock) {
+        this.mMock = mock;
     }
 }
