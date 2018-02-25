@@ -60,7 +60,7 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
         ButterKnife.bind(this, v);
         // Initialization
         db = AppDatabase.getDatabase(getContext());
-        mUtils = new AppUtils(getContext(), db);
+        mUtils = new AppUtils(getActivity(), db);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         initDecorators();

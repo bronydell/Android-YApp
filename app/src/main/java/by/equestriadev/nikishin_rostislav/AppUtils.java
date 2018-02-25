@@ -198,7 +198,7 @@ public class AppUtils {
                         appStatistics.setUsageCounter(0);
                         appStatistics.setPackage(info.getPackageName());
                     }
-                    final AlertDialog.Builder dlgAlert = new AlertDialog.Builder(mContext);
+                    final AlertDialog.Builder dlgAlert = new AlertDialog.Builder(fragment.getContext());
                     String appName = info.getAppname();
                     dlgAlert.setMessage(String.format(mContext.getString(R.string.frequency_text), appName,
                             appStatistics.getUsageCounter(),
