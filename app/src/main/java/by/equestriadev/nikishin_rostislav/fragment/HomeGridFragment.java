@@ -49,7 +49,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by Rostislav on 15.02.2018.
  */
 
-public class GridFragment extends Fragment implements IUpdatable, OnStartDragListener {
+public class HomeGridFragment extends Fragment implements IUpdatable, OnStartDragListener {
 
     private static final int RQS_PICK_CONTACT = 1;
 
@@ -65,12 +65,11 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
     private PopupMenu mPopup;
     private int kostil_position = -1;
 
-    public static GridFragment newInstance() {
-        GridFragment fragment = new GridFragment();
+    public static HomeGridFragment newInstance() {
+        HomeGridFragment fragment = new HomeGridFragment();
 
         Bundle args = new Bundle();
         fragment.setArguments(args);
-
         return fragment;
     }
 
@@ -79,7 +78,6 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.home_grid, container, false);
         ButterKnife.bind(this, v);
-        // mGrid.setNestedScrollingEnabled(false);
         mDb = AppDatabase.getDatabase(getContext());
         mUtils = new AppUtils(getContext(), mDb);
         mAdapter = new HomeGridAdapter(getContext(), new HashMap<Integer, Shortcut>(), this);
@@ -119,7 +117,6 @@ public class GridFragment extends Fragment implements IUpdatable, OnStartDragLis
         intentFilter.addAction(ShortcutService.BROADCAST_ACTION_ADD_SHORTCUT);
         intentFilter.addAction(ShortcutService.BROADCAST_ACTION_REMOVE_SHORTCUT);
         intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-//        intentFilter.addDataScheme("package");
         getContext().registerReceiver(shortcutReceiver, intentFilter);
         Log.d(getClass().getName(), "Receiver registered");
     }

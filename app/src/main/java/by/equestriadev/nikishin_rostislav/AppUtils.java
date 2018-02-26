@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import by.equestriadev.nikishin_rostislav.broadcast.AppReceiver;
 import by.equestriadev.nikishin_rostislav.comporator.AlphabetComparator;
 import by.equestriadev.nikishin_rostislav.comporator.DateComparator;
 import by.equestriadev.nikishin_rostislav.comporator.FrequencyComparator;
@@ -112,6 +113,11 @@ public class AppUtils {
                     appStatistics));
         }
         return installedApps;
+    }
+
+    public void notifyChange() {
+        final Intent broadcastIntent = new Intent(AppReceiver.CHANGE_BROADCAST);
+        mContext.sendBroadcast(broadcastIntent);
     }
 
     public void sortApps(List<App> sortedApps, String sort_type) {

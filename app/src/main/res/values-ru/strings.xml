@@ -16,7 +16,7 @@
     <string name="light_title">Светлая тема</string>
     <string name="dark_title">Темная тема</string>
     <string name="settings_title">Настройки приложения</string>
-    <string name="nav_launcher">Лаунчер</string>
+    <string name="nav_launcher">Сетка приложений</string>
     <string name="nav_list">Список приложений</string>
     <string name="nav_settings">Настройки</string>
     <string name="title_activity_settings">Настройки</string>

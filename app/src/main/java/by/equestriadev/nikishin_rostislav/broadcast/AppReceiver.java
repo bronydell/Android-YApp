@@ -13,6 +13,7 @@ import by.equestriadev.nikishin_rostislav.fragment.IUpdatable;
 
 public class AppReceiver extends BroadcastReceiver {
 
+    public static final String CHANGE_BROADCAST = "by.equestriadev.nikishin_rostislav.SOMETHING_HAS_CHANGED";
     Context context;
     private IUpdatable appGridLauncherFragment;
 
@@ -26,13 +27,9 @@ public class AppReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        Log.d(getClass().getName(), intent.getAction() + " received action");
         this.context = context;
-        // This condition will be called when package removed
-        if (intent.getAction().equals("android.intent.action.PACKAGE_REMOVED") ||
-                intent.getAction().equals("android.intent.action.PACKAGE_ADDED")) {
-            if(appGridLauncherFragment != null)
-                appGridLauncherFragment.update();
-        }
+        if (appGridLauncherFragment != null)
+            appGridLauncherFragment.update();
     }
 }

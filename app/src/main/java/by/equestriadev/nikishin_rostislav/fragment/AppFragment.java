@@ -50,6 +50,7 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
     @BindView(R.id.app_grid)
     RecyclerView appGrid;
     private AppReceiver mAppReceiver;
+    private AppReceiver mUpdateReceiver;
     private AppDatabase db;
     private AppUtils mUtils;
 
@@ -62,7 +63,6 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
         db = AppDatabase.getDatabase(getContext());
         mUtils = new AppUtils(getActivity(), db);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-
         initDecorators();
         return v;
     }
@@ -178,10 +178,13 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
     }
     public void InitReceiver() {
         mAppReceiver = new AppReceiver(this);
+        mUpdateReceiver = new AppReceiver(this);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED);
         intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        intentFilter.addAction(AppReceiver.CHANGE_BROADCAST);
+        getContext().registerReceiver(mUpdateReceiver, intentFilter);
         intentFilter.addDataScheme("package");
         getContext().registerReceiver(mAppReceiver, intentFilter);
     }
@@ -191,7 +194,7 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
             @Override
             public void run() {
                 db.AppStatisticsModel().insertApps(appStatistics);
-                update();
+                mUtils.notifyChange();
             }
         }).start();
     }
@@ -218,8 +221,9 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         getContext().unregisterReceiver(this.mAppReceiver);
+        getContext().unregisterReceiver(this.mUpdateReceiver);
     }
 }

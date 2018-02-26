@@ -45,8 +45,8 @@
     <string name="light_title">Light theme</string>
     <string name="dark_title">Dark theme</string>
     <string name="settings_title">App\'s Settings</string>
-    <string name="nav_launcher">Launcher</string>
-    <string name="nav_list">App list</string>
+    <string name="nav_launcher">App Grid</string>
+    <string name="nav_list">App List</string>
     <string name="nav_settings">Settings</string>
     <string name="email_type" translatable="false">Email</string>
     <string name="email" translatable="false">littleponyapps@gmail.com</string>
