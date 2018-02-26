@@ -32,6 +32,7 @@ public class HomeFragment extends Fragment {
     ViewPager viewPager;
 
     private PageAdapter mPageAdapter;
+
     public static HomeFragment newInstance(int startPosition) {
         HomeFragment fragment = new HomeFragment();
 
@@ -59,14 +60,14 @@ public class HomeFragment extends Fragment {
                     Shortcut shortcut = new Shortcut(0, "https://bronydell.xyz", "My site!",
                             ShortcutType.URL);
                     appUtils.addShortcut(shortcut, 10000);
-                    if (getActivity() != null)
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                initViewPager();
-                            }
-                        });
                 }
+                if (getActivity() != null)
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            initViewPager();
+                        }
+                    });
             }
         }).start();
 
@@ -99,7 +100,7 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             updatePosition(getArguments().getInt("start", 0));
         }
     }
@@ -129,8 +130,8 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public void changePage(int page){
-        if(viewPager != null) {
+    public void changePage(int page) {
+        if (viewPager != null) {
             viewPager.setCurrentItem(page);
         }
     }

@@ -32,7 +32,6 @@ import by.equestriadev.nikishin_rostislav.AppUtils;
 import by.equestriadev.nikishin_rostislav.R;
 import by.equestriadev.nikishin_rostislav.adapter.HomeGridAdapter;
 import by.equestriadev.nikishin_rostislav.adapter.OnStartDragListener;
-import by.equestriadev.nikishin_rostislav.adapter.decorators.AppGridDecorator;
 import by.equestriadev.nikishin_rostislav.adapter.holders.ItemClickListener;
 import by.equestriadev.nikishin_rostislav.adapter.holders.SimpleItemTouchHelperCallback;
 import by.equestriadev.nikishin_rostislav.broadcast.ShortcutReceiver;
@@ -105,7 +104,7 @@ public class HomeGridFragment extends Fragment implements IUpdatable, OnStartDra
         layoutManager = new GridLayoutManager(this.getContext(), 5);
         final int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.launcher_offset);
         mGrid.setLayoutManager(layoutManager);
-        mGrid.addItemDecoration(new AppGridDecorator(spacingInPixels));
+        // mGrid.addItemDecoration(new AppGridDecorator(spacingInPixels));
         mGrid.setHasFixedSize(true);
     }
 

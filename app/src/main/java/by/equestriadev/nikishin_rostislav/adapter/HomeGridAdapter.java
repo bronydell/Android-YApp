@@ -141,7 +141,7 @@ public class HomeGridAdapter extends RecyclerView.Adapter<ShortcutHolder> implem
 
 
     @Override
-    public void onItemMove(ShortcutHolder from, ShortcutHolder to) {
+    public void onItemMove(ShortcutHolder source, ShortcutHolder from, ShortcutHolder to) {
         from.dehighlightView();
         to.highlightView();
     }

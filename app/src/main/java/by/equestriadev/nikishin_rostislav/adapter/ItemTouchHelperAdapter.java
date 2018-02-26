@@ -7,7 +7,7 @@ import by.equestriadev.nikishin_rostislav.adapter.holders.ShortcutHolder;
  */
 
 public interface ItemTouchHelperAdapter {
-    void onItemMove(ShortcutHolder from, ShortcutHolder to);
+    void onItemMove(ShortcutHolder source, ShortcutHolder from, ShortcutHolder to);
     void onItemFinishedMove(int fromPosition, int toPosition);
 
     void onItemDismiss(int position);

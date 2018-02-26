@@ -53,7 +53,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
         }
         mFrom = source.getAdapterPosition();
         mTo = target.getAdapterPosition();
-        mAdapter.onItemMove((ShortcutHolder) lastHolder, (ShortcutHolder) target);
+        mAdapter.onItemMove((ShortcutHolder) source, (ShortcutHolder) lastHolder, (ShortcutHolder) target);
         lastHolder = target;
         return true;
     }
@@ -73,13 +73,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         // We only want the active item to change
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            if(!mOrderChanged){
-                if (viewHolder instanceof ShortcutHolder) {
-                    ShortcutHolder itemViewHolder = (ShortcutHolder) viewHolder;
-                    itemViewHolder.onItemSelected();
-                }
-            }
-            else{
+            if (mOrderChanged) {
                 mOrderChanged = false;
             }
 
