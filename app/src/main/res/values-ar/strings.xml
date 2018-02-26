@@ -55,4 +55,6 @@
     <string name="add_contact_shortcut">إضافة اختصار جهة الاتصال</string>
     <string name="add_url_shortcut">إضافة اختصار عنوان ورل</string>
     <string name="nav_home">الشاشة الرئيسية</string>
+    <string name="silent_message">رسالة صامتة</string>
+    <string name="silent_push_title">دفع صامت خرجت من أي مكان!</string>
 </resources>

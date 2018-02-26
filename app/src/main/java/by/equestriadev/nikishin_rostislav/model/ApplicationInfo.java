@@ -19,10 +19,20 @@ public class ApplicationInfo {
     }
 
     public ApplicationInfo(ResolveInfo info, PackageManager manager) {
-        mAppname = info.loadLabel(manager).toString();
+        if (info.loadLabel(manager) == null)
+            mAppname = "null";
+        else
+            mAppname = info.loadLabel(manager).toString();
         mIcon = info.loadIcon(manager);
         mPackageName = info.activityInfo.packageName;
         mActivityName = info.activityInfo.name;
+    }
+
+    public ApplicationInfo(String appName, String packageName, String activityName, Drawable icon) {
+        this.mAppname = appName;
+        this.mPackageName = packageName;
+        this.mActivityName = activityName;
+        this.mIcon = icon;
     }
 
 

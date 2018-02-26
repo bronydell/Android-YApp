@@ -1,21 +1,15 @@
 package by.equestriadev.nikishin_rostislav.adapter;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Vibrator;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +27,7 @@ import by.equestriadev.nikishin_rostislav.persistence.entity.Shortcut;
 
 public class HomeGridAdapter extends RecyclerView.Adapter<ShortcutHolder> implements ItemTouchHelperAdapter{
 
+    public static final int ROW_COUNT = 30;
     private Map<Integer, Shortcut> mShortcutList = new HashMap<>();
     private Context mContext;
     private LayoutInflater mInflater;
@@ -40,9 +35,6 @@ public class HomeGridAdapter extends RecyclerView.Adapter<ShortcutHolder> implem
     private ItemClickListener mOnLongClickListener;
     private ItemClickListener mOnBackgroundLongClickListener;
     private OnStartDragListener mDragStartListener;
-
-    public static final int ROW_COUNT = 5 * 5;
-
     private int longClickDuration = 2000;
     private boolean isLongPress = false;
 
@@ -93,22 +85,22 @@ public class HomeGridAdapter extends RecyclerView.Adapter<ShortcutHolder> implem
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                        isLongPress = true;
+                        holder.setHolded(true);
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                if (isLongPress) {
+                                if (holder.isHolded()) {
                                     Vibrator vibrator = (Vibrator)mContext.
                                             getSystemService(Context.VIBRATOR_SERVICE);
                                     if(vibrator != null)
-                                        vibrator.vibrate(100);
+                                        vibrator.vibrate(200);
                                     mDragStartListener.onStartDrag(holder);
                                 }
                             }
                         }, longClickDuration);
                     } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                        isLongPress = false;
+                        holder.setHolded(false);
                     }
                     return false;
                 }
@@ -147,10 +139,11 @@ public class HomeGridAdapter extends RecyclerView.Adapter<ShortcutHolder> implem
         // Empty... For now
     }
 
-    @Override
-    public void onItemMove(int fromPosition, int toPosition) {
 
-        // notifyItemMoved(fromPosition, toPosition);
+    @Override
+    public void onItemMove(ShortcutHolder source, ShortcutHolder from, ShortcutHolder to) {
+        from.dehighlightView();
+        to.highlightView();
     }
 
     @Override

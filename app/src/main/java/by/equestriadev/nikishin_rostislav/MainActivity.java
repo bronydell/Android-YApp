@@ -28,33 +28,33 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import by.equestriadev.nikishin_rostislav.broadcast.SilentPushReceiver;
 import by.equestriadev.nikishin_rostislav.broadcast.UpdateImageBroadcastReceiver;
 import by.equestriadev.nikishin_rostislav.fragment.HomeFragment;
-import by.equestriadev.nikishin_rostislav.fragment.IUpdatable;
 import by.equestriadev.nikishin_rostislav.service.ImageLoaderService;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         View.OnLongClickListener{
 
+    private static final int DEFAULT_NAV_STATE = R.id.nav_home;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.navView)
     NavigationView navView;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawer;
-
     private HomeFragment mHomeFragment;
     private SharedPreferences prefs;
     private UpdateImageBroadcastReceiver mImageReceiver;
-    private static final int DEFAULT_NAV_STATE = R.id.nav_home;
-
+    private SilentPushReceiver mSilentPushReceiver;
     private ActionBarDrawerToggle drawerToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = getDefaultPrefs();
         String themeName = prefs.getString(getString(R.string.theme_key),
                 getString(R.string.default_theme));
         switch (themeName){
@@ -104,6 +104,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         cur_cal.setTimeInMillis(System.currentTimeMillis());
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, cur_cal.getTimeInMillis(),
                 60 * 1000, pintent);
+    }
+
+    public SharedPreferences getDefaultPrefs() {
+        return PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     private void setupDrawer(NavigationView navigationView){
@@ -185,6 +189,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mImageReceiver = new UpdateImageBroadcastReceiver(this);
         registerReceiver(mImageReceiver,
                 new IntentFilter(ImageLoaderService.BROADCAST_ACTION_UPDATE_IMAGE));
+        mSilentPushReceiver = new SilentPushReceiver();
+        registerReceiver(mSilentPushReceiver,
+                new IntentFilter(getPackageName() + ".action.ymp.SILENT_PUSH_RECEIVE"));
     }
 
     @Override
@@ -195,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onPause() {
+        unregisterReceiver(mSilentPushReceiver);
         unregisterReceiver(mImageReceiver);
         super.onPause();
     }

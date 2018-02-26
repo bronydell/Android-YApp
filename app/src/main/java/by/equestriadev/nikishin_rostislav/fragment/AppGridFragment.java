@@ -14,11 +14,11 @@ import by.equestriadev.nikishin_rostislav.model.App;
  * Created by Rostislav on 04.02.2018.
  */
 
-public class AppLauncherFragment extends AppFragment{
+public class AppGridFragment extends AppFragment {
 
 
-    public static AppLauncherFragment newInstance() {
-        AppLauncherFragment fragment = new AppLauncherFragment();
+    public static AppGridFragment newInstance() {
+        AppGridFragment fragment = new AppGridFragment();
 
         Bundle args = new Bundle();
         fragment.setArguments(args);

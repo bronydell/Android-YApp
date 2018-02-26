@@ -16,7 +16,7 @@
     <string name="light_title">Светлая тема</string>
     <string name="dark_title">Темная тема</string>
     <string name="settings_title">Настройки приложения</string>
-    <string name="nav_launcher">Лаунчер</string>
+    <string name="nav_launcher">Сетка приложений</string>
     <string name="nav_list">Список приложений</string>
     <string name="nav_settings">Настройки</string>
     <string name="title_activity_settings">Настройки</string>
@@ -55,4 +55,6 @@
     <string name="add_contact_shortcut">Добавить ссылку на контакт</string>
     <string name="add_url_shortcut">Добавить ссылку</string>
     <string name="nav_home">Домашний экран</string>
+    <string name="silent_message">Тихое сообщение</string>
+    <string name="silent_push_title">Из ниоткуда появился тихий пуш!</string>
 </resources>

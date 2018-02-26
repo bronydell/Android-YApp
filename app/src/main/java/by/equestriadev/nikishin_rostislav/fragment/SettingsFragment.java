@@ -8,6 +8,7 @@ import android.support.v7.preference.PreferenceManager;
 
 import com.yandex.metrica.YandexMetrica;
 
+import by.equestriadev.nikishin_rostislav.AppUtils;
 import by.equestriadev.nikishin_rostislav.R;
 import by.equestriadev.nikishin_rostislav.service.ImageLoaderService;
 
@@ -18,6 +19,7 @@ import by.equestriadev.nikishin_rostislav.service.ImageLoaderService;
 public class SettingsFragment extends PreferenceFragmentCompat
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    private AppUtils mUtils;
 
     public static SettingsFragment newInstance() {
         SettingsFragment fragment = new SettingsFragment();
@@ -32,6 +34,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
     @Override
     public void onCreatePreferences(Bundle bundle, String rootKey) {
         setPreferencesFromResource(R.xml.settings, rootKey);
+        mUtils = new AppUtils(getContext(), null);
     }
 
     @Override
@@ -57,6 +60,12 @@ public class SettingsFragment extends PreferenceFragmentCompat
         if(key.equals(getString(R.string.theme_key))){
             YandexMetrica.reportEvent("Theme has changed");
             getActivity().recreate();
+        }
+        if (key.equals(getString(R.string.sort_key))) {
+            mUtils.notifyChange();
+        }
+        if (key.equals(getString(R.string.hide_fav_key))) {
+            mUtils.notifyChange();
         }
         if(key.equals(getString(R.string.freq_key))){
             YandexMetrica.reportEvent("Changed frequency source");

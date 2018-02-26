@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import by.equestriadev.nikishin_rostislav.adapter.HomeGridAdapter;
+import by.equestriadev.nikishin_rostislav.broadcast.AppReceiver;
 import by.equestriadev.nikishin_rostislav.comporator.AlphabetComparator;
 import by.equestriadev.nikishin_rostislav.comporator.DateComparator;
 import by.equestriadev.nikishin_rostislav.comporator.FrequencyComparator;
@@ -28,7 +28,6 @@ import by.equestriadev.nikishin_rostislav.model.ShortcutType;
 import by.equestriadev.nikishin_rostislav.persistence.AppDatabase;
 import by.equestriadev.nikishin_rostislav.persistence.entity.AppStatistics;
 import by.equestriadev.nikishin_rostislav.persistence.entity.Shortcut;
-import by.equestriadev.nikishin_rostislav.service.ImageLoaderService;
 import by.equestriadev.nikishin_rostislav.service.ShortcutService;
 
 /**
@@ -38,20 +37,20 @@ import by.equestriadev.nikishin_rostislav.service.ShortcutService;
 public class AppUtils {
 
 
-    private Context mContext;
-    private AppDatabase mDatabase;
     private static final SimpleDateFormat DATE_FORMAT =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private Context mContext;
+    private AppDatabase mDatabase;
 
     public AppUtils(Context mContext, AppDatabase mDatabase) {
-        this.mContext = mContext;
+        this.mContext = mContext.getApplicationContext();
         this.mDatabase = mDatabase;
     }
 
     public void callService(String action){
-        Log.d(getClass().getName(), "WHERE THE FUCK ARE YOU?");
         Intent intent = new Intent(mContext, ShortcutService.class);
         intent.setAction(action);
+        Log.d(getClass().getName(), "Attempt to call service to call update");
         mContext.startService(intent);
     }
 
@@ -71,7 +70,9 @@ public class AppUtils {
     public Map<Integer, Shortcut> getShortcuts(){
         Map<Integer, Shortcut> shortcuts = new HashMap<>();
         List<App> apps = getAllInstalledApps();
-        List<Shortcut> shorts = mDatabase.ShortcutModel().getAllShortcuts();
+        List<Shortcut> shorts = new ArrayList<>();
+        if (mDatabase != null)
+            shorts = mDatabase.ShortcutModel().getAllShortcuts();
         for (Shortcut shot:
             shorts) {
             if(shot.getShortcutType() == ShortcutType.APPLICATION){
@@ -114,42 +115,51 @@ public class AppUtils {
         return installedApps;
     }
 
-    public List<App> getSortedApps(String sort_type, boolean applyFavorites){
-        List<App> installedApps = getAllInstalledApps();
-        List<App> sortedApps;
-        switch (sort_type){
+    public void notifyChange() {
+        final Intent broadcastIntent = new Intent(AppReceiver.CHANGE_BROADCAST);
+        mContext.sendBroadcast(broadcastIntent);
+    }
+
+    public void sortApps(List<App> sortedApps, String sort_type) {
+        switch (sort_type) {
             case "sort_az":
                 Log.d(getClass().getName(), "Sorting list of apps a-z");
-                Collections.sort(installedApps,
+                Collections.sort(sortedApps,
                         new AlphabetComparator());
                 break;
             case "sort_za":
                 Log.d(getClass().getName(), "Sorting list of apps z-a");
-                Collections.sort(installedApps,
+                Collections.sort(sortedApps,
                         new AlphabetComparator());
-                Collections.reverse(installedApps);
+                Collections.reverse(sortedApps);
                 break;
             case "sort_freq":
                 Log.d(getClass().getName(), "Sorting list of apps by usage frequency");
-                Collections.sort(installedApps, new FrequencyComparator());
-                Collections.reverse(installedApps);
+                Collections.sort(sortedApps, new FrequencyComparator());
+                Collections.reverse(sortedApps);
                 break;
             case "sort_date":
                 Log.d(getClass().getName(), "Sorting list of apps by install date");
-                Collections.sort(installedApps, new DateComparator(mContext));
-                Collections.reverse(installedApps);
+                Collections.sort(sortedApps, new DateComparator(mContext));
+                Collections.reverse(sortedApps);
                 break;
         }
+    }
+
+    public List<App> getSortedApps(String sort_type, boolean applyFavorites){
+        List<App> installedApps = getAllInstalledApps();
+        List<App> favApps;
+        sortApps(installedApps, sort_type);
         if(applyFavorites) {
-            sortedApps = getFavoriteApps(installedApps);
-            sortedApps.addAll(installedApps);
-            return sortedApps;
+            favApps = getFavoriteApps(installedApps);
+            favApps.addAll(installedApps);
+            return favApps;
         }
         return installedApps;
     }
 
 
-    private List<App> getFavoriteApps(List<App> allApps){
+    public List<App> getFavoriteApps(List<App> allApps) {
         List<App> favAppInfos = new ArrayList<>();
         for(int i = 0; i < allApps.size(); i++){
             if(allApps.get(i).getStatistics().isFavorite()) {
@@ -185,34 +195,36 @@ public class AppUtils {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                AppStatistics appStatistics = mDatabase.AppStatisticsModel()
-                        .get(info.getPackageName());
-                if(appStatistics == null){
-                    appStatistics = new AppStatistics();
-                    appStatistics.setFavorite(false);
-                    appStatistics.setUsageCounter(0);
-                    appStatistics.setPackage(info.getPackageName());
+                if (info != null) {
+                    AppStatistics appStatistics = mDatabase.AppStatisticsModel()
+                            .get(info.getPackageName());
+                    if (appStatistics == null) {
+                        appStatistics = new AppStatistics();
+                        appStatistics.setFavorite(false);
+                        appStatistics.setUsageCounter(0);
+                        appStatistics.setPackage(info.getPackageName());
+                    }
+                    final AlertDialog.Builder dlgAlert = new AlertDialog.Builder(fragment.getContext());
+                    String appName = info.getAppname();
+                    dlgAlert.setMessage(String.format(mContext.getString(R.string.frequency_text), appName,
+                            appStatistics.getUsageCounter(),
+                            appStatistics.getLastUsage() != null ? DATE_FORMAT.format(appStatistics.getLastUsage()) :
+                                    mContext.getString(R.string.never_used)));
+                    dlgAlert.setTitle(String.format(mContext.getString(R.string.frequency_title), appName));
+                    dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dlgAlert.setCancelable(true);
+                    fragment.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dlgAlert.create().show();
+                        }
+                    });
                 }
-                final AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(mContext);
-                String appName = info.getAppname();
-                dlgAlert.setMessage(String.format(mContext.getString(R.string.frequency_text),appName,
-                        appStatistics.getUsageCounter(),
-                        appStatistics.getLastUsage() != null ? DATE_FORMAT.format(appStatistics.getLastUsage()) :
-                                mContext.getString(R.string.never_used)));
-                dlgAlert.setTitle(String.format(mContext.getString(R.string.frequency_title), appName));
-                dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                dlgAlert.setCancelable(true);
-                fragment.getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        dlgAlert.create().show();
-                    }
-                });
             }
         }).start();
 

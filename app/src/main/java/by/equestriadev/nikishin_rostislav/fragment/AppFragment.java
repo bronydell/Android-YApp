@@ -25,6 +25,7 @@ import butterknife.ButterKnife;
 import by.equestriadev.nikishin_rostislav.AppUtils;
 import by.equestriadev.nikishin_rostislav.R;
 import by.equestriadev.nikishin_rostislav.adapter.AppListAdapter;
+import by.equestriadev.nikishin_rostislav.adapter.HomeGridAdapter;
 import by.equestriadev.nikishin_rostislav.adapter.decorators.AppGridDecorator;
 import by.equestriadev.nikishin_rostislav.adapter.holders.ItemClickListener;
 import by.equestriadev.nikishin_rostislav.broadcast.AppReceiver;
@@ -41,19 +42,18 @@ import by.equestriadev.nikishin_rostislav.persistence.entity.Shortcut;
 
 public abstract class AppFragment extends Fragment implements IUpdatable {
 
-    @BindView(R.id.app_grid)
-    RecyclerView appGrid;
-
-    private AppReceiver mAppReceiver;
     private static final SimpleDateFormat DATE_FORMAT =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    private AppDatabase db;
-    private AppUtils mUtils;
-
     protected SharedPreferences mPrefs;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected AppGridDecorator mDecorator;
     protected AppListAdapter mAdapter;
+    @BindView(R.id.app_grid)
+    RecyclerView appGrid;
+    private AppReceiver mAppReceiver;
+    private AppReceiver mUpdateReceiver;
+    private AppDatabase db;
+    private AppUtils mUtils;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,9 +62,8 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
         ButterKnife.bind(this, v);
         // Initialization
         db = AppDatabase.getDatabase(getContext());
-        mUtils = new AppUtils(getContext(), db);
+        mUtils = new AppUtils(getActivity(), db);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-
         initDecorators();
         return v;
     }
@@ -167,7 +166,7 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
                 shortcut.setShortcutType(ShortcutType.APPLICATION);
                 shortcut.setTitle(appInfo.getAppname());
                 shortcut.setUrl(appInfo.getActivityName());
-                if(!mUtils.addShortcut(shortcut, 5*5))
+                if (!mUtils.addShortcut(shortcut, HomeGridAdapter.ROW_COUNT) && getActivity() != null)
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -180,10 +179,13 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
     }
     public void InitReceiver() {
         mAppReceiver = new AppReceiver(this);
+        mUpdateReceiver = new AppReceiver(this);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED);
         intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        intentFilter.addAction(AppReceiver.CHANGE_BROADCAST);
+        getContext().registerReceiver(mUpdateReceiver, intentFilter);
         intentFilter.addDataScheme("package");
         getContext().registerReceiver(mAppReceiver, intentFilter);
     }
@@ -193,7 +195,7 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
             @Override
             public void run() {
                 db.AppStatisticsModel().insertApps(appStatistics);
-                update();
+                mUtils.notifyChange();
             }
         }).start();
     }
@@ -207,20 +209,22 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
                     final List<App> appInfos = mUtils.getSortedApps(mPrefs.getString(getString(R.string.sort_key),
                             getString(R.string.default_sort)),
                             mPrefs.getBoolean(getString(R.string.hide_fav_key), false));
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mAdapter.setAppList(appInfos);
-                        }
-                    });
+                    if (getActivity() != null)
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mAdapter.setAppList(appInfos);
+                            }
+                        });
                 }
             }).start();
         }
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         getContext().unregisterReceiver(this.mAppReceiver);
+        getContext().unregisterReceiver(this.mUpdateReceiver);
     }
 }

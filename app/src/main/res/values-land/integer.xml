@@ -2,4 +2,5 @@
 <resources>
     <integer name="compact">6</integer>
     <integer name="standart">7</integer>
+    <integer name="home">10</integer>
 </resources>

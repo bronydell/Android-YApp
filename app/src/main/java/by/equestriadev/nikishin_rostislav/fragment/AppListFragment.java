@@ -14,10 +14,10 @@ import by.equestriadev.nikishin_rostislav.model.App;
  * Created by Rostislav on 05.02.2018.
  */
 
-public class ListOfAppsFragment extends AppFragment{
+public class AppListFragment extends AppFragment {
 
-    public static ListOfAppsFragment newInstance() {
-        ListOfAppsFragment fragment = new ListOfAppsFragment();
+    public static AppListFragment newInstance() {
+        AppListFragment fragment = new AppListFragment();
 
         Bundle args = new Bundle();
         fragment.setArguments(args);

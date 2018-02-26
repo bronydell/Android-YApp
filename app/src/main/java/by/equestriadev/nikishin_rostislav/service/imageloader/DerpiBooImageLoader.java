@@ -9,6 +9,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import by.equestriadev.nikishin_rostislav.service.ImageLoader;
 
@@ -24,8 +27,12 @@ public class DerpiBooImageLoader extends ImageLoader {
         JSONObject root = getJsonObject(input);
         if(root != null){
             try {
-                JSONObject imageInfo = root.getJSONArray("search").getJSONObject(0);
-                return "https:" + imageInfo.getJSONObject("representations").getString("full");
+                List<String> links = new ArrayList<>();
+                for (int i = 0; i < root.getJSONArray("search").length(); i++) {
+                    JSONObject imageInfo = root.getJSONArray("search").getJSONObject(i);
+                    links.add("https:" + imageInfo.getJSONObject("representations").getString("full"));
+                }
+                return links.get(new Random().nextInt(links.size()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -59,7 +66,7 @@ public class DerpiBooImageLoader extends ImageLoader {
     @Override
     protected String buildURL() {
         final String search_queue = "Twilight sparkle,-animated".toLowerCase().replace(' ', '+');
-        final int min_rating = 100;
+        final int min_rating = 50;
         return "https://derpibooru.org/search.json?q="+search_queue+"&min_score="+min_rating;
     }
 }

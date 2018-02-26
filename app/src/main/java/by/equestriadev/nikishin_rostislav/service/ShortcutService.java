@@ -3,7 +3,6 @@ package by.equestriadev.nikishin_rostislav.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 /**
@@ -42,17 +41,18 @@ public class ShortcutService extends Service {
     public int onStartCommand(final Intent intent,
                               final int flags,
                               final int startId) {
-        String action = intent.getAction();
-        if (SERVICE_ACTION_ADD_SHORTCUT.equals(action)) {
-            Log.d(getClass().getName(), action);
-            final Intent broadcastIntent = new Intent(BROADCAST_ACTION_ADD_SHORTCUT);
-            sendBroadcast(broadcastIntent);
-        }
-        else if(SERVICE_ACTION_REMOVE_SHORTCUT.equals(action)){
-            final Intent broadcastIntent = new Intent(BROADCAST_ACTION_REMOVE_SHORTCUT);
-            sendBroadcast(broadcastIntent);
-        }
+        if (intent != null && intent.getAction() != null) {
+            String action = intent.getAction();
+            Log.d(getClass().getName(), "Got message: " + action);
+            if (SERVICE_ACTION_ADD_SHORTCUT.equals(action)) {
+                final Intent broadcastIntent = new Intent(BROADCAST_ACTION_ADD_SHORTCUT);
+                sendBroadcast(broadcastIntent);
+            } else if (SERVICE_ACTION_REMOVE_SHORTCUT.equals(action)) {
+                final Intent broadcastIntent = new Intent(BROADCAST_ACTION_REMOVE_SHORTCUT);
+                sendBroadcast(broadcastIntent);
+            }
 
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
