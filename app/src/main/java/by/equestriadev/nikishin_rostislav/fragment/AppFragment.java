@@ -25,6 +25,7 @@ import butterknife.ButterKnife;
 import by.equestriadev.nikishin_rostislav.AppUtils;
 import by.equestriadev.nikishin_rostislav.R;
 import by.equestriadev.nikishin_rostislav.adapter.AppListAdapter;
+import by.equestriadev.nikishin_rostislav.adapter.HomeGridAdapter;
 import by.equestriadev.nikishin_rostislav.adapter.decorators.AppGridDecorator;
 import by.equestriadev.nikishin_rostislav.adapter.holders.ItemClickListener;
 import by.equestriadev.nikishin_rostislav.broadcast.AppReceiver;
@@ -165,7 +166,7 @@ public abstract class AppFragment extends Fragment implements IUpdatable {
                 shortcut.setShortcutType(ShortcutType.APPLICATION);
                 shortcut.setTitle(appInfo.getAppname());
                 shortcut.setUrl(appInfo.getActivityName());
-                if (!mUtils.addShortcut(shortcut, 5 * 5) && getActivity() != null)
+                if (!mUtils.addShortcut(shortcut, HomeGridAdapter.ROW_COUNT) && getActivity() != null)
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

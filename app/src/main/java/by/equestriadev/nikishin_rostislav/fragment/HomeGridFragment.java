@@ -101,7 +101,8 @@ public class HomeGridFragment extends Fragment implements IUpdatable, OnStartDra
     }
 
     public void InitGrid(){
-        layoutManager = new GridLayoutManager(this.getContext(), 5);
+        int spanCount = getResources().getInteger(R.integer.home);
+        layoutManager = new GridLayoutManager(this.getContext(), spanCount);
         final int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.launcher_offset);
         mGrid.setLayoutManager(layoutManager);
         // mGrid.addItemDecoration(new AppGridDecorator(spacingInPixels));

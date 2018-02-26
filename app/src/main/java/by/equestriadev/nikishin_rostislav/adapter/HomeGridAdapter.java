@@ -27,7 +27,7 @@ import by.equestriadev.nikishin_rostislav.persistence.entity.Shortcut;
 
 public class HomeGridAdapter extends RecyclerView.Adapter<ShortcutHolder> implements ItemTouchHelperAdapter{
 
-    public static final int ROW_COUNT = 5 * 5;
+    public static final int ROW_COUNT = 30;
     private Map<Integer, Shortcut> mShortcutList = new HashMap<>();
     private Context mContext;
     private LayoutInflater mInflater;

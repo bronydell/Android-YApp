@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import by.equestriadev.nikishin_rostislav.AppUtils;
 import by.equestriadev.nikishin_rostislav.MainActivity;
 import by.equestriadev.nikishin_rostislav.R;
+import by.equestriadev.nikishin_rostislav.adapter.HomeGridAdapter;
 import by.equestriadev.nikishin_rostislav.adapter.PageAdapter;
 import by.equestriadev.nikishin_rostislav.model.ShortcutType;
 import by.equestriadev.nikishin_rostislav.persistence.AppDatabase;
@@ -59,7 +60,7 @@ public class HomeFragment extends Fragment {
                     AppUtils appUtils = new AppUtils(getContext(), AppDatabase.getDatabase(getContext()));
                     Shortcut shortcut = new Shortcut(0, "https://bronydell.xyz", "My site!",
                             ShortcutType.URL);
-                    appUtils.addShortcut(shortcut, 10000);
+                    appUtils.addShortcut(shortcut, HomeGridAdapter.ROW_COUNT);
                 }
                 if (getActivity() != null)
                     getActivity().runOnUiThread(new Runnable() {
